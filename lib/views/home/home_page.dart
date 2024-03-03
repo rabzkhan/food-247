@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:food/core/constants/app_icons.dart';
 import 'package:get/get.dart';
@@ -73,6 +74,41 @@ class HomePage extends StatelessWidget {
                     ],
                   ),
                 ),
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 200,
+                    child: GridView.builder(
+                      padding: const EdgeInsets.all(AppDefaults.padding),
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 4,
+                        mainAxisSpacing: 15,
+                        crossAxisSpacing: 15,
+                        childAspectRatio: 1,
+                      ),
+                      itemCount: Dummy.products.length,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).hoverColor,
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(20),
+                            ),
+                          ),
+                          padding: EdgeInsets.all(10),
+                          child: SvgPicture.asset(
+                            AppIcons.masterCard,
+                            height: 20,
+                            width: 20,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
               ),
             ),
             //Banner
