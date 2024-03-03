@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import '../../views/home/product_details_page.dart';
 import '../constants/constants.dart';
@@ -76,6 +77,11 @@ class ProductCardWidget extends StatelessWidget {
                         ),
                   ),
                   const Spacer(),
+                  SvgPicture.asset(
+                    AppIcons.cardAdd,
+                    height: 25,
+                    width: 25,
+                  )
                 ],
               ),
               const SizedBox(height: 16),

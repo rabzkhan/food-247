@@ -37,14 +37,14 @@ class AppBottomNavigationBar extends StatelessWidget {
           BottomAppBarItem(
             name: 'Orders',
             iconLocation: AppIcons.save,
-            isActive: currentIndex == 3,
-            onTap: () => onNavTap(3),
+            isActive: currentIndex == 2,
+            onTap: () => onNavTap(2),
           ),
           BottomAppBarItem(
             name: 'Profile',
             iconLocation: AppIcons.profile,
-            isActive: currentIndex == 4,
-            onTap: () => onNavTap(4),
+            isActive: currentIndex == 3,
+            onTap: () => onNavTap(3),
           ),
         ],
       ),

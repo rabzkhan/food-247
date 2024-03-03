@@ -1,4 +1,5 @@
 class AppIcons {
+  static const logo = 'assets/icons/app-icon.png';
   static const add = 'assets/icons/add.svg';
   static const addRounded = 'assets/icons/add_rounded.svg';
   static const appleIconRounded = 'assets/icons/apple_icon_rounded.svg';

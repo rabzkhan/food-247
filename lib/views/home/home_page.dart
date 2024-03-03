@@ -7,6 +7,7 @@ import '../../core/components/network_image.dart';
 import '../../core/components/title_and_action_button.dart';
 import '../../core/constants/app_defaults.dart';
 import '../../core/constants/dummy_data.dart';
+import '../menu/menu_page.dart';
 import 'search_page.dart';
 
 class HomePage extends StatelessWidget {
@@ -20,24 +21,11 @@ class HomePage extends StatelessWidget {
           slivers: [
             SliverAppBar(
               floating: true,
-              title: SvgPicture.asset(
-                "assets/images/app_logo.svg",
+              title: Image.asset(
+                AppIcons.logo,
                 height: 32,
               ),
               actions: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 4, top: 4, bottom: 4),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Get.to(() => const SearchPage());
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFF2F6F3),
-                      shape: const CircleBorder(),
-                    ),
-                    child: SvgPicture.asset(AppIcons.search),
-                  ),
-                ),
                 Padding(
                   padding: const EdgeInsets.only(right: 4),
                   child: ElevatedButton(
@@ -50,6 +38,42 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
               ],
+            ),
+            //SearchBar
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppDefaults.padding,
+                  vertical: AppDefaults.padding,
+                ),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(30)),
+                    border: Border.all(color: Theme.of(context).dividerColor.withOpacity(0.5)),
+                  ),
+                  child: Row(
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          Get.to(() => const SearchPage());
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.transparent,
+                          shape: const CircleBorder(),
+                        ),
+                        child: SvgPicture.asset(
+                          AppIcons.search,
+                          color: Theme.of(context).primaryColor,
+                        ),
+                      ),
+                      Text(
+                        "Search food...",
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.black),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
             //Banner
             SliverToBoxAdapter(
@@ -71,10 +95,11 @@ class HomePage extends StatelessWidget {
               child: Column(
                 children: [
                   TitleAndActionButtonWidget(
-                      title: 'Popular Items',
-                      onTap: () {
-                        // Get.to(()=> VieAll());
-                      }),
+                    title: 'Popular Items',
+                    onTap: () {
+                      Get.to(() => const MenuPage());
+                    },
+                  ),
                   SingleChildScrollView(
                     padding: const EdgeInsets.only(left: AppDefaults.padding),
                     scrollDirection: Axis.horizontal,
