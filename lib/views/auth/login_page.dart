@@ -1,8 +1,11 @@
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import '../../core/components/network_image.dart';
 import '../../core/constants/constants.dart';
+import '../../core/controllers/auth_controller.dart';
 import '../../core/themes/app_themes.dart';
 import '../../core/utils/validators.dart';
 import 'sign_up_page.dart';
@@ -15,7 +18,11 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  AuthController authController = Get.put(AuthController());
   final _key = GlobalKey<FormState>();
+  final TextEditingController phoneNumberController = TextEditingController();
+  final TextEditingController countryCodeController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   bool isPasswordShown = false;
   onPassShowClicked() {
@@ -25,7 +32,14 @@ class _LoginPageState extends State<LoginPage> {
 
   onLogin() {
     final bool isFormOkay = _key.currentState?.validate() ?? false;
-    if (isFormOkay) {}
+    if (isFormOkay) {
+      var arguments = {
+        "country_code": countryCodeController.text.toString(),
+        "phone": phoneNumberController.text.toString(),
+        "password": passwordController.text.toString(),
+      };
+      authController.signIn(arguments);
+    }
   }
 
   @override
@@ -80,10 +94,31 @@ class _LoginPageState extends State<LoginPage> {
                           // Phone Field
                           const Text("Phone Number"),
                           const SizedBox(height: 8),
-                          TextFormField(
-                            keyboardType: TextInputType.number,
-                            validator: Validators.requiredWithFieldName('Phone'),
-                            textInputAction: TextInputAction.next,
+                          Row(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: CountryCodePicker(
+                                  onChanged: (value) => countryCodeController.text = value.dialCode!,
+                                  showFlag: false,
+                                  initialSelection: 'IT',
+                                  favorite: ['+39', 'FR'],
+                                  showCountryOnly: true,
+                                  showOnlyCountryWhenClosed: false,
+                                  alignLeft: true,
+                                ),
+                              ),
+                              Expanded(
+                                flex: 3,
+                                child: TextFormField(
+                                  controller: phoneNumberController,
+                                  textInputAction: TextInputAction.next,
+                                  validator: Validators.requiredWithFieldName('Phone number'),
+                                  keyboardType: TextInputType.number,
+                                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                                ),
+                              ),
+                            ],
                           ),
                           const SizedBox(height: AppDefaults.padding),
 
@@ -91,7 +126,8 @@ class _LoginPageState extends State<LoginPage> {
                           const Text("Password"),
                           const SizedBox(height: 8),
                           TextFormField(
-                            validator: Validators.password,
+                            controller: passwordController,
+                            validator: Validators.requiredWithFieldName('Password'),
                             onFieldSubmitted: (v) => onLogin(),
                             textInputAction: TextInputAction.done,
                             obscureText: !isPasswordShown,
@@ -122,7 +158,9 @@ class _LoginPageState extends State<LoginPage> {
                           SizedBox(
                             width: double.infinity,
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                onLogin();
+                              },
                               child: const Text('Login'),
                             ),
                           )
