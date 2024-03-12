@@ -1,17 +1,20 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:food/core/components/custom_cached_image.dart';
+import 'package:food/core/constants/api_urls.dart';
 import 'package:food/core/constants/app_icons.dart';
+import 'package:food/core/controllers/home_controller.dart';
 import 'package:get/get.dart';
 import '../../core/components/product_card_widget.dart';
-import '../../core/components/network_image.dart';
 import '../../core/components/title_and_action_button.dart';
 import '../../core/constants/app_defaults.dart';
 import '../../core/constants/dummy_data.dart';
 import '../menu/menu_page.dart';
 import 'search_page.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends GetView<HomeController> {
   const HomePage({Key? key}) : super(key: key);
 
   @override
@@ -113,17 +116,37 @@ class HomePage extends StatelessWidget {
             ),
             //Banner
             SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: AppDefaults.padding),
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: const AspectRatio(
-                    aspectRatio: 16 / 9,
-                    child: NetworkImageWithLoader(
-                      'https://i.imgur.com/8hBIsS5.png',
-                      fit: BoxFit.contain,
-                    ),
+              child: Obx(
+                () => CarouselSlider(
+                  options: CarouselOptions(
+                    height: 200.h,
+                    initialPage: 0,
+                    viewportFraction: 0.85,
+                    enlargeFactor: 0.0,
+                    enableInfiniteScroll: true,
+                    reverse: false,
+                    autoPlay: true,
+                    autoPlayInterval: const Duration(seconds: 3),
+                    autoPlayAnimationDuration: const Duration(milliseconds: 1500),
+                    autoPlayCurve: Curves.fastOutSlowIn,
+                    enlargeCenterPage: true,
+                    scrollDirection: Axis.horizontal,
                   ),
+                  items: controller.banners.map((data) {
+                    return Builder(
+                      builder: (BuildContext context) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0).r,
+                          child: CustomImage(
+                            image: "${ApiUrls.baseUrl}/${data.image}",
+                            height: 200.h,
+                            width: double.infinity,
+                            radius: 12.r,
+                          ),
+                        );
+                      },
+                    );
+                  }).toList(),
                 ),
               ),
             ),

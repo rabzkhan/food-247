@@ -31,17 +31,16 @@ class BundleProductDetailsPage extends StatelessWidget {
             ),
             /* <---- Product Data -----> */
             Padding(
-              padding: const EdgeInsets.all(AppDefaults.padding),
+              padding: EdgeInsets.all(AppDefaults.padding),
               child: Column(
                 children: [
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
                       'Bundle Pack',
-                      style:
-                          Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                fontWeight: FontWeight.bold,
-                              ),
+                      style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
                     ),
                   ),
                   const PriceAndQuantityRow(
@@ -49,7 +48,7 @@ class BundleProductDetailsPage extends StatelessWidget {
                     orginalPrice: 30,
                     quantity: 2,
                   ),
-                  const SizedBox(height: AppDefaults.padding / 2),
+                  SizedBox(height: AppDefaults.padding / 2),
                   const BundleMetaData(),
                   const PackDetails(),
                   const ReviewRowButton(totalStars: 5),

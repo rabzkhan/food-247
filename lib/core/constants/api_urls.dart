@@ -3,4 +3,5 @@ class ApiUrls {
   //auth
   static const signUp = "${baseUrl}/api/user-registration-with-phone";
   static const signIn = "${baseUrl}/api/login";
+  static const banner = "${baseUrl}/api/banners";
 }
