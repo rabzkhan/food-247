@@ -29,6 +29,7 @@ class MyApp extends StatelessWidget {
             Get.put(AuthController());
             Get.put(HomeController());
           },
+          debugShowCheckedModeBanner: false,
           theme: AppTheme.defaultTheme,
           onGenerateRoute: (settings) {
             final routes = <String, WidgetBuilder>{};
