@@ -1,4 +1,5 @@
 import 'package:food/core/models/banner_model.dart';
+import 'package:food/core/models/product_list_model.dart';
 import 'package:get/get.dart';
 import '../constants/api_urls.dart';
 import '../models/categories_model.dart';
@@ -13,6 +14,10 @@ class HomeController extends GetxController {
   //for categories
   RxBool isCategoriesLoading = false.obs;
   RxList<Category> categories = <Category>[].obs;
+
+  //for categories
+  RxBool isProductsLoading = false.obs;
+  Rx<ProductListData> productsList = ProductListData().obs;
 
   @override
   void onInit() {
@@ -45,14 +50,32 @@ class HomeController extends GetxController {
       RequestType.get,
       headers: Header.defaultHeader,
       onLoading: () {
-        isBannerLoading.value = true;
+        isCategoriesLoading.value = true;
       },
       onSuccess: (response) {
         categories.value = CategoriesModel.fromJson(response.data).data!;
-        isBannerLoading.value = false;
+        isCategoriesLoading.value = false;
       },
       onError: (error) {
-        isBannerLoading.value = false;
+        isCategoriesLoading.value = false;
+      },
+    );
+  }
+
+  getCategoriesWiseProducts(String categoryId) async {
+    await ApiClient.apiCall(
+      "${ApiUrls.categoryWiseProducts}$categoryId",
+      RequestType.get,
+      headers: Header.defaultHeader,
+      onLoading: () {
+        isProductsLoading.value = true;
+      },
+      onSuccess: (response) {
+        productsList.value = ProductListModel.fromJson(response.data).data ?? ProductListData();
+        isProductsLoading.value = false;
+      },
+      onError: (error) {
+        isProductsLoading.value = false;
       },
     );
   }

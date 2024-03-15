@@ -32,7 +32,7 @@ class _ParentPageState extends State<ParentPage> {
   /// All the pages
   List<Widget> pages = [
     const HomePage(),
-    const MenuPage(),
+    SizedBox(),
     const AllOrderPage(),
     const ProfilePage(),
   ];

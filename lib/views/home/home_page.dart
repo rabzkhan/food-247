@@ -6,6 +6,7 @@ import 'package:food/core/components/custom_cached_image.dart';
 import 'package:food/core/constants/api_urls.dart';
 import 'package:food/core/constants/app_icons.dart';
 import 'package:food/core/controllers/home_controller.dart';
+import 'package:food/core/models/categories_model.dart';
 import 'package:get/get.dart';
 import '../../core/components/product_card_widget.dart';
 import '../../core/components/title_and_action_button.dart';
@@ -13,6 +14,7 @@ import '../../core/constants/app_defaults.dart';
 import '../../core/constants/dummy_data.dart';
 import '../menu/menu_page.dart';
 import 'search_page.dart';
+import 'widgets/category_card_widget.dart';
 
 class HomePage extends GetView<HomeController> {
   const HomePage({Key? key}) : super(key: key);
@@ -95,29 +97,7 @@ class HomePage extends GetView<HomeController> {
                         ),
                         itemCount: controller.categories.length,
                         itemBuilder: (context, index) {
-                          return Column(
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context).hoverColor,
-                                  borderRadius: BorderRadius.all(
-                                    const Radius.circular(20).r,
-                                  ),
-                                ),
-                                padding: const EdgeInsets.all(10).r,
-                                child: CustomImage(
-                                  image: "${ApiUrls.baseUrl}/${controller.categories[index].image ?? ''}",
-                                  height: 40.h,
-                                  width: 40.w,
-                                ),
-                              ),
-                              Text(
-                                controller.categories[index].productTypeName ?? '',
-                                maxLines: 1,
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
-                          );
+                          return CategoryCardWidget(category: controller.categories[index]);
                         },
                       ),
                     ),
@@ -159,54 +139,6 @@ class HomePage extends GetView<HomeController> {
                     );
                   }).toList(),
                 ),
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: Column(
-                children: [
-                  TitleAndActionButtonWidget(
-                    title: 'Popular Items',
-                    onTap: () {
-                      Get.to(() => const MenuPage());
-                    },
-                  ),
-                  SingleChildScrollView(
-                    padding: const EdgeInsets.only(left: AppDefaults.padding),
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: List.generate(
-                        Dummy.bundles.length,
-                        (index) => Padding(
-                          padding: const EdgeInsets.only(right: AppDefaults.padding),
-                          child: ProductCardWidget(data: Dummy.bundles[index]),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: Column(
-                children: [
-                  TitleAndActionButtonWidget(
-                    title: 'New Items',
-                    onTap: () => {},
-                  ),
-                  SingleChildScrollView(
-                    padding: const EdgeInsets.only(left: AppDefaults.padding),
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: List.generate(
-                        Dummy.bundles.length,
-                        (index) => Padding(
-                          padding: const EdgeInsets.only(right: AppDefaults.padding),
-                          child: ProductCardWidget(data: Dummy.bundles[index]),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
               ),
             ),
           ],

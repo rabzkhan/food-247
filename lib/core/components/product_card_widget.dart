@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:food/core/models/product_list_model.dart';
 import 'package:get/get.dart';
 import '../../views/home/product_details_page.dart';
+import '../constants/api_urls.dart';
 import '../constants/constants.dart';
 import '../models/dummy_bundle_model.dart';
 
@@ -10,10 +12,10 @@ import 'network_image.dart';
 class ProductCardWidget extends StatelessWidget {
   const ProductCardWidget({
     Key? key,
-    required this.data,
+    required this.products,
   }) : super(key: key);
 
-  final BundleModel data;
+  final Products products;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,7 @@ class ProductCardWidget extends StatelessWidget {
                 child: AspectRatio(
                   aspectRatio: 1 / 1,
                   child: NetworkImageWithLoader(
-                    data.cover,
+                    "${ApiUrls.baseUrl}/${products.imagePath}",
                     fit: BoxFit.contain,
                   ),
                 ),
@@ -50,13 +52,8 @@ class ProductCardWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    data.name,
+                    products.productName ?? '',
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.black),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  Text(
-                    data.itemNames.join(','),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -66,12 +63,12 @@ class ProductCardWidget extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    '\$${data.price.toInt()}',
+                    '\$${products.price ?? ''}',
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.black),
                   ),
                   const SizedBox(width: 4),
                   Text(
-                    '\$${data.mainPrice}',
+                    '\$${products.price ?? ''}',
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           decoration: TextDecoration.lineThrough,
                         ),

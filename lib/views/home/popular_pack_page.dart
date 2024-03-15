@@ -18,24 +18,24 @@ class PopularPackPage extends StatelessWidget {
       body: SafeArea(
         child: Stack(
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppDefaults.padding),
-              child: GridView.builder(
-                padding: const EdgeInsets.only(top: AppDefaults.padding),
-                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 200,
-                  childAspectRatio: 0.73,
-                  crossAxisSpacing: 16,
-                  mainAxisSpacing: 16,
-                ),
-                itemCount: 8,
-                itemBuilder: (context, index) {
-                  return ProductCardWidget(
-                    data: Dummy.bundles.first,
-                  );
-                },
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: AppDefaults.padding),
+            //   child: GridView.builder(
+            //     padding: const EdgeInsets.only(top: AppDefaults.padding),
+            //     gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+            //       maxCrossAxisExtent: 200,
+            //       childAspectRatio: 0.73,
+            //       crossAxisSpacing: 16,
+            //       mainAxisSpacing: 16,
+            //     ),
+            //     itemCount: 8,
+            //     itemBuilder: (context, index) {
+            //       return ProductCardWidget(
+            //         data: Dummy.bundles.first,
+            //       );
+            //     },
+            //   ),
+            // ),
             Positioned(
               bottom: 0,
               right: 0,
