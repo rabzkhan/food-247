@@ -8,6 +8,7 @@ import '../../core/constants/app_defaults.dart';
 import '../cart/cart_page.dart';
 import '../home/home_page.dart';
 import '../menu/menu_page.dart';
+import '../menu/single_menu_page.dart';
 import '../profile/profile_page.dart';
 import 'components/app_navigation_bar.dart';
 
@@ -32,7 +33,7 @@ class _ParentPageState extends State<ParentPage> {
   /// All the pages
   List<Widget> pages = [
     const HomePage(),
-    SizedBox(),
+    MenuPage(),
     const AllOrderPage(),
     const ProfilePage(),
   ];
@@ -53,14 +54,6 @@ class _ParentPageState extends State<ParentPage> {
         duration: AppDefaults.duration,
         child: pages[currentIndex],
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     onBottomNavigationTap(2);
-      //   },
-      //   backgroundColor: AppColors.primary,
-      //   child: SvgPicture.asset(AppIcons.cart),
-      // ),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: AppBottomNavigationBar(
         currentIndex: currentIndex,
         onNavTap: onBottomNavigationTap,

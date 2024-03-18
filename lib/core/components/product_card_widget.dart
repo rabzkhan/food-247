@@ -40,7 +40,7 @@ class ProductCardWidget extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 child: AspectRatio(
-                  aspectRatio: 1 / 1,
+                  aspectRatio: 1 / 0.8,
                   child: NetworkImageWithLoader(
                     "${ApiUrls.baseUrl}/${products.imagePath}",
                     fit: BoxFit.contain,
@@ -53,7 +53,7 @@ class ProductCardWidget extends StatelessWidget {
                 children: [
                   Text(
                     products.productName ?? '',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.black),
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.black),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -64,7 +64,7 @@ class ProductCardWidget extends StatelessWidget {
                 children: [
                   Text(
                     '\$${products.price ?? ''}',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.black),
+                    style: Theme.of(context).textTheme.titleSmall?.copyWith(color: Colors.black),
                   ),
                   const SizedBox(width: 4),
                   Text(
@@ -81,7 +81,6 @@ class ProductCardWidget extends StatelessWidget {
                   )
                 ],
               ),
-              const SizedBox(height: 16),
             ],
           ),
         ),

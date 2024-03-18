@@ -13,6 +13,7 @@ class HomeController extends GetxController {
 
   //for categories
   RxBool isCategoriesLoading = false.obs;
+  RxInt selectedCategoryIndex = 0.obs;
   RxList<Category> categories = <Category>[].obs;
 
   //for categories

@@ -6,13 +6,9 @@ import 'package:food/core/components/custom_cached_image.dart';
 import 'package:food/core/constants/api_urls.dart';
 import 'package:food/core/constants/app_icons.dart';
 import 'package:food/core/controllers/home_controller.dart';
-import 'package:food/core/models/categories_model.dart';
+import 'package:food/views/menu/menu_page.dart';
+import 'package:food/views/menu/single_menu_page.dart';
 import 'package:get/get.dart';
-import '../../core/components/product_card_widget.dart';
-import '../../core/components/title_and_action_button.dart';
-import '../../core/constants/app_defaults.dart';
-import '../../core/constants/dummy_data.dart';
-import '../menu/menu_page.dart';
 import 'search_page.dart';
 import 'widgets/category_card_widget.dart';
 
@@ -27,6 +23,7 @@ class HomePage extends GetView<HomeController> {
           slivers: [
             SliverAppBar(
               floating: true,
+              centerTitle: false,
               title: Image.asset(
                 AppIcons.logo,
                 height: 32,
@@ -47,57 +44,82 @@ class HomePage extends GetView<HomeController> {
             ),
             //SearchBar
             SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: AppDefaults.padding,
-                  vertical: AppDefaults.padding,
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(30)),
+                  border: Border.all(color: Theme.of(context).dividerColor.withOpacity(0.5)),
                 ),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(30)),
-                    border: Border.all(color: Theme.of(context).dividerColor.withOpacity(0.5)),
-                  ),
-                  child: Row(
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {
-                          Get.to(() => const SearchPage());
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.transparent,
-                          shape: const CircleBorder(),
-                        ),
-                        child: SvgPicture.asset(
-                          AppIcons.search,
-                          color: Theme.of(context).primaryColor,
-                        ),
+                padding: const EdgeInsets.symmetric(horizontal: 12).r,
+                margin: const EdgeInsets.symmetric(horizontal: 12).r,
+                child: Row(
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        Get.to(() => const SearchPage());
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.transparent,
+                        shape: const CircleBorder(),
                       ),
-                      Text(
-                        "Search food...",
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.black),
+                      child: SvgPicture.asset(
+                        AppIcons.search,
+                        color: Theme.of(context).primaryColor,
                       ),
-                    ],
-                  ),
+                    ),
+                    Text(
+                      "Search food...",
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.black),
+                    ),
+                  ],
                 ),
               ),
             ),
             SliverToBoxAdapter(
               child: Column(
                 children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 12).r,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        const Text(
+                          "View All",
+                          style: TextStyle(
+                            color: Colors.green,
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.arrow_right_alt_rounded,
+                            color: Colors.green,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
                   Obx(
                     () => SizedBox(
-                      height: 220.h,
+                      height: 230.h,
                       child: GridView.builder(
-                        padding: const EdgeInsets.all(AppDefaults.padding),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        padding: const EdgeInsets.symmetric(horizontal: 12).r,
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 4,
-                          mainAxisSpacing: 10.r,
-                          crossAxisSpacing: 10.r,
-                          childAspectRatio: 1,
+                          childAspectRatio: 1 / 1,
                         ),
-                        itemCount: controller.categories.length,
+                        itemCount: controller.categories.take(8).length,
                         itemBuilder: (context, index) {
-                          return CategoryCardWidget(category: controller.categories[index]);
+                          return InkWell(
+                            onTap: () {
+                              Get.to(() => SingleMenuPage(category: controller.categories[index]));
+                            },
+                            child: CategoryCardWidget(
+                              category: controller.categories[index],
+                              isSelected: false,
+                            ),
+                          );
                         },
                       ),
                     ),

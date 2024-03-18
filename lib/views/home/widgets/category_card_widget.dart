@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:food/views/menu/menu_page.dart';
-import 'package:get/get.dart';
-
 import '../../../core/components/custom_cached_image.dart';
 import '../../../core/constants/api_urls.dart';
 import '../../../core/models/categories_model.dart';
@@ -11,39 +8,39 @@ class CategoryCardWidget extends StatelessWidget {
   const CategoryCardWidget({
     super.key,
     required this.category,
+    required this.isSelected,
   });
 
   final Category category;
+  final bool isSelected;
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        Get.to(() => MenuPage(category: category));
-      },
-      child: Column(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              color: Theme.of(context).hoverColor,
-              borderRadius: BorderRadius.all(
-                const Radius.circular(20).r,
-              ),
-            ),
-            padding: const EdgeInsets.all(10).r,
-            child: CustomImage(
-              image: "${ApiUrls.baseUrl}/${category.image ?? ''}",
-              height: 40.h,
-              width: 40.w,
+    return Column(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            color: isSelected ? Theme.of(context).primaryColor.withOpacity(0.2) : Theme.of(context).hoverColor,
+            borderRadius: BorderRadius.all(
+              const Radius.circular(20).r,
             ),
           ),
-          Text(
-            category.productTypeName ?? '',
-            maxLines: 1,
-            textAlign: TextAlign.center,
+          padding: const EdgeInsets.all(10).r,
+          child: CustomImage(
+            image: "${ApiUrls.baseUrl}/${category.image ?? ''}",
+            height: 45.h,
+            width: 45.w,
           ),
-        ],
-      ),
+        ),
+        Text(
+          category.productTypeName ?? '',
+          maxLines: 2,
+          style: TextStyle(
+            fontSize: 12.sp,
+          ),
+          textAlign: TextAlign.center,
+        ),
+      ],
     );
   }
 }

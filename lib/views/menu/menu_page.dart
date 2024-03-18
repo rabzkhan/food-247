@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:food/core/components/product_card_widget.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:food/core/controllers/home_controller.dart';
 import 'package:get/get.dart';
-import '../../core/components/app_back_button.dart';
+
+import '../../core/components/product_card_widget.dart';
 import '../../core/constants/constants.dart';
-import '../../core/models/categories_model.dart';
+import '../home/widgets/category_card_widget.dart';
 
 class MenuPage extends StatefulWidget {
-  const MenuPage({
-    super.key,
-    required this.category,
-  });
-  final Category category;
-
+  const MenuPage({super.key});
   @override
   State<MenuPage> createState() => _MenuPageState();
 }
@@ -21,47 +18,102 @@ class _MenuPageState extends State<MenuPage> {
   HomeController homeController = Get.find();
   @override
   void initState() {
-    homeController.getCategoriesWiseProducts(widget.category.productTypeId.toString());
+    homeController.selectedCategoryIndex.value = 0;
+    homeController.getCategoriesWiseProducts(
+      homeController.categories.first.productTypeId ?? '',
+    );
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.category.productTypeName ?? ''),
-        leading: const AppBackButton(),
-      ),
-      body: Obx(
-        () {
-          if (homeController.isProductsLoading.value) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          if (homeController.productsList.value.productNames!.isEmpty) {
-            return const Center(
-              child: Text(
-                "No products found",
-              ),
-            );
-          }
-          return GridView.builder(
-            padding: const EdgeInsets.all(AppDefaults.padding),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              mainAxisSpacing: 10,
-              crossAxisSpacing: 10,
-              childAspectRatio: 1 / 1.4,
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            floating: true,
+            centerTitle: false,
+            title: Image.asset(
+              AppIcons.logo,
+              height: 32,
             ),
-            itemCount: homeController.productsList.value.productNames!.length,
-            itemBuilder: (context, index) {
-              return ProductCardWidget(
-                products: homeController.productsList.value.productNames![index],
-              );
-            },
-          );
-        },
+            actions: [
+              Padding(
+                padding: const EdgeInsets.only(right: 4),
+                child: ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFFF2F6F3),
+                    shape: const CircleBorder(),
+                  ),
+                  child: SvgPicture.asset(AppIcons.sidebarIcon),
+                ),
+              ),
+            ],
+          ),
+          SliverToBoxAdapter(
+            child: Obx(
+              () => SizedBox(
+                height: 120.h,
+                child: ListView.builder(
+                  padding: EdgeInsets.symmetric(vertical: 10.r).copyWith(left: 12).r,
+                  itemCount: homeController.categories.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10.r),
+                      child: GestureDetector(
+                        onTap: () {
+                          homeController.selectedCategoryIndex.value = index;
+                          homeController.getCategoriesWiseProducts(
+                            homeController.categories[index].productTypeId ?? '',
+                          );
+                        },
+                        child: CategoryCardWidget(
+                          category: homeController.categories[index],
+                          isSelected: index == homeController.selectedCategoryIndex.value ? true : false,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+          ),
+          SliverFillRemaining(
+            child: Obx(
+              () {
+                if (homeController.isProductsLoading.value) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                if (homeController.productsList.value.productNames!.isEmpty) {
+                  return const Center(
+                    child: Text(
+                      "No products found",
+                    ),
+                  );
+                }
+                return GridView.builder(
+                  padding: const EdgeInsets.all(AppDefaults.padding),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 20.r,
+                    crossAxisSpacing: 20.r,
+                    childAspectRatio: 1 / 1.1,
+                  ),
+                  itemCount: homeController.productsList.value.productNames!.length,
+                  itemBuilder: (context, index) {
+                    return ProductCardWidget(
+                      products: homeController.productsList.value.productNames![index],
+                    );
+                  },
+                );
+              },
+            ),
+          )
+        ],
       ),
     );
   }
