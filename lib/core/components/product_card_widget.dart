@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import '../../views/home/product_details_page.dart';
 import '../constants/api_urls.dart';
 import '../constants/constants.dart';
-import '../models/dummy_bundle_model.dart';
 
 import 'network_image.dart';
 
@@ -24,7 +23,11 @@ class ProductCardWidget extends StatelessWidget {
       borderRadius: AppDefaults.borderRadius,
       child: InkWell(
         onTap: () {
-          Get.to(() => const ProductDetailsPage());
+          Get.to(
+            () => ProductDetailsPage(
+              products: products,
+            ),
+          );
         },
         borderRadius: AppDefaults.borderRadius,
         child: Container(

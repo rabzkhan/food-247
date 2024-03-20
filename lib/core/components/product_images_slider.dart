@@ -63,7 +63,7 @@ class _ProductImagesSliderState extends State<ProductImagesSlider> {
                         aspectRatio: 1 / 1,
                         child: NetworkImageWithLoader(
                           images[index],
-                          fit: BoxFit.contain,
+                          fit: BoxFit.cover,
                         ),
                       ),
                     );

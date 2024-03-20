@@ -3,11 +3,17 @@ import '../../core/components/app_back_button.dart';
 import '../../core/components/buy_now_row_button.dart';
 import '../../core/components/price_and_quantity.dart';
 import '../../core/components/product_images_slider.dart';
-import '../../core/components/review_row_button.dart';
+import '../../core/constants/api_urls.dart';
 import '../../core/constants/app_defaults.dart';
+import '../../core/models/product_list_model.dart';
 
 class ProductDetailsPage extends StatelessWidget {
-  const ProductDetailsPage({Key? key}) : super(key: key);
+  const ProductDetailsPage({
+    Key? key,
+    required this.products,
+  }) : super(key: key);
+
+  final Products products;
 
   @override
   Widget build(BuildContext context) {
@@ -29,11 +35,9 @@ class ProductDetailsPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const ProductImagesSlider(
+            ProductImagesSlider(
               images: [
-                'https://i.imgur.com/3o6ons9.png',
-                'https://i.imgur.com/3o6ons9.png',
-                'https://i.imgur.com/3o6ons9.png',
+                "${ApiUrls.baseUrl}/${products.imagePath}",
               ],
             ),
             SizedBox(
@@ -44,22 +48,21 @@ class ProductDetailsPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Cauliflower Bangladeshi',
+                      products.productName ?? '',
                       style: Theme.of(context).textTheme.titleLarge?.copyWith(
                             fontWeight: FontWeight.bold,
                           ),
                     ),
                     const SizedBox(height: 8),
-                    const Text('Weight: 5Kg'),
                   ],
                 ),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: AppDefaults.padding),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: AppDefaults.padding),
               child: PriceAndQuantityRow(
-                currentPrice: 20,
-                orginalPrice: 30,
+                currentPrice: double.parse(products.price.toString()),
+                orginalPrice: double.parse(products.price.toString()),
                 quantity: 2,
               ),
             ),
@@ -70,6 +73,7 @@ class ProductDetailsPage extends StatelessWidget {
               padding: const EdgeInsets.all(AppDefaults.padding),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
                     'Product Details',
@@ -79,9 +83,7 @@ class ProductDetailsPage extends StatelessWidget {
                         ),
                   ),
                   const SizedBox(height: 8),
-                  const Text(
-                    'Duis aute veniam veniam qui aliquip irure duis sint magna occaecat dolore nisi culpa do. Est nisi incididunt aliquip  commodo aliqua tempor.',
-                  ),
+                  Text(products.description ?? ''),
                 ],
               ),
             ),
