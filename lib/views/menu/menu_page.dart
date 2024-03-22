@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:food/core/controllers/home_controller.dart';
+import 'package:food/views/cart/cart_page.dart';
 import 'package:get/get.dart';
 
 import '../../core/components/product_card_widget.dart';
@@ -33,20 +34,18 @@ class _MenuPageState extends State<MenuPage> {
           SliverAppBar(
             floating: true,
             centerTitle: false,
-            title: Image.asset(
-              AppIcons.logo,
-              height: 32,
-            ),
             actions: [
-              Padding(
-                padding: const EdgeInsets.only(right: 4),
-                child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFF2F6F3),
-                    shape: const CircleBorder(),
-                  ),
-                  child: SvgPicture.asset(AppIcons.sidebarIcon),
+              ElevatedButton(
+                onPressed: () {
+                  Get.to(() => const CartPage());
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.primary,
+                  shape: const CircleBorder(),
+                ),
+                child: SvgPicture.asset(
+                  AppIcons.cart,
+                  height: 20.h,
                 ),
               ),
             ],

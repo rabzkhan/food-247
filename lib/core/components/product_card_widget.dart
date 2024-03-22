@@ -6,6 +6,8 @@ import '../../views/home/product_details_page.dart';
 import '../constants/api_urls.dart';
 import '../constants/constants.dart';
 
+import '../controllers/cart_controller.dart';
+import '../models/cart_model.dart';
 import 'network_image.dart';
 
 class ProductCardWidget extends StatelessWidget {
@@ -50,7 +52,6 @@ class ProductCardWidget extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 8),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -62,7 +63,6 @@ class ProductCardWidget extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 8),
               Row(
                 children: [
                   Text(
@@ -77,10 +77,23 @@ class ProductCardWidget extends StatelessWidget {
                         ),
                   ),
                   const Spacer(),
-                  SvgPicture.asset(
-                    AppIcons.cardAdd,
-                    height: 25,
-                    width: 25,
+                  IconButton(
+                    onPressed: () {
+                      CartModel cartItem = CartModel(
+                        productId: int.parse(products.productNameId.toString()),
+                        title: products.productName.toString(),
+                        description: products.description.toString(),
+                        imageUrl: products.imagePath.toString(),
+                        price: double.parse(products.price.toString()),
+                        quantity: 1,
+                      );
+                      Get.find<CartController>().addToCart(cartItem);
+                    },
+                    icon: SvgPicture.asset(
+                      AppIcons.cardAdd,
+                      height: 25,
+                      width: 25,
+                    ),
                   )
                 ],
               ),

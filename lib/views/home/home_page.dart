@@ -6,7 +6,6 @@ import 'package:food/core/components/custom_cached_image.dart';
 import 'package:food/core/constants/api_urls.dart';
 import 'package:food/core/constants/app_icons.dart';
 import 'package:food/core/controllers/home_controller.dart';
-import 'package:food/views/menu/menu_page.dart';
 import 'package:food/views/menu/single_menu_page.dart';
 import 'package:get/get.dart';
 import 'search_page.dart';
@@ -26,7 +25,7 @@ class HomePage extends GetView<HomeController> {
               centerTitle: false,
               title: Image.asset(
                 AppIcons.logo,
-                height: 32,
+                height: 45.h,
               ),
               actions: [
                 Padding(
