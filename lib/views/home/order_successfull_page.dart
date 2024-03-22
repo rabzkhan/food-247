@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-
 import '../../core/components/network_image.dart';
 import '../../core/constants/app_defaults.dart';
-import '../../core/utils/ui_util.dart';
-import '../cart/dialogs/delivered_successfull.dart';
 
 class OrderSuccessfullPage extends StatelessWidget {
   const OrderSuccessfullPage({Key? key}) : super(key: key);
@@ -41,8 +38,7 @@ class OrderSuccessfullPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 const Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: AppDefaults.padding),
+                  padding: EdgeInsets.symmetric(horizontal: AppDefaults.padding),
                   child: Text(
                     'Thanks for your order. Your order has placed successfully. Please continue your order.',
                     textAlign: TextAlign.center,
@@ -62,10 +58,7 @@ class OrderSuccessfullPage extends StatelessWidget {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
-                        UiUtil.openDialog(
-                          context: context,
-                          widget: const DeliverySuccessfullDialog(),
-                        );
+                        //delivery success dialouge
                       },
                       child: const Text('Continue'),
                     ),

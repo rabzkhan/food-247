@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:food/core/components/local_db.dart';
+import 'package:food/views/auth/login_page.dart';
+import 'package:get/get.dart';
 
 import '../../../core/constants/constants.dart';
 import 'profile_list_tile.dart';
@@ -47,7 +50,10 @@ class ProfileMenuOptions extends StatelessWidget {
           ProfileListTile(
             title: 'Logout',
             icon: AppIcons.profileLogout,
-            onTap: () {},
+            onTap: () async {
+              MySharedPref.clear();
+              Get.offAll(const LoginPage());
+            },
           ),
         ],
       ),

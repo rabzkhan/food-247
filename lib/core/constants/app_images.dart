@@ -27,4 +27,7 @@ class AppImages {
     'assets/images/coupon_background_3.png',
     'assets/images/coupon_background_4.png',
   ];
+
+  //dont delete from here
+  static const placeholder = 'assets/images/placeholder.png';
 }

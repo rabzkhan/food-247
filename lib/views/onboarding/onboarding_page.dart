@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:food/views/auth/login_page.dart';
+import 'package:get/get.dart';
 
+import '../../core/components/local_db.dart';
 import '../../core/constants/constants.dart';
 
 import 'components/onboarding_view.dart';
@@ -35,7 +38,10 @@ class _OnboardingPageState extends State<OnboardingPage> {
     }
   }
 
-  _gotoLoginSignUp() {}
+  _gotoLoginSignUp() {
+    MySharedPref.setOnboardingStatus(false);
+    Get.off(() => LoginPage());
+  }
 
   @override
   void initState() {

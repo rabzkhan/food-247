@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../../core/enums/dummy_order_status.dart';
+import 'dummy_order_status.dart';
 import 'order_status_row.dart';
 
 class OrderStatusColumn extends StatelessWidget {

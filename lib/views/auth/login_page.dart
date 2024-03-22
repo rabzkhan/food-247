@@ -2,6 +2,7 @@ import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:food/core/constants/app_images.dart';
 import 'package:get/get.dart';
 import '../../core/components/network_image.dart';
 import '../../core/constants/constants.dart';
@@ -64,9 +65,9 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.3,
-                        child: const AspectRatio(
+                        child: AspectRatio(
                           aspectRatio: 1 / 1,
-                          child: NetworkImageWithLoader(AppImages.roundedLogo),
+                          child: Image.asset(AppIcons.logo),
                         ),
                       ),
                       Text(
@@ -101,8 +102,7 @@ class _LoginPageState extends State<LoginPage> {
                                 child: CountryCodePicker(
                                   onChanged: (value) => countryCodeController.text = value.dialCode!,
                                   showFlag: false,
-                                  initialSelection: 'IT',
-                                  favorite: ['+39', 'FR'],
+                                  initialSelection: 'BD',
                                   showCountryOnly: true,
                                   showOnlyCountryWhenClosed: false,
                                   alignLeft: true,

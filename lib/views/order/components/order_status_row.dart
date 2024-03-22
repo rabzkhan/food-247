@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
 import '../../../core/constants/constants.dart';
-import '../../../core/enums/dummy_order_status.dart';
+import 'dummy_order_status.dart';
 import 'order_details_vertical_step_indicator.dart';
 
 class OrderStatusRow extends StatelessWidget {

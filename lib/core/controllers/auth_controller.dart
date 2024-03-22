@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 
 import '../../views/parent/parent_page.dart';
+import '../components/local_db.dart';
 import '../network/api_client.dart';
 import '../network/api_header.dart';
 
@@ -47,6 +48,8 @@ class AuthController extends GetxController {
         isSignUpLoading.value = true;
       },
       onSuccess: (response) {
+        MySharedPref.setToken(response.data['token']);
+        Logger().d(response.data['token']);
         Get.offAll(() => const ParentPage());
         CustomSnackBar.showCustomSnackBar(
           title: "Success",
@@ -54,7 +57,10 @@ class AuthController extends GetxController {
         );
       },
       onError: (error) {
-        Logger().d(error);
+        CustomSnackBar.showCustomSnackBar(
+          title: "Failed",
+          message: "Invalid Credentials",
+        );
         isSignUpLoading.value = false;
       },
     );

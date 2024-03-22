@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:food/core/constants/dummy_data.dart';
 import 'package:get/get.dart';
-
-import '../../../core/enums/dummy_order_status.dart';
-
 import '../order_details.dart';
-import 'order_details_product_tile.dart';
+import 'dummy_order_status.dart';
 import 'order_preview_tile.dart';
 
 class AllTab extends StatelessWidget {

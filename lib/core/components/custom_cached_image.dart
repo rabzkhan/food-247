@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:food/core/constants/app_icons.dart';
 import 'package:food/core/constants/constants.dart';
 
 class CustomImage extends StatelessWidget {
@@ -31,13 +30,13 @@ class CustomImage extends StatelessWidget {
         width: width,
         fit: fit,
         placeholder: (context, url) => Image.asset(
-          AppImages.roundedLogo,
+          AppImages.placeholder,
           height: height,
           width: width,
           fit: fit,
         ),
         errorWidget: (context, url, error) => Image.asset(
-          AppImages.roundedLogo,
+          AppImages.placeholder,
           height: height,
           width: width,
           fit: fit,
