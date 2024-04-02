@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:food/core/components/custom_snackbar.dart';
 import 'package:food/core/constants/api_urls.dart';
 import 'package:get/get.dart';
@@ -11,8 +12,18 @@ import '../network/api_client.dart';
 import '../network/api_header.dart';
 
 class AuthController extends GetxController {
+
+
+
+
   RxBool isSignUpLoading = false.obs;
   RxBool isSignInLoading = false.obs;
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController phoneNumberController = TextEditingController();
+  final TextEditingController countryCodeController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   signUp(Map signUpData) async {
     await ApiClient.apiCall(

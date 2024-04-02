@@ -7,19 +7,11 @@ import 'package:get/get.dart';
 import '../../core/constants/constants.dart';
 import '../../core/utils/validators.dart';
 
-class SignUpPage extends StatelessWidget {
+class SignUpPage extends GetView<AuthController> {
   const SignUpPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    AuthController authController = Get.put(AuthController());
-    final TextEditingController emailController = TextEditingController();
-    final TextEditingController phoneNumberController = TextEditingController();
-    final TextEditingController countryCodeController = TextEditingController();
-    final TextEditingController passwordController = TextEditingController();
-
-    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
     return Scaffold(
       backgroundColor: AppColors.scaffoldWithBoxBackground,
       body: SafeArea(
@@ -33,9 +25,10 @@ class SignUpPage extends StatelessWidget {
                     padding: const EdgeInsets.all(AppDefaults.padding),
                     child: Text(
                       'Welcome to our\nfood shop',
-                      style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
+                      style:
+                          Theme.of(context).textTheme.headlineSmall?.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
                     ),
                   ),
                 ),
@@ -49,7 +42,7 @@ class SignUpPage extends StatelessWidget {
                     borderRadius: AppDefaults.borderRadius,
                   ),
                   child: Form(
-                    key: formKey,
+                    key: controller.formKey,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -60,7 +53,9 @@ class SignUpPage extends StatelessWidget {
                             Expanded(
                               flex: 1,
                               child: CountryCodePicker(
-                                onChanged: (value) => countryCodeController.text = value.dialCode!,
+                                onChanged: (value) => controller
+                                    .countryCodeController
+                                    .text = value.dialCode!,
                                 showFlag: false,
                                 initialSelection: 'IT',
                                 favorite: ['+39', 'FR'],
@@ -72,11 +67,14 @@ class SignUpPage extends StatelessWidget {
                             Expanded(
                               flex: 3,
                               child: TextFormField(
-                                controller: phoneNumberController,
+                                controller: controller.phoneNumberController,
                                 textInputAction: TextInputAction.next,
-                                validator: Validators.requiredWithFieldName('Phone number'),
+                                validator: Validators.requiredWithFieldName(
+                                    'Phone number'),
                                 keyboardType: TextInputType.number,
-                                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.digitsOnly
+                                ],
                               ),
                             ),
                           ],
@@ -85,7 +83,7 @@ class SignUpPage extends StatelessWidget {
                         const Text("Email"),
                         const SizedBox(height: 8),
                         TextFormField(
-                          controller: emailController,
+                          controller: controller.emailController,
                           validator: Validators.requiredWithFieldName('Email'),
                           textInputAction: TextInputAction.next,
                         ),
@@ -93,8 +91,9 @@ class SignUpPage extends StatelessWidget {
                         const Text("Password"),
                         const SizedBox(height: 8),
                         TextFormField(
-                          controller: passwordController,
-                          validator: Validators.requiredWithFieldName('Password'),
+                          controller: controller.passwordController,
+                          validator:
+                              Validators.requiredWithFieldName('Password'),
                           textInputAction: TextInputAction.next,
                           obscureText: true,
                           decoration: InputDecoration(
@@ -112,26 +111,38 @@ class SignUpPage extends StatelessWidget {
                         ),
                         const SizedBox(height: AppDefaults.padding),
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: AppDefaults.padding * 2),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: AppDefaults.padding * 2),
                           child: Row(
                             children: [
                               Text(
                                 'Sign Up',
-                                style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleLarge
+                                    ?.copyWith(
                                       fontWeight: FontWeight.bold,
                                     ),
                               ),
                               const Spacer(),
                               ElevatedButton(
                                 onPressed: () async {
-                                  if (formKey.currentState!.validate()) {
+                                  if (controller.formKey.currentState!
+                                      .validate()) {
                                     var arguments = {
-                                      "email": emailController.text.toString(),
-                                      "country_code": countryCodeController.text.toString(),
-                                      "phone": phoneNumberController.text.toString(),
-                                      "password": passwordController.text.toString(),
+                                      "email": controller.emailController.text
+                                          .toString(),
+                                      "country_code": controller
+                                          .countryCodeController.text
+                                          .toString(),
+                                      "phone": controller
+                                          .phoneNumberController.text
+                                          .toString(),
+                                      "password": controller
+                                          .passwordController.text
+                                          .toString(),
                                     };
-                                    authController.signUp(arguments);
+                                    controller.signUp(arguments);
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(elevation: 1),
