@@ -129,7 +129,7 @@ class SignUpPage extends GetView<AuthController> {
                                 onPressed: () async {
                                   if (controller.formKey.currentState!
                                       .validate()) {
-                                    var arguments = {
+                                    Map<String,String> arguments = {
                                       "email": controller.emailController.text
                                           .toString(),
                                       "country_code": controller

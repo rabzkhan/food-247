@@ -66,7 +66,11 @@ class ApiClient {
           ),
         );
       } else if (requestType == RequestType.post) {
-        Logger().d(data);
+
+
+
+        print('data: $data');
+        //Logger().d(data);
         response = await _dio.post(
           url,
           data: data,
@@ -75,6 +79,8 @@ class ApiClient {
           queryParameters: queryParameters,
           options: Options(headers: headers),
         );
+
+        print('response: $response');
       } else if (requestType == RequestType.put) {
         response = await _dio.put(
           url,

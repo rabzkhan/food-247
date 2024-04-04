@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food/core/controllers/auth_controller.dart';
 import 'package:food/core/controllers/cart_controller.dart';
 import 'package:food/core/controllers/home_controller.dart';
+import 'package:food/core/controllers/profile_controller.dart';
 import 'package:food/views/auth/login_page.dart';
 import 'package:food/views/onboarding/onboarding_page.dart';
 import 'package:get/get.dart';
@@ -43,10 +44,14 @@ class MyApp extends StatelessWidget {
         return GetMaterialApp(
           title: 'FoodApp',
           onInit: () {
-            Get.put(AuthController());
-            Get.put(HomeController());
-            Get.put(CartController());
+            Get.lazyPut(() => AuthController(intoAuth));
+            Get.lazyPut(() => ProfileController());
+            Get.lazyPut(() => HomeController());
+            Get.lazyPut(() => CartController());
+
           },
+
+
           debugShowCheckedModeBanner: false,
           theme: AppTheme.defaultTheme,
           onGenerateRoute: (settings) {
@@ -55,6 +60,8 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(builder: (context) => builder!(context));
           },
           home: initPage,
+
+
         );
       },
     );

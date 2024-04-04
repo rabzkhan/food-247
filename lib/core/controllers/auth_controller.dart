@@ -12,9 +12,8 @@ import '../network/api_client.dart';
 import '../network/api_header.dart';
 
 class AuthController extends GetxController {
-
-
-
+  static AuthController to = Get.find<AuthController>();
+  String? token;
 
   RxBool isSignUpLoading = false.obs;
   RxBool isSignInLoading = false.obs;
@@ -25,7 +24,11 @@ class AuthController extends GetxController {
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  signUp(Map signUpData) async {
+  AuthController(String? intoAuth) {
+    token = intoAuth;
+  }
+
+  signUp(Map<String, String> signUpData) async {
     await ApiClient.apiCall(
       ApiUrls.signUp,
       RequestType.post,
@@ -35,15 +38,15 @@ class AuthController extends GetxController {
         isSignUpLoading.value = true;
       },
       onSuccess: (response) {
-        var signInData = {
-          "country_code": signUpData['country_code'],
-          "phone": signUpData['phone'],
-          "password": signUpData['password'],
+        Map<String, String> signInData = {
+          "country_code": signUpData['country_code'] ?? "",
+          "phone": signUpData['phone'] ?? "",
+          "password": signUpData['password'] ?? "",
         };
         signIn(signInData);
       },
       onError: (error) {
-        Logger().d(error);
+        //Logger().d(error.toString());
         isSignUpLoading.value = false;
       },
     );
@@ -61,6 +64,9 @@ class AuthController extends GetxController {
       onSuccess: (response) {
         MySharedPref.setToken(response.data['token']);
         Logger().d(response.data['token']);
+
+        token = response.data['token'];
+
         Get.offAll(() => const ParentPage());
         CustomSnackBar.showCustomSnackBar(
           title: "Success",

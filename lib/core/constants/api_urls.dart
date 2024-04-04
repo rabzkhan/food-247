@@ -6,4 +6,6 @@ class ApiUrls {
   static const banner = "${baseUrl}/api/banners";
   static const categories = "${baseUrl}/api/productTypes";
   static const categoryWiseProducts = "${baseUrl}/api/product-type-wise/product/";
+
+  static String getMyProfile = "${baseUrl}/api/customer/my-profile";
 }

@@ -19,13 +19,13 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  AuthController authController = Get.put(AuthController());
   final _key = GlobalKey<FormState>();
   final TextEditingController phoneNumberController = TextEditingController();
   final TextEditingController countryCodeController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
   bool isPasswordShown = false;
+
   onPassShowClicked() {
     isPasswordShown = !isPasswordShown;
     setState(() {});
@@ -39,7 +39,7 @@ class _LoginPageState extends State<LoginPage> {
         "phone": phoneNumberController.text.toString(),
         "password": passwordController.text.toString(),
       };
-      authController.signIn(arguments);
+      AuthController.to.signIn(arguments);
     }
   }
 
@@ -72,7 +72,10 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       Text(
                         'Welcome to our',
-                        style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleLarge
+                            ?.copyWith(fontWeight: FontWeight.bold),
                       ),
                       Text(
                         'Food-App',
@@ -85,7 +88,8 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   Theme(
                     data: AppTheme.defaultTheme.copyWith(
-                      inputDecorationTheme: AppTheme.secondaryInputDecorationTheme,
+                      inputDecorationTheme:
+                          AppTheme.secondaryInputDecorationTheme,
                     ),
                     child: Form(
                       key: _key,
@@ -100,7 +104,8 @@ class _LoginPageState extends State<LoginPage> {
                               Expanded(
                                 flex: 1,
                                 child: CountryCodePicker(
-                                  onChanged: (value) => countryCodeController.text = value.dialCode!,
+                                  onChanged: (value) => countryCodeController
+                                      .text = value.dialCode!,
                                   showFlag: false,
                                   initialSelection: 'BD',
                                   showCountryOnly: true,
@@ -113,9 +118,12 @@ class _LoginPageState extends State<LoginPage> {
                                 child: TextFormField(
                                   controller: phoneNumberController,
                                   textInputAction: TextInputAction.next,
-                                  validator: Validators.requiredWithFieldName('Phone number'),
+                                  validator: Validators.requiredWithFieldName(
+                                      'Phone number'),
                                   keyboardType: TextInputType.number,
-                                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.digitsOnly
+                                  ],
                                 ),
                               ),
                             ],
@@ -127,7 +135,8 @@ class _LoginPageState extends State<LoginPage> {
                           const SizedBox(height: 8),
                           TextFormField(
                             controller: passwordController,
-                            validator: Validators.requiredWithFieldName('Password'),
+                            validator:
+                                Validators.requiredWithFieldName('Password'),
                             onFieldSubmitted: (v) => onLogin(),
                             textInputAction: TextInputAction.done,
                             obscureText: !isPasswordShown,
