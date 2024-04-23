@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../core/constants/constants.dart';
+import '../address/address_page.dart';
+import '../address/new_address_page.dart';
 import 'profile_squre_tile.dart';
 
 class ProfileHeaderOptions extends StatelessWidget {
@@ -22,18 +25,15 @@ class ProfileHeaderOptions extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           ProfileSqureTile(
-            label: 'All Order',
-            icon: AppIcons.truckIcon,
-            onTap: () {},
-          ),
-          ProfileSqureTile(
-            label: 'Voucher',
-            icon: AppIcons.voucher,
-            onTap: () {},
-          ),
-          ProfileSqureTile(
             label: 'Address',
             icon: AppIcons.homeProfile,
+            onTap: () {
+              Get.to(() => AddressPage());
+            },
+          ),
+          ProfileSqureTile(
+            label: 'All Order',
+            icon: AppIcons.truckIcon,
             onTap: () {},
           ),
         ],

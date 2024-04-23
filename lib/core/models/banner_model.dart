@@ -9,8 +9,8 @@ BannerModel bannerModelFromJson(String str) => BannerModel.fromJson(json.decode(
 String bannerModelToJson(BannerModel data) => json.encode(data.toJson());
 
 class BannerModel {
-  String? success;
-  String? statusCode;
+  bool? success;
+  int? statusCode;
   List<BannerData>? response;
 
   BannerModel({
@@ -37,30 +37,22 @@ class BannerData {
   int? id;
   String? name;
   String? image;
-  DateTime? createdAt;
-  DateTime? updatedAt;
 
   BannerData({
     this.id,
     this.name,
     this.image,
-    this.createdAt,
-    this.updatedAt,
   });
 
   factory BannerData.fromJson(Map<String, dynamic> json) => BannerData(
         id: json["id"],
         name: json["name"],
         image: json["image"],
-        createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
-        updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
         "image": image,
-        "created_at": createdAt?.toIso8601String(),
-        "updated_at": updatedAt?.toIso8601String(),
       };
 }

@@ -31,39 +31,43 @@ class _CartPageState extends State<CartPage> {
         slivers: [
           const SliverAppBar(),
           SliverToBoxAdapter(
-            child: ListView.builder(
-              padding: EdgeInsets.zero,
-              itemCount: cartController.cartItems.length,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (BuildContext context, int index) {
-                return SingleCartItemTile(cartItem: cartController.cartItems[index]);
-              },
+            child: Obx(
+              () => ListView.builder(
+                padding: EdgeInsets.zero,
+                itemCount: cartController.cartItems.length,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (BuildContext context, int index) {
+                  return SingleCartItemTile(cartItem: cartController.cartItems[index]);
+                },
+              ),
             ),
           ),
           SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(AppDefaults.padding),
-              child: Column(
-                children: [
-                  ItemRow(
-                    title: 'Sub Total',
-                    value: '\$ ${cartController.totalPrice.toStringAsFixed(2)}',
-                  ),
-                  const ItemRow(
-                    title: 'Discount',
-                    value: '\$ 0.00',
-                  ),
-                  const ItemRow(
-                    title: 'Delivery Charge',
-                    value: '\$ 0.00',
-                  ),
-                  const DottedDivider(),
-                  ItemRow(
-                    title: 'Total',
-                    value: '\$ ${cartController.totalPrice.toStringAsFixed(2)}',
-                  ),
-                ],
+            child: Obx(
+              () => Padding(
+                padding: const EdgeInsets.all(AppDefaults.padding),
+                child: Column(
+                  children: [
+                    ItemRow(
+                      title: 'Sub Total',
+                      value: '\$ ${cartController.totalPrice.toStringAsFixed(2)}',
+                    ),
+                    const ItemRow(
+                      title: 'Discount',
+                      value: '\$ 0.00',
+                    ),
+                    const ItemRow(
+                      title: 'Delivery Charge',
+                      value: '\$ 0.00',
+                    ),
+                    const DottedDivider(),
+                    ItemRow(
+                      title: 'Total',
+                      value: '\$ ${cartController.totalPrice.toStringAsFixed(2)}',
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

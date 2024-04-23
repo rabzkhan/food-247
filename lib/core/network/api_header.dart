@@ -1,7 +1,9 @@
+import '../components/local_db.dart';
+
 class Header {
   // SECURE HEADER
   static Map<String, dynamic> secureHeader = {
-    "Authorization": "Bearer 'token'",
+    "Authorization": "Bearer ${MySharedPref.getToken()}",
     'Accept': 'application/json',
     'Content-Type': 'application/json',
   };
@@ -16,18 +18,5 @@ class Header {
   static Map<String, dynamic> defaultMultipartHeader = {
     'Accept': 'application/json',
     'Content-Type': 'multipart/form-data',
-  };
-
-  // SECURE MULTIPART HEADER
-  static Map<String, dynamic> secureMultipartHeader = {
-    "Authorization": "Bearer 'token'",
-    'Accept': 'application/json',
-    'Content-Type': 'multipart/form-data',
-  };
-
-  /// ***************** CUSTOM API HEADER ***************** ///
-  ///
-  static Map<String, dynamic> customApiHeader = {
-    "token": "2dca61e34574f10a3e4b1cf70988e36f",
   };
 }

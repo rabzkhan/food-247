@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 import '../../../core/components/app_back_button.dart';
 import '../../../core/components/app_radio.dart';
 import '../../../core/constants/constants.dart';
+import 'new_address_page.dart';
 
 class AddressPage extends StatelessWidget {
   const AddressPage({Key? key}) : super(key: key);
@@ -43,7 +45,9 @@ class AddressPage extends StatelessWidget {
               bottom: 16,
               right: 16,
               child: FloatingActionButton(
-                onPressed: () {},
+                onPressed: () {
+                  Get.to(() => NewAddressPage());
+                },
                 backgroundColor: AppColors.primary,
                 splashColor: AppColors.primary,
                 child: const Icon(Icons.add),

@@ -69,13 +69,6 @@ class ProductCardWidget extends StatelessWidget {
                     '\$${products.price ?? ''}',
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(color: Colors.black),
                   ),
-                  const SizedBox(width: 4),
-                  Text(
-                    '\$${products.price ?? ''}',
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          decoration: TextDecoration.lineThrough,
-                        ),
-                  ),
                   const Spacer(),
                   IconButton(
                     onPressed: () {

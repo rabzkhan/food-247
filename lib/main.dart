@@ -8,6 +8,7 @@ import 'package:food/views/auth/login_page.dart';
 import 'package:food/views/onboarding/onboarding_page.dart';
 import 'package:get/get.dart';
 import 'core/components/local_db.dart';
+import 'core/controllers/profile_controller.dart';
 import 'core/themes/app_themes.dart';
 import 'views/parent/parent_page.dart';
 
@@ -44,8 +45,10 @@ class MyApp extends StatelessWidget {
           title: 'FoodApp',
           onInit: () {
             Get.put(AuthController());
+
             Get.put(HomeController());
             Get.put(CartController());
+            Get.put(ProfileController());
           },
           debugShowCheckedModeBanner: false,
           theme: AppTheme.defaultTheme,

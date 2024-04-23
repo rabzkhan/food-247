@@ -30,24 +30,6 @@ class ProfileMenuOptions extends StatelessWidget {
           ),
           const Divider(thickness: 0.1),
           ProfileListTile(
-            title: 'Notification',
-            icon: AppIcons.profileNotification,
-            onTap: () {},
-          ),
-          const Divider(thickness: 0.1),
-          ProfileListTile(
-            title: 'Setting',
-            icon: AppIcons.profileSetting,
-            onTap: () {},
-          ),
-          const Divider(thickness: 0.1),
-          ProfileListTile(
-            title: 'Payment',
-            icon: AppIcons.profilePayment,
-            onTap: () {},
-          ),
-          const Divider(thickness: 0.1),
-          ProfileListTile(
             title: 'Logout',
             icon: AppIcons.profileLogout,
             onTap: () async {

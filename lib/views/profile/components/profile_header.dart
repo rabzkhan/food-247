@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:food/core/controllers/profile_controller.dart';
+import 'package:get/get.dart';
 
 import '../../../core/components/network_image.dart';
 import '../../../core/constants/constants.dart';
@@ -28,7 +31,7 @@ class ProfileHeader extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
             ),
-            const _UserData(),
+            const UserData(),
             const ProfileHeaderOptions()
           ],
         ),
@@ -37,48 +40,52 @@ class ProfileHeader extends StatelessWidget {
   }
 }
 
-class _UserData extends StatelessWidget {
-  const _UserData({
+class UserData extends GetView<ProfileController> {
+  const UserData({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(AppDefaults.padding),
-      child: Row(
-        children: [
-          const SizedBox(width: AppDefaults.padding),
-          const SizedBox(
-            width: 100,
-            height: 100,
-            child: ClipOval(
-              child: AspectRatio(
+    return Obx(
+      () => Padding(
+        padding: const EdgeInsets.all(AppDefaults.padding),
+        child: Row(
+          children: [
+            const SizedBox(width: AppDefaults.padding),
+            const SizedBox(
+              width: 100,
+              height: 100,
+              child: ClipOval(
+                child: AspectRatio(
                   aspectRatio: 1 / 1,
                   child: NetworkImageWithLoader(
-                      'https://images.unsplash.com/photo-1628157588553-5eeea00af15c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80')),
+                      'https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small_2x/user-profile-icon-free-vector.jpg'),
+                ),
+              ),
             ),
-          ),
-          const SizedBox(width: AppDefaults.padding),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Shakibul Islam',
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.bold, color: Colors.white),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                'ID: 1540580',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyLarge
-                    ?.copyWith(color: Colors.white),
-              ),
-            ],
-          )
-        ],
+            const SizedBox(width: AppDefaults.padding),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "${controller.profileData.value.countryCode ?? ''} ${controller.profileData.value.phone ?? ''}",
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium
+                      ?.copyWith(fontWeight: FontWeight.bold, color: Colors.white),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  'Email : ${controller.profileData.value.email ?? ''}',
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: Colors.white,
+                      ),
+                ),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

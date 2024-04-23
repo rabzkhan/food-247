@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:food/core/components/custom_snackbar.dart';
 import 'package:food/core/constants/api_urls.dart';
+import 'package:food/core/controllers/profile_controller.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 
@@ -13,6 +14,20 @@ import '../network/api_header.dart';
 class AuthController extends GetxController {
   RxBool isSignUpLoading = false.obs;
   RxBool isSignInLoading = false.obs;
+  RxBool isLoggedIn = false.obs;
+
+  @override
+  void onInit() {
+    if (MySharedPref.getToken() != null) {
+      isLoggedIn.value = true;
+      Logger().d("Logged In");
+    } else {
+      isLoggedIn.value = false;
+      Logger().d("Not Logged In");
+    }
+
+    super.onInit();
+  }
 
   signUp(Map signUpData) async {
     await ApiClient.apiCall(
