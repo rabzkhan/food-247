@@ -45,7 +45,6 @@ class MyApp extends StatelessWidget {
           title: 'FoodApp',
           onInit: () {
             Get.put(AuthController());
-
             Get.put(HomeController());
             Get.put(CartController());
             Get.put(ProfileController());
