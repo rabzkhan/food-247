@@ -1,4 +1,5 @@
 import 'package:food/core/models/banner_model.dart';
+import 'package:food/core/models/hot_product_model.dart';
 import 'package:food/core/models/product_list_model.dart';
 import 'package:get/get.dart';
 import '../constants/api_urls.dart';
@@ -20,10 +21,20 @@ class HomeController extends GetxController {
   RxBool isProductsLoading = false.obs;
   Rx<ProductListData> productsList = ProductListData().obs;
 
+  //for popular products
+  RxBool isPopularProductsLoading = false.obs;
+  RxList<Products> popularProducts = <Products>[].obs;
+
+  //for featured products
+  RxBool isFeaturedProductsLoading = false.obs;
+  RxList<Products> featuredProducts = <Products>[].obs;
+
   @override
   void onInit() {
     getBanner();
     getCategories();
+    getPopularProducts();
+    getFeaturedProducts();
     super.onInit();
   }
 
@@ -77,6 +88,42 @@ class HomeController extends GetxController {
       },
       onError: (error) {
         isProductsLoading.value = false;
+      },
+    );
+  }
+
+  getPopularProducts() async {
+    await ApiClient.apiCall(
+      ApiUrls.popularProducts,
+      RequestType.get,
+      headers: Header.defaultHeader,
+      onLoading: () {
+        isPopularProductsLoading.value = true;
+      },
+      onSuccess: (response) {
+        popularProducts.value = HotProductsModel.fromJson(response.data).data!;
+        isPopularProductsLoading.value = false;
+      },
+      onError: (error) {
+        isPopularProductsLoading.value = false;
+      },
+    );
+  }
+
+  getFeaturedProducts() async {
+    await ApiClient.apiCall(
+      ApiUrls.featuredProducts,
+      RequestType.get,
+      headers: Header.defaultHeader,
+      onLoading: () {
+        isFeaturedProductsLoading.value = true;
+      },
+      onSuccess: (response) {
+        featuredProducts.value = HotProductsModel.fromJson(response.data).data!;
+        isFeaturedProductsLoading.value = false;
+      },
+      onError: (error) {
+        isFeaturedProductsLoading.value = false;
       },
     );
   }

@@ -5,9 +5,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:food/core/components/custom_cached_image.dart';
 import 'package:food/core/constants/api_urls.dart';
 import 'package:food/core/constants/app_icons.dart';
+import 'package:food/core/constants/constants.dart';
 import 'package:food/core/controllers/home_controller.dart';
 import 'package:food/views/menu/single_menu_page.dart';
 import 'package:get/get.dart';
+import '../../core/components/product_card_widget.dart';
 import 'search_page.dart';
 import 'widgets/category_card_widget.dart';
 
@@ -162,6 +164,86 @@ class HomePage extends GetView<HomeController> {
                 ),
               ),
             ),
+            //Popular Products
+            SliverToBoxAdapter(
+              child: Obx(() {
+                if (controller.isFeaturedProductsLoading.value) {
+                  return const SizedBox();
+                }
+                return Padding(
+                  padding: const EdgeInsets.all(AppDefaults.padding),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Featured Products",
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                              color: Colors.black,
+                            ),
+                      ),
+                      GridView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        padding: const EdgeInsets.all(AppDefaults.padding),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 20.r,
+                          crossAxisSpacing: 20.r,
+                          childAspectRatio: 1 / 1.1,
+                        ),
+                        itemCount: controller.popularProducts.take(4).length,
+                        itemBuilder: (context, index) {
+                          return ProductCardWidget(
+                            products: controller.popularProducts[index],
+                          );
+                        },
+                      )
+                    ],
+                  ),
+                );
+              }),
+            )
+
+            //Popular Products
+            ,
+            SliverToBoxAdapter(
+              child: Obx(() {
+                if (controller.isFeaturedProductsLoading.value) {
+                  return const SizedBox();
+                }
+                return Padding(
+                  padding: const EdgeInsets.all(AppDefaults.padding),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Popular Products",
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                              color: Colors.black,
+                            ),
+                      ),
+                      GridView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        padding: const EdgeInsets.all(AppDefaults.padding),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 20.r,
+                          crossAxisSpacing: 20.r,
+                          childAspectRatio: 1 / 1.1,
+                        ),
+                        itemCount: controller.popularProducts.take(4).length,
+                        itemBuilder: (context, index) {
+                          return ProductCardWidget(
+                            products: controller.popularProducts[index],
+                          );
+                        },
+                      )
+                    ],
+                  ),
+                );
+              }),
+            )
           ],
         ),
       ),

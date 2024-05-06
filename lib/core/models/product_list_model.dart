@@ -84,68 +84,40 @@ class ProductListData {
 
 class Products {
   String? productNameId;
-  dynamic sizeId;
-  dynamic colorId;
   String? productName;
-  String? code;
   String? description;
   String? price;
   String? quantity;
   String? imagePath;
-  String? productTypeId;
-  dynamic offerAmount;
   String? isActive;
-  String? summerOfferStatus;
-  String? winterOfferStatus;
 
   Products({
     this.productNameId,
-    this.sizeId,
-    this.colorId,
     this.productName,
-    this.code,
     this.description,
     this.price,
     this.quantity,
     this.imagePath,
-    this.productTypeId,
-    this.offerAmount,
     this.isActive,
-    this.summerOfferStatus,
-    this.winterOfferStatus,
   });
 
   factory Products.fromJson(Map<String, dynamic> json) => Products(
         productNameId: json["product_name_id"],
-        sizeId: json["size_id"],
-        colorId: json["color_id"],
         productName: json["product_name"],
-        code: json["code"],
         description: json["description"],
         price: json["price"],
         quantity: json["quantity"],
         imagePath: json["imagePath"],
-        productTypeId: json["product_type_id"],
-        offerAmount: json["offer_amount"],
         isActive: json["is_active"],
-        summerOfferStatus: json["summer_offer_status"],
-        winterOfferStatus: json["winter_offer_status"],
       );
 
   Map<String, dynamic> toJson() => {
         "product_name_id": productNameId,
-        "size_id": sizeId,
-        "color_id": colorId,
         "product_name": productName,
-        "code": code,
         "description": description,
         "price": price,
         "quantity": quantity,
         "imagePath": imagePath,
-        "product_type_id": productTypeId,
-        "offer_amount": offerAmount,
         "is_active": isActive,
-        "summer_offer_status": summerOfferStatus,
-        "winter_offer_status": winterOfferStatus,
       };
 }
