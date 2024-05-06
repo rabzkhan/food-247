@@ -9,6 +9,7 @@ class ApiUrls {
 
   static const popularProducts = "${baseUrl}/api/all-popular/product";
   static const featuredProducts = "${baseUrl}/api/all-featured/product";
+  static const productDetails = "${baseUrl}/api/product/details";
 
   static const profileInfo = "${baseUrl}/api/customer/my-profile";
 }

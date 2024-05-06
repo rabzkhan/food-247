@@ -168,7 +168,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: AppDefaults.padding),
+                  const SizedBox(height: AppDefaults.padding),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

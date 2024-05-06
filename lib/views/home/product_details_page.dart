@@ -1,22 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:food/core/controllers/product_controller.dart';
+import 'package:get/get.dart';
 import '../../core/components/app_back_button.dart';
 import '../../core/components/buy_now_row_button.dart';
 import '../../core/components/network_image.dart';
 import '../../core/components/price_and_quantity.dart';
 import '../../core/components/product_images_slider.dart';
 import '../../core/constants/api_urls.dart';
-import '../../core/constants/app_defaults.dart';
 import '../../core/constants/constants.dart';
+import '../../core/models/product_details_model.dart';
 import '../../core/models/product_list_model.dart';
 
-class ProductDetailsPage extends StatelessWidget {
+class ProductDetailsPage extends StatefulWidget {
   const ProductDetailsPage({
     Key? key,
     required this.products,
   }) : super(key: key);
 
   final Products products;
+
+  @override
+  State<ProductDetailsPage> createState() => _ProductDetailsPageState();
+}
+
+class _ProductDetailsPageState extends State<ProductDetailsPage> {
+  ProductController productController = Get.put(ProductController());
+  @override
+  void initState() {
+    productController.getProductDetails(widget.products.productNameId!);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,13 +55,13 @@ class ProductDetailsPage extends StatelessWidget {
           children: [
             ProductImagesSlider(
               images: [
-                "${ApiUrls.baseUrl}/${products.imagePath}",
+                "${ApiUrls.baseUrl}/${widget.products.imagePath}",
               ],
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12).r,
               child: Text(
-                products.productName ?? '',
+                widget.products.productName ?? '',
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
@@ -69,7 +83,7 @@ class ProductDetailsPage extends StatelessWidget {
                         ),
                   ),
                   const SizedBox(height: 4),
-                  Text(products.description ?? ''),
+                  Text(widget.products.description ?? ''),
                 ],
               ),
             ),
@@ -85,34 +99,43 @@ class ProductDetailsPage extends StatelessWidget {
                         ),
                   ),
                   SizedBox(
-                    height: 40,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 5,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          decoration: BoxDecoration(
-                            color: index == 0 ? Theme.of(context).primaryColor.withOpacity(0.1) : Colors.white,
-                            border: Border.all(
-                              color: index == 0
-                                  ? Theme.of(context).primaryColor
-                                  : Theme.of(context).primaryColor.withOpacity(0.1),
+                    height: 40.h,
+                    child: Obx(() {
+                      if (productController.isProductDetailsLoading.value) {
+                        return const SizedBox();
+                      }
+                      if (productController.productSizes.isEmpty) {
+                        return const SizedBox();
+                      }
+                      return ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: productController.productSizes.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          ProductSize productSize = productController.productSizes[index];
+                          return Container(
+                            decoration: BoxDecoration(
+                              color: index == 0 ? Theme.of(context).primaryColor.withOpacity(0.1) : Colors.white,
+                              border: Border.all(
+                                color: index == 0
+                                    ? Theme.of(context).primaryColor
+                                    : Theme.of(context).primaryColor.withOpacity(0.1),
+                              ),
+                              borderRadius: const BorderRadius.all(Radius.circular(6)),
                             ),
-                            borderRadius: const BorderRadius.all(Radius.circular(6)),
-                          ),
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 10.w,
-                          ),
-                          margin: const EdgeInsets.only(right: 15),
-                          child: Center(
-                            child: Text(
-                              "Large",
-                              style: Theme.of(context).textTheme.titleMedium,
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 10.w,
                             ),
-                          ),
-                        );
-                      },
-                    ),
+                            margin: const EdgeInsets.only(right: 15).r,
+                            child: Center(
+                              child: Text(
+                                productSize.name ?? '',
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    }),
                   ),
                 ],
               ),
@@ -131,56 +154,65 @@ class ProductDetailsPage extends StatelessWidget {
                   ),
                   SizedBox(
                     height: 80,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 5,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          decoration: BoxDecoration(
-                            color: index == 0 ? Theme.of(context).primaryColor.withOpacity(0.1) : Colors.white,
-                            border: Border.all(
-                              color: index == 0
-                                  ? Theme.of(context).primaryColor
-                                  : Theme.of(context).primaryColor.withOpacity(0.1),
+                    child: Obx(() {
+                      if (productController.isProductDetailsLoading.value) {
+                        return const SizedBox();
+                      }
+                      if (productController.productExtraItems.isEmpty) {
+                        return const SizedBox();
+                      }
+                      return ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: productController.productExtraItems.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          ProductExtraItem extraItem = productController.productExtraItems[index];
+                          return Container(
+                            decoration: BoxDecoration(
+                              color: index == 0 ? Theme.of(context).primaryColor.withOpacity(0.1) : Colors.white,
+                              border: Border.all(
+                                color: index == 0
+                                    ? Theme.of(context).primaryColor
+                                    : Theme.of(context).primaryColor.withOpacity(0.1),
+                              ),
+                              borderRadius: const BorderRadius.all(Radius.circular(6)),
                             ),
-                            borderRadius: const BorderRadius.all(Radius.circular(6)),
-                          ),
-                          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10).r,
-                          margin: EdgeInsets.only(right: 15),
-                          child: Row(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-                                child: AspectRatio(
-                                  aspectRatio: 1,
-                                  child: NetworkImageWithLoader(
-                                    "${ApiUrls.baseUrl}/${products.imagePath}",
-                                    fit: BoxFit.cover,
+                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10).r,
+                            margin: const EdgeInsets.only(right: 15),
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+                                  child: AspectRatio(
+                                    aspectRatio: 1,
+                                    child: NetworkImageWithLoader(
+                                      "${ApiUrls.baseUrl}/${extraItem.image}",
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              10.horizontalSpace,
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Extra Cheese",
-                                    style: Theme.of(context).textTheme.titleMedium,
-                                  ),
-                                  Text(
-                                    '\$${10}',
-                                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                          color: AppColors.primary,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
+                                10.horizontalSpace,
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      extraItem.name ?? '',
+                                      style: Theme.of(context).textTheme.titleMedium,
+                                    ),
+                                    Text(
+                                      '\$${extraItem.price}',
+                                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                            color: AppColors.primary,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      );
+                    }),
                   ),
                 ],
               ),
@@ -189,8 +221,8 @@ class ProductDetailsPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: AppDefaults.padding),
               child: PriceAndQuantityRow(
-                currentPrice: double.parse(products.price.toString()),
-                orginalPrice: double.parse(products.price.toString()),
+                currentPrice: double.parse(widget.products.price.toString()),
+                orginalPrice: double.parse(widget.products.price.toString()),
                 quantity: 2,
               ),
             ),
