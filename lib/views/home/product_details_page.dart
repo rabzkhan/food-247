@@ -32,10 +32,11 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
 
   int currentQuantiy = 1;
   double productPrice = 0;
+  double extraItemPrice = 0;
   double totalPrice = 0;
 
   int selectedSizeIndex = 0;
-  int selectedExtraIndex = 0;
+  List<int> selectedExtraIndex = [];
 
   calculatePrice() {
     totalPrice = currentQuantiy * productPrice;
@@ -257,48 +258,60 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                         itemCount: productController.productExtraItems.length,
                         itemBuilder: (BuildContext context, int index) {
                           ProductExtraItem extraItem = productController.productExtraItems[index];
-                          return Container(
-                            decoration: BoxDecoration(
-                              color: index == 0 ? Theme.of(context).primaryColor.withOpacity(0.1) : Colors.white,
-                              border: Border.all(
-                                color: index == 0
-                                    ? Theme.of(context).primaryColor
-                                    : Theme.of(context).primaryColor.withOpacity(0.1),
+                          return GestureDetector(
+                            onTap: () {
+                              if (!selectedExtraIndex.contains(index)) {
+                                selectedExtraIndex.add(index);
+                              } else {
+                                selectedExtraIndex.remove(index);
+                              }
+                              setState(() {});
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: selectedExtraIndex.contains(index)
+                                    ? Theme.of(context).primaryColor.withOpacity(0.1)
+                                    : Colors.white,
+                                border: Border.all(
+                                  color: selectedExtraIndex.contains(index)
+                                      ? Theme.of(context).primaryColor
+                                      : Theme.of(context).primaryColor.withOpacity(0.1),
+                                ),
+                                borderRadius: const BorderRadius.all(Radius.circular(6)),
                               ),
-                              borderRadius: const BorderRadius.all(Radius.circular(6)),
-                            ),
-                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10).r,
-                            margin: const EdgeInsets.only(right: 15),
-                            child: Row(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-                                  child: AspectRatio(
-                                    aspectRatio: 1,
-                                    child: NetworkImageWithLoader(
-                                      "${ApiUrls.baseUrl}/${extraItem.image}",
-                                      fit: BoxFit.cover,
+                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10).r,
+                              margin: const EdgeInsets.only(right: 15),
+                              child: Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+                                    child: AspectRatio(
+                                      aspectRatio: 1,
+                                      child: NetworkImageWithLoader(
+                                        "${ApiUrls.baseUrl}/${extraItem.image}",
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                10.horizontalSpace,
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      extraItem.name ?? '',
-                                      style: Theme.of(context).textTheme.titleMedium,
-                                    ),
-                                    Text(
-                                      '\$${extraItem.price}',
-                                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                            color: AppColors.primary,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                                  10.horizontalSpace,
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        extraItem.name ?? '',
+                                        style: Theme.of(context).textTheme.titleMedium,
+                                      ),
+                                      Text(
+                                        '\$${extraItem.price}',
+                                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                              color: AppColors.primary,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           );
                         },
