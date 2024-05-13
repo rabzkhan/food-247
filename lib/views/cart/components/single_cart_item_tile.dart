@@ -9,7 +9,10 @@ import '../../../core/constants/api_urls.dart';
 import '../../../core/constants/constants.dart';
 
 class SingleCartItemTile extends GetView<CartController> {
-  const SingleCartItemTile({Key? key, required this.cartItem}) : super(key: key);
+  const SingleCartItemTile({
+    Key? key,
+    required this.cartItem,
+  }) : super(key: key);
   final CartModel cartItem;
 
   @override

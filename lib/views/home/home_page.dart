@@ -191,10 +191,10 @@ class HomePage extends GetView<HomeController> {
                           crossAxisSpacing: 20.r,
                           childAspectRatio: 1 / 1.1,
                         ),
-                        itemCount: controller.popularProducts.take(4).length,
+                        itemCount: controller.featuredProducts.take(4).length,
                         itemBuilder: (context, index) {
                           return ProductCardWidget(
-                            products: controller.popularProducts[index],
+                            products: controller.featuredProducts[index],
                           );
                         },
                       )

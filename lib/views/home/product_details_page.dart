@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:food/core/controllers/product_controller.dart';
+import 'package:food/views/cart/cart_page.dart';
 import 'package:get/get.dart';
 import '../../core/components/app_back_button.dart';
-import '../../core/components/buy_now_row_button.dart';
 import '../../core/components/network_image.dart';
-import '../../core/components/price_and_quantity.dart';
 import '../../core/components/product_images_slider.dart';
 import '../../core/constants/api_urls.dart';
 import '../../core/constants/constants.dart';
+import '../../core/controllers/cart_controller.dart';
+import '../../core/models/cart_model.dart';
 import '../../core/models/product_details_model.dart';
 import '../../core/models/product_list_model.dart';
 
@@ -26,9 +28,23 @@ class ProductDetailsPage extends StatefulWidget {
 
 class _ProductDetailsPageState extends State<ProductDetailsPage> {
   ProductController productController = Get.put(ProductController());
+  CartController cartController = Get.put(CartController());
+
+  int currentQuantiy = 1;
+  double productPrice = 0;
+  double totalPrice = 0;
+
+  int selectedSizeIndex = 0;
+  int selectedExtraIndex = 0;
+
+  calculatePrice() {
+    totalPrice = currentQuantiy * productPrice;
+  }
+
   @override
   void initState() {
     productController.getProductDetails(widget.products.productNameId!);
+    totalPrice = double.parse(widget.products.price.toString());
     super.initState();
   }
 
@@ -43,9 +59,40 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
       bottomNavigationBar: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppDefaults.padding),
-          child: BuyNowRow(
-            onBuyButtonTap: () {},
-            onCartButtonTap: () {},
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: AppDefaults.padding,
+            ),
+            child: Row(
+              children: [
+                OutlinedButton(
+                  onPressed: () {
+                    Get.to(() => const CartPage());
+                  },
+                  child: SvgPicture.asset(AppIcons.shoppingCart),
+                ),
+                const SizedBox(width: AppDefaults.padding),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      CartModel item = CartModel(
+                        productId: int.parse(widget.products.productNameId.toString()),
+                        title: widget.products.productName.toString(),
+                        description: widget.products.description.toString(),
+                        imageUrl: widget.products.imagePath.toString(),
+                        price: totalPrice,
+                        quantity: currentQuantiy,
+                      );
+                      Get.find<CartController>().addToCart(item);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.all(AppDefaults.padding * 1.2),
+                    ),
+                    child: Text('Add to Cart ${totalPrice.toStringAsFixed(2)}'),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -67,13 +114,9 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                     ),
               ),
             ),
-
-            /// Product Details
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12).r,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
+              padding: const EdgeInsets.symmetric(horizontal: AppDefaults.padding),
+              child: Row(
                 children: [
                   Text(
                     'Product Details',
@@ -82,10 +125,48 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                           color: Colors.black,
                         ),
                   ),
-                  const SizedBox(height: 4),
-                  Text(widget.products.description ?? ''),
+                  const Spacer(),
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          if (currentQuantiy > 1) {
+                            currentQuantiy--;
+                          }
+                          setState(() {});
+                        },
+                        icon: SvgPicture.asset(AppIcons.removeQuantity),
+                        constraints: const BoxConstraints(),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          currentQuantiy.toString(),
+                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          currentQuantiy++;
+                          calculatePrice();
+                          setState(() {});
+                        },
+                        icon: SvgPicture.asset(AppIcons.addQuantity),
+                        constraints: const BoxConstraints(),
+                      ),
+                    ],
+                  ),
                 ],
               ),
+            ),
+
+            /// Product Details
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10).r,
+              child: Text(widget.products.description ?? ''),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: AppDefaults.padding),
@@ -112,24 +193,34 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                         itemCount: productController.productSizes.length,
                         itemBuilder: (BuildContext context, int index) {
                           ProductSize productSize = productController.productSizes[index];
-                          return Container(
-                            decoration: BoxDecoration(
-                              color: index == 0 ? Theme.of(context).primaryColor.withOpacity(0.1) : Colors.white,
-                              border: Border.all(
-                                color: index == 0
-                                    ? Theme.of(context).primaryColor
-                                    : Theme.of(context).primaryColor.withOpacity(0.1),
+                          return GestureDetector(
+                            onTap: () {
+                              selectedSizeIndex = index;
+                              productPrice = double.parse(productSize.sizePrice.toString());
+                              calculatePrice();
+                              setState(() {});
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: selectedSizeIndex == index
+                                    ? Theme.of(context).primaryColor.withOpacity(0.1)
+                                    : Colors.white,
+                                border: Border.all(
+                                  color: selectedSizeIndex == index
+                                      ? Theme.of(context).primaryColor
+                                      : Theme.of(context).primaryColor.withOpacity(0.1),
+                                ),
+                                borderRadius: const BorderRadius.all(Radius.circular(6)),
                               ),
-                              borderRadius: const BorderRadius.all(Radius.circular(6)),
-                            ),
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 10.w,
-                            ),
-                            margin: const EdgeInsets.only(right: 15).r,
-                            child: Center(
-                              child: Text(
-                                productSize.name ?? '',
-                                style: Theme.of(context).textTheme.titleMedium,
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 10.w,
+                              ),
+                              margin: const EdgeInsets.only(right: 15).r,
+                              child: Center(
+                                child: Text(
+                                  productSize.name ?? '',
+                                  style: Theme.of(context).textTheme.titleMedium,
+                                ),
                               ),
                             ),
                           );
@@ -217,16 +308,6 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                 ],
               ),
             ),
-
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppDefaults.padding),
-              child: PriceAndQuantityRow(
-                currentPrice: double.parse(widget.products.price.toString()),
-                orginalPrice: double.parse(widget.products.price.toString()),
-                quantity: 2,
-              ),
-            ),
-            const SizedBox(height: 8),
           ],
         ),
       ),

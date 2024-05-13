@@ -24,7 +24,9 @@ class ProductController extends GetxController {
       ApiUrls.productDetails,
       RequestType.post,
       headers: Header.defaultHeader,
-      data: json.encode({"product_name_id": 36}),
+      data: json.encode({
+        "product_name_id": productId,
+      }),
       onLoading: () {
         isProductDetailsLoading.value = true;
       },
