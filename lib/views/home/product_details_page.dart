@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:food/core/controllers/product_controller.dart';
 import 'package:food/views/cart/cart_page.dart';
 import 'package:get/get.dart';
+import 'package:logger/logger.dart';
 import '../../core/components/app_back_button.dart';
 import '../../core/components/network_image.dart';
 import '../../core/components/product_images_slider.dart';
@@ -37,9 +38,17 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
 
   int selectedSizeIndex = 0;
   List<int> selectedExtraIndex = [];
+  List<ExtraItem> extraItems = [];
+  PSize? pSize;
 
   calculatePrice() {
     totalPrice = currentQuantiy * productPrice;
+    // Add the prices of extra items
+    if (extraItems.isNotEmpty) {
+      for (ExtraItem extraItem in extraItems) {
+        totalPrice += extraItem.price ?? 0;
+      }
+    }
   }
 
   @override
@@ -83,7 +92,14 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                         imageUrl: widget.products.imagePath.toString(),
                         price: totalPrice,
                         quantity: currentQuantiy,
+                        size: PSize(
+                          id: pSize?.id ?? 0,
+                          name: pSize?.name ?? "",
+                          price: pSize?.price ?? 0.0,
+                        ),
+                        extraItems: extraItems,
                       );
+                      Logger().d(item.toMap().toString());
                       Get.find<CartController>().addToCart(item);
                     },
                     style: ElevatedButton.styleFrom(
@@ -134,6 +150,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                           if (currentQuantiy > 1) {
                             currentQuantiy--;
                           }
+                          calculatePrice();
                           setState(() {});
                         },
                         icon: SvgPicture.asset(AppIcons.removeQuantity),
@@ -194,10 +211,24 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                         itemCount: productController.productSizes.length,
                         itemBuilder: (BuildContext context, int index) {
                           ProductSize productSize = productController.productSizes[index];
+                          pSize = PSize(
+                            id: productSize.id,
+                            name: productSize.name,
+                            price: double.parse(
+                              productSize.sizePrice.toString(),
+                            ),
+                          );
                           return GestureDetector(
                             onTap: () {
                               selectedSizeIndex = index;
                               productPrice = double.parse(productSize.sizePrice.toString());
+                              pSize = PSize(
+                                id: productController.productSizes[index].id,
+                                name: productController.productSizes[index].name,
+                                price: double.parse(
+                                  productController.productSizes[index].sizePrice.toString(),
+                                ),
+                              );
                               calculatePrice();
                               setState(() {});
                             },
@@ -219,7 +250,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                               margin: const EdgeInsets.only(right: 15).r,
                               child: Center(
                                 child: Text(
-                                  productSize.name ?? '',
+                                  "${productSize.name ?? ''} \$${productSize.sizePrice ?? ''}",
                                   style: Theme.of(context).textTheme.titleMedium,
                                 ),
                               ),
@@ -260,11 +291,22 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                           ProductExtraItem extraItem = productController.productExtraItems[index];
                           return GestureDetector(
                             onTap: () {
+                              ExtraItem temItem;
+                              temItem = ExtraItem(
+                                id: productController.productExtraItems[index].id,
+                                name: productController.productExtraItems[index].name,
+                                price: double.parse(productController.productExtraItems[index].price.toString()),
+                              );
                               if (!selectedExtraIndex.contains(index)) {
                                 selectedExtraIndex.add(index);
+                                extraItems.add(temItem);
                               } else {
                                 selectedExtraIndex.remove(index);
+                                extraItems.removeWhere(
+                                  (element) => element.id == temItem.id,
+                                );
                               }
+                              calculatePrice();
                               setState(() {});
                             },
                             child: Container(
