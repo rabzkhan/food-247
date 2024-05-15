@@ -4,7 +4,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:food/core/controllers/product_controller.dart';
 import 'package:food/views/cart/cart_page.dart';
 import 'package:get/get.dart';
-import 'package:logger/logger.dart';
 import '../../core/components/app_back_button.dart';
 import '../../core/components/network_image.dart';
 import '../../core/components/product_images_slider.dart';
@@ -99,7 +98,6 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                         ),
                         extraItems: extraItems,
                       );
-                      Logger().d(item.toMap().toString());
                       Get.find<CartController>().addToCart(item);
                     },
                     style: ElevatedButton.styleFrom(
@@ -186,182 +184,183 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10).r,
               child: Text(widget.products.description ?? ''),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppDefaults.padding),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Size",
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                  ),
-                  SizedBox(
-                    height: 40.h,
-                    child: Obx(() {
-                      if (productController.isProductDetailsLoading.value) {
-                        return const SizedBox();
-                      }
-                      if (productController.productSizes.isEmpty) {
-                        return const SizedBox();
-                      }
-                      return ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: productController.productSizes.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          ProductSize productSize = productController.productSizes[index];
-                          pSize = PSize(
-                            id: productSize.id,
-                            name: productSize.name,
-                            price: double.parse(
-                              productSize.sizePrice.toString(),
-                            ),
-                          );
-                          return GestureDetector(
-                            onTap: () {
-                              selectedSizeIndex = index;
-                              productPrice = double.parse(productSize.sizePrice.toString());
-                              pSize = PSize(
-                                id: productController.productSizes[index].id,
-                                name: productController.productSizes[index].name,
-                                price: double.parse(
-                                  productController.productSizes[index].sizePrice.toString(),
-                                ),
-                              );
-                              calculatePrice();
-                              setState(() {});
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: selectedSizeIndex == index
-                                    ? Theme.of(context).primaryColor.withOpacity(0.1)
-                                    : Colors.white,
-                                border: Border.all(
-                                  color: selectedSizeIndex == index
-                                      ? Theme.of(context).primaryColor
-                                      : Theme.of(context).primaryColor.withOpacity(0.1),
-                                ),
-                                borderRadius: const BorderRadius.all(Radius.circular(6)),
+            Obx(() {
+              if (productController.isProductDetailsLoading.value) {
+                return const SizedBox();
+              }
+              if (productController.productSizes.isEmpty) {
+                return const SizedBox();
+              }
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: AppDefaults.padding),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Size",
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                    ),
+                    SizedBox(
+                        height: 40.h,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: productController.productSizes.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            ProductSize productSize = productController.productSizes[index];
+                            pSize = PSize(
+                              id: productSize.id,
+                              name: productSize.name,
+                              price: double.parse(
+                                productSize.sizePrice.toString(),
                               ),
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 10.w,
-                              ),
-                              margin: const EdgeInsets.only(right: 15).r,
-                              child: Center(
-                                child: Text(
-                                  "${productSize.name ?? ''} \$${productSize.sizePrice ?? ''}",
-                                  style: Theme.of(context).textTheme.titleMedium,
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                      );
-                    }),
-                  ),
-                ],
-              ),
-            ),
-            10.verticalSpace,
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppDefaults.padding),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Extra",
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                  ),
-                  SizedBox(
-                    height: 80,
-                    child: Obx(() {
-                      if (productController.isProductDetailsLoading.value) {
-                        return const SizedBox();
-                      }
-                      if (productController.productExtraItems.isEmpty) {
-                        return const SizedBox();
-                      }
-                      return ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: productController.productExtraItems.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          ProductExtraItem extraItem = productController.productExtraItems[index];
-                          return GestureDetector(
-                            onTap: () {
-                              ExtraItem temItem;
-                              temItem = ExtraItem(
-                                id: productController.productExtraItems[index].id,
-                                name: productController.productExtraItems[index].name,
-                                price: double.parse(productController.productExtraItems[index].price.toString()),
-                              );
-                              if (!selectedExtraIndex.contains(index)) {
-                                selectedExtraIndex.add(index);
-                                extraItems.add(temItem);
-                              } else {
-                                selectedExtraIndex.remove(index);
-                                extraItems.removeWhere(
-                                  (element) => element.id == temItem.id,
+                            );
+                            return GestureDetector(
+                              onTap: () {
+                                selectedSizeIndex = index;
+                                productPrice = double.parse(productSize.sizePrice.toString());
+                                pSize = PSize(
+                                  id: productController.productSizes[index].id,
+                                  name: productController.productSizes[index].name,
+                                  price: double.parse(
+                                    productController.productSizes[index].sizePrice.toString(),
+                                  ),
                                 );
-                              }
-                              calculatePrice();
-                              setState(() {});
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: selectedExtraIndex.contains(index)
-                                    ? Theme.of(context).primaryColor.withOpacity(0.1)
-                                    : Colors.white,
-                                border: Border.all(
-                                  color: selectedExtraIndex.contains(index)
-                                      ? Theme.of(context).primaryColor
-                                      : Theme.of(context).primaryColor.withOpacity(0.1),
+                                calculatePrice();
+                                setState(() {});
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: selectedSizeIndex == index
+                                      ? Theme.of(context).primaryColor.withOpacity(0.1)
+                                      : Colors.white,
+                                  border: Border.all(
+                                    color: selectedSizeIndex == index
+                                        ? Theme.of(context).primaryColor
+                                        : Theme.of(context).primaryColor.withOpacity(0.1),
+                                  ),
+                                  borderRadius: const BorderRadius.all(Radius.circular(6)),
                                 ),
-                                borderRadius: const BorderRadius.all(Radius.circular(6)),
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 10.w,
+                                ),
+                                margin: const EdgeInsets.only(right: 15).r,
+                                child: Center(
+                                  child: Text(
+                                    "${productSize.name ?? ''} \$${productSize.sizePrice ?? ''}",
+                                    style: Theme.of(context).textTheme.titleMedium,
+                                  ),
+                                ),
                               ),
-                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10).r,
-                              margin: const EdgeInsets.only(right: 15),
-                              child: Row(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-                                    child: AspectRatio(
-                                      aspectRatio: 1,
-                                      child: NetworkImageWithLoader(
-                                        "${ApiUrls.baseUrl}/${extraItem.image}",
-                                        fit: BoxFit.cover,
+                            );
+                          },
+                        )),
+                  ],
+                ),
+              );
+            }),
+            10.verticalSpace,
+            Obx(
+              () {
+                if (productController.isProductDetailsLoading.value) {
+                  return const SizedBox();
+                }
+                if (productController.productExtraItems.isEmpty) {
+                  return const SizedBox();
+                }
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: AppDefaults.padding),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Extra",
+                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                      ),
+                      SizedBox(
+                        height: 80,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: productController.productExtraItems.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            ProductExtraItem extraItem = productController.productExtraItems[index];
+                            return GestureDetector(
+                              onTap: () {
+                                ExtraItem temItem;
+                                temItem = ExtraItem(
+                                  id: productController.productExtraItems[index].id,
+                                  name: productController.productExtraItems[index].name,
+                                  price: double.parse(productController.productExtraItems[index].price.toString()),
+                                );
+                                if (!selectedExtraIndex.contains(index)) {
+                                  selectedExtraIndex.add(index);
+                                  extraItems.add(temItem);
+                                } else {
+                                  selectedExtraIndex.remove(index);
+                                  extraItems.removeWhere(
+                                    (element) => element.id == temItem.id,
+                                  );
+                                }
+                                calculatePrice();
+                                setState(() {});
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: selectedExtraIndex.contains(index)
+                                      ? Theme.of(context).primaryColor.withOpacity(0.1)
+                                      : Colors.white,
+                                  border: Border.all(
+                                    color: selectedExtraIndex.contains(index)
+                                        ? Theme.of(context).primaryColor
+                                        : Theme.of(context).primaryColor.withOpacity(0.1),
+                                  ),
+                                  borderRadius: const BorderRadius.all(Radius.circular(6)),
+                                ),
+                                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10).r,
+                                margin: const EdgeInsets.only(right: 15),
+                                child: Row(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+                                      child: AspectRatio(
+                                        aspectRatio: 1,
+                                        child: NetworkImageWithLoader(
+                                          "${ApiUrls.baseUrl}/${extraItem.image}",
+                                          fit: BoxFit.cover,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  10.horizontalSpace,
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        extraItem.name ?? '',
-                                        style: Theme.of(context).textTheme.titleMedium,
-                                      ),
-                                      Text(
-                                        '\$${extraItem.price}',
-                                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                              color: AppColors.primary,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                                    10.horizontalSpace,
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          extraItem.name ?? '',
+                                          style: Theme.of(context).textTheme.titleMedium,
+                                        ),
+                                        Text(
+                                          '\$${extraItem.price}',
+                                          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                                color: AppColors.primary,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                          );
-                        },
-                      );
-                    }),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                );
+              },
             ),
           ],
         ),

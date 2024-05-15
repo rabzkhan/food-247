@@ -45,59 +45,35 @@ class _ProductImagesSliderState extends State<ProductImagesSlider> {
         borderRadius: AppDefaults.borderRadius,
       ),
       height: MediaQuery.of(context).size.height * 0.35,
-      child: Stack(
+      child: Column(
         children: [
-          Column(
-            children: [
-              Expanded(
-                child: PageView.builder(
-                  controller: controller,
-                  onPageChanged: (v) {
-                    currentIndex = v;
-                    setState(() {});
-                  },
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(AppDefaults.padding),
-                      child: AspectRatio(
-                        aspectRatio: 1 / 1,
-                        child: NetworkImageWithLoader(
-                          images[index],
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    );
-                  },
-                  itemCount: images.length,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(AppDefaults.padding),
-                child: AnimatedDots(
-                  totalItems: images.length,
-                  currentIndex: currentIndex,
-                ),
-              )
-            ],
-          ),
-          Positioned(
-            right: 0,
-            child: Material(
-              color: Colors.transparent,
-              borderRadius: AppDefaults.borderRadius,
-              child: IconButton(
-                onPressed: () {},
-                iconSize: 56,
-                constraints: const BoxConstraints(minHeight: 56, minWidth: 56),
-                icon: Container(
+          Expanded(
+            child: PageView.builder(
+              controller: controller,
+              onPageChanged: (v) {
+                currentIndex = v;
+                setState(() {});
+              },
+              itemBuilder: (context, index) {
+                return Padding(
                   padding: const EdgeInsets.all(AppDefaults.padding),
-                  decoration: const BoxDecoration(
-                    color: AppColors.scaffoldBackground,
-                    shape: BoxShape.circle,
+                  child: AspectRatio(
+                    aspectRatio: 1 / 1,
+                    child: NetworkImageWithLoader(
+                      images[index],
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                  child: SvgPicture.asset(AppIcons.heart),
-                ),
-              ),
+                );
+              },
+              itemCount: images.length,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(AppDefaults.padding),
+            child: AnimatedDots(
+              totalItems: images.length,
+              currentIndex: currentIndex,
             ),
           )
         ],

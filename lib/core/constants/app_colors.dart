@@ -4,6 +4,7 @@ class AppColors {
   /* <----------- Colors ------------> */
   /// Primary Color of this App
   static const Color primary = Color(0xFF00AD48);
+  static const Color accent = Color(0xFFF6E9B2);
 
   // Others Color
   static const Color scaffoldBackground = Color(0xFFFFFFFF);

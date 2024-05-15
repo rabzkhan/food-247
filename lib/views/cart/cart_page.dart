@@ -20,7 +20,6 @@ class _CartPageState extends State<CartPage> {
   CartController cartController = Get.find();
   @override
   void initState() {
-    cartController.getCartItems();
     super.initState();
   }
 
@@ -38,7 +37,9 @@ class _CartPageState extends State<CartPage> {
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (BuildContext context, int index) {
-                  return SingleCartItemTile(cartItem: cartController.cartItems[index]);
+                  return SingleCartItemTile(
+                    cartItem: cartController.cartItems[index],
+                  );
                 },
               ),
             ),
@@ -78,7 +79,7 @@ class _CartPageState extends State<CartPage> {
                 padding: const EdgeInsets.all(AppDefaults.padding),
                 child: ElevatedButton(
                   onPressed: () {
-                    Get.to(() => CheckoutPage());
+                    Get.to(() => const CheckoutPage());
                   },
                   child: const Text('Checkout'),
                 ),

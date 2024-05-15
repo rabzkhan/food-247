@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:food/core/controllers/cart_controller.dart';
 import 'package:food/core/models/cart_model.dart';
@@ -43,32 +44,53 @@ class SingleCartItemTile extends GetView<CartController> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8),
-                    child: Text(
-                      cartItem.title ?? '',
-                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.black),
-                    ),
+                  Text(
+                    cartItem.title ?? '',
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.black),
                   ),
+                  if (cartItem.size.toString() != 'null')
+                    Row(
+                      children: [
+                        Text(
+                          "Size : ${cartItem.size?.name ?? ''}",
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.black),
+                        )
+                      ],
+                    ),
+                  if (cartItem.size.toString() != 'null')
+                    Row(
+                      children: [
+                        Text(
+                          "Extra : ",
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.black),
+                        ),
+                        Wrap(
+                          children: [
+                            ...cartItem.extraItems!.map(
+                              (element) => Text(
+                                "${element.name ?? ''}, ",
+                                style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.black),
+                              ),
+                            )
+                          ],
+                        )
+                      ],
+                    ),
                   Row(
                     children: [
                       IconButton(
+                        padding: EdgeInsets.zero,
                         onPressed: () {
                           int currentQuantiy = cartItem.quantity!;
                           if (currentQuantiy > 1) {
                             currentQuantiy--;
                           }
-                          CartModel item = CartModel(
-                            productId: cartItem.productId,
-                            title: cartItem.title,
-                            description: cartItem.description,
-                            imageUrl: cartItem.imageUrl,
-                            price: cartItem.price!,
-                            quantity: currentQuantiy,
-                          );
-                          Get.find<CartController>().updateCart(item);
+                          controller.updateCart(cartItem, currentQuantiy);
                         },
-                        icon: SvgPicture.asset(AppIcons.removeQuantity),
+                        icon: SvgPicture.asset(
+                          AppIcons.removeQuantity,
+                          height: 25.h,
+                        ),
                         constraints: const BoxConstraints(),
                       ),
                       Padding(
@@ -82,20 +104,16 @@ class SingleCartItemTile extends GetView<CartController> {
                         ),
                       ),
                       IconButton(
+                        padding: EdgeInsets.zero,
                         onPressed: () {
                           int currentQuantiy = cartItem.quantity!;
                           currentQuantiy++;
-                          CartModel item = CartModel(
-                            productId: cartItem.productId,
-                            title: cartItem.title,
-                            description: cartItem.description,
-                            imageUrl: cartItem.imageUrl,
-                            price: cartItem.price!,
-                            quantity: currentQuantiy,
-                          );
-                          controller.updateCart(item);
+                          controller.updateCart(cartItem, currentQuantiy);
                         },
-                        icon: SvgPicture.asset(AppIcons.addQuantity),
+                        icon: SvgPicture.asset(
+                          AppIcons.addQuantity,
+                          height: 25.h,
+                        ),
                         constraints: const BoxConstraints(),
                       ),
                     ],
@@ -110,7 +128,7 @@ class SingleCartItemTile extends GetView<CartController> {
                   IconButton(
                     constraints: const BoxConstraints(),
                     onPressed: () {
-                      controller.deleteCartItems(cartItem.productId!);
+                      controller.deleteFromCart(cartItem);
                     },
                     icon: SvgPicture.asset(AppIcons.delete),
                   ),

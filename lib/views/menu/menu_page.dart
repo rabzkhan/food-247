@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 
 import '../../core/components/product_card_widget.dart';
 import '../../core/constants/constants.dart';
+import '../home/components/floating_cart_button.dart';
 import '../home/widgets/category_card_widget.dart';
 
 class MenuPage extends StatefulWidget {
@@ -29,26 +30,14 @@ class _MenuPageState extends State<MenuPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: const FloatingCartButton(),
       body: CustomScrollView(
         slivers: [
+          // ignore: prefer_const_constructors
           SliverAppBar(
             floating: true,
             centerTitle: false,
-            actions: [
-              ElevatedButton(
-                onPressed: () {
-                  Get.to(() => const CartPage());
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primary,
-                  shape: const CircleBorder(),
-                ),
-                child: SvgPicture.asset(
-                  AppIcons.cart,
-                  height: 20.h,
-                ),
-              ),
-            ],
+            actions: [],
           ),
           SliverToBoxAdapter(
             child: Obx(

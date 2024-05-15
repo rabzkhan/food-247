@@ -4,12 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:food/core/components/custom_cached_image.dart';
 import 'package:food/core/constants/api_urls.dart';
-import 'package:food/core/constants/app_icons.dart';
 import 'package:food/core/constants/constants.dart';
 import 'package:food/core/controllers/home_controller.dart';
 import 'package:food/views/menu/single_menu_page.dart';
 import 'package:get/get.dart';
 import '../../core/components/product_card_widget.dart';
+import 'components/floating_cart_button.dart';
 import 'search_page.dart';
 import 'widgets/category_card_widget.dart';
 
@@ -19,31 +19,27 @@ class HomePage extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: const FloatingCartButton(),
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            SliverAppBar(
-              floating: true,
-              centerTitle: false,
-              title: Image.asset(
-                AppIcons.logo,
-                height: 45.h,
-              ),
-              actions: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 4),
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFF2F6F3),
-                      shape: const CircleBorder(),
-                    ),
-                    child: SvgPicture.asset(AppIcons.sidebarIcon),
-                  ),
-                ),
-              ],
-            ),
+            // SliverAppBar(
+            //   floating: true,
+            //   centerTitle: false,
+            //   // title: Text(
+            //   //   "FOOD 24/7",
+            //   //   style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+            //   //         fontWeight: FontWeight.bold,
+            //   //         color: Theme.of(context).primaryColor,
+            //   //       ),
+            //   // ),
+            // ),
             //SearchBar
+            SliverToBoxAdapter(
+              child: SizedBox(
+                height: 10.h,
+              ),
+            ),
             SliverToBoxAdapter(
               child: Container(
                 decoration: BoxDecoration(

@@ -1,30 +1,49 @@
+import 'package:food/core/components/toast_message.dart';
 import 'package:get/get.dart';
-import '../database/database_repo.dart';
 import '../models/cart_model.dart';
 
 class CartController extends GetxController {
-  RxList<CartModel> cartItems = <CartModel>[].obs;
-
   RxInt currentQuantiy = 1.obs;
   RxDouble totalPrice = 0.0.obs;
 
-  void getCartItems() async {
-    await DatabaseRepository.instance.getCartList().then((value) {
-      cartItems.value = value;
-    });
+  RxList<CartModel> cartItems = <CartModel>[].obs;
+
+  addToCart(CartModel item) {
+    int index = cartItems.indexWhere((cartItem) => cartItem.productId == item.productId);
+    if (index == -1) {
+      cartItems.add(item);
+      showToast("Added to cart");
+    } else {
+      showToast("Already in cart!");
+    }
     calculateTotal();
   }
 
-  void addToCart(CartModel cartItem) async {
-    await DatabaseRepository.instance.insert(cart: cartItem);
+  void updateCart(CartModel item, int quantity) {
+    int index = cartItems.indexWhere((cartItem) => cartItem.productId == item.productId);
+    if (index != -1) {
+      CartModel tempItem = CartModel(
+          productId: item.productId,
+          title: item.title,
+          description: item.description,
+          imageUrl: item.imageUrl,
+          price: item.price!,
+          quantity: quantity,
+          size: item.size,
+          extraItems: item.extraItems);
+      cartItems[index] = tempItem;
+      showToast("Cart updated");
+      calculateTotal();
+    } else {
+      showToast("Item not found in cart");
+    }
+    calculateTotal();
   }
 
-  void deleteCartItems(int productId) async {
-    await DatabaseRepository.instance.delete(productId);
-  }
-
-  void updateCart(CartModel cartItem) async {
-    await DatabaseRepository.instance.update(cartItem);
+  deleteFromCart(CartModel item) {
+    int index = cartItems.indexWhere((cartItem) => cartItem.productId == item.productId);
+    cartItems.removeAt(index);
+    calculateTotal();
   }
 
   void calculateTotal() {
