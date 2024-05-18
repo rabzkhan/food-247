@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../core/components/title_and_action_button.dart';
+import '../../profile/address/address_page.dart';
 import 'checkout_address_card.dart';
 
 class AddressSelector extends StatelessWidget {
@@ -15,7 +17,9 @@ class AddressSelector extends StatelessWidget {
         TitleAndActionButtonWidget(
           title: 'Select Delivery Address',
           actionLabel: 'Add New',
-          onTap: () {},
+          onTap: () {
+            Get.to(() => const AddressPage());
+          },
           isHeadline: false,
         ),
         AddressCard(

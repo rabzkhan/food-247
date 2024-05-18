@@ -46,7 +46,7 @@ class AddressPage extends StatelessWidget {
               right: 16,
               child: FloatingActionButton(
                 onPressed: () {
-                  Get.to(() => NewAddressPage());
+                  Get.to(() => const NewAddressPage());
                 },
                 backgroundColor: AppColors.primary,
                 splashColor: AppColors.primary,

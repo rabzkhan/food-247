@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food/core/controllers/profile_controller.dart';
 import 'package:get/get.dart';
-
 import '../../../core/components/network_image.dart';
 import '../../../core/constants/constants.dart';
 import 'profile_header_options.dart';

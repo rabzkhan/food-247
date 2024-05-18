@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "451976124721",
+    "project_id": "food24by-7",
+    "storage_bucket": "food24by-7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:451976124721:android:627a743777e651d097b810",
+        "android_client_info": {
+          "package_name": "com.food247.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBjc6F6RT5almGuNP5W4wo7BZrbEApedk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

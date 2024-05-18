@@ -4,7 +4,6 @@ import '../../core/components/app_back_button.dart';
 import '../../core/constants/app_defaults.dart';
 
 import 'components/checkout_address_selector.dart';
-import 'components/checkout_card_details.dart';
 import 'components/checkout_payment_systems.dart';
 
 class CheckoutPage extends StatelessWidget {
@@ -22,7 +21,6 @@ class CheckoutPage extends StatelessWidget {
           children: [
             AddressSelector(),
             PaymentSystem(),
-            CardDetails(),
             PayNowButton(),
             SizedBox(height: 16),
           ],
