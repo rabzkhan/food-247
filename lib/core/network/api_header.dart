@@ -3,9 +3,9 @@ import '../components/local_db.dart';
 class Header {
   // SECURE HEADER
   static Map<String, dynamic> secureHeader = {
-    "Authorization": "Bearer ${MySharedPref.getToken()}",
     'Accept': 'application/json',
     'Content-Type': 'application/json',
+    "Authorization": "Bearer ${MySharedPref.getToken()}",
   };
 
   // DEFAULT HEADER

@@ -12,4 +12,5 @@ class ApiUrls {
   static const productDetails = "${baseUrl}/api/product/details";
 
   static const profileInfo = "${baseUrl}/api/customer/my-profile";
+  static const addAddress = "${baseUrl}/api/user-address/store";
 }

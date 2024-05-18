@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food/core/controllers/location_controller.dart';
 import 'package:get/get.dart';
 
 import '../../../core/components/title_and_action_button.dart';
@@ -18,6 +19,7 @@ class AddressSelector extends StatelessWidget {
           title: 'Select Delivery Address',
           actionLabel: 'Add New',
           onTap: () {
+            Get.put(LocationController());
             Get.to(() => const AddressPage());
           },
           isHeadline: false,
