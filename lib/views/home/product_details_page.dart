@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import '../../core/components/app_back_button.dart';
 import '../../core/components/network_image.dart';
 import '../../core/components/product_images_slider.dart';
+import '../../core/components/toast_message.dart';
 import '../../core/constants/api_urls.dart';
 import '../../core/constants/constants.dart';
 import '../../core/controllers/cart_controller.dart';
@@ -74,11 +75,49 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
             ),
             child: Row(
               children: [
-                OutlinedButton(
-                  onPressed: () {
-                    Get.to(() => const CartPage());
-                  },
-                  child: SvgPicture.asset(AppIcons.shoppingCart),
+                SizedBox(
+                  height: 50.h,
+                  width: 80.w,
+                  child: Stack(
+                    children: [
+                      OutlinedButton(
+                        onPressed: () {
+                          if (Get.find<CartController>().cartItems.isNotEmpty) {
+                            Get.to(() => const CartPage());
+                          } else {
+                            showToast("Your cart is empty");
+                          }
+                        },
+                        child: SvgPicture.asset(AppIcons.shoppingCart),
+                      ),
+                      Obx(
+                        () {
+                          if (Get.find<CartController>().cartItems.isEmpty) {
+                            return const SizedBox();
+                          }
+                          return Align(
+                            alignment: Alignment.topRight,
+                            child: Container(
+                              height: 25.h,
+                              width: 25.w,
+                              decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: AppColors.accent,
+                              ),
+                              child: Text(
+                                Get.find<CartController>().cartItems.length.toString(),
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black87,
+                                    ),
+                              ),
+                            ),
+                          );
+                        },
+                      )
+                    ],
+                  ),
                 ),
                 const SizedBox(width: AppDefaults.padding),
                 Expanded(

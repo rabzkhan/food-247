@@ -3,7 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food/core/controllers/auth_controller.dart';
 import 'package:food/core/controllers/cart_controller.dart';
+import 'package:food/core/controllers/checkout_controller.dart';
 import 'package:food/core/controllers/home_controller.dart';
+import 'package:food/core/controllers/location_controller.dart';
 import 'package:food/views/auth/login_page.dart';
 import 'package:food/views/onboarding/onboarding_page.dart';
 import 'package:get/get.dart';
@@ -48,6 +50,7 @@ class MyApp extends StatelessWidget {
             Get.put(HomeController());
             Get.put(CartController());
             Get.put(ProfileController());
+            Get.put(CheckoutController());
           },
           debugShowCheckedModeBanner: false,
           theme: AppTheme.defaultTheme,

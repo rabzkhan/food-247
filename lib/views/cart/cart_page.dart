@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food/core/controllers/cart_controller.dart';
-import 'package:food/views/cart/checkout_page.dart';
+import 'package:food/views/checkout/checkout_page.dart';
 import 'package:get/get.dart';
 import '../../core/components/dotted_divider.dart';
 import '../../core/constants/app_defaults.dart';

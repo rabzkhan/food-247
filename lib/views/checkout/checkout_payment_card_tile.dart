@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../core/constants/constants.dart';
+import '../../core/constants/constants.dart';
 
 class PaymentCardTile extends StatelessWidget {
   const PaymentCardTile({
@@ -22,16 +23,14 @@ class PaymentCardTile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Material(
-        color: isActive
-            ? AppColors.coloredBackground
-            : AppColors.scaffoldBackground,
+        color: isActive ? AppColors.coloredBackground : AppColors.scaffoldBackground,
         borderRadius: AppDefaults.borderRadius,
         child: InkWell(
           onTap: onTap,
           borderRadius: AppDefaults.borderRadius,
           child: Container(
-            height: 66,
-            width: 135,
+            height: 90.h,
+            width: 180.w,
             padding: const EdgeInsets.symmetric(),
             decoration: BoxDecoration(
               borderRadius: AppDefaults.borderRadius,
@@ -47,10 +46,7 @@ class PaymentCardTile extends StatelessWidget {
                 const SizedBox(height: 8),
                 Text(
                   label,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyLarge
-                      ?.copyWith(color: Colors.black),
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.black),
                 ),
               ],
             ),

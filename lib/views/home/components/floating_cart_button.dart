@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import '../../../core/components/toast_message.dart';
 import '../../../core/constants/constants.dart';
 import '../../../core/controllers/cart_controller.dart';
 import '../../cart/cart_page.dart';
@@ -15,7 +16,11 @@ class FloatingCartButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(() => const CartPage());
+        if (Get.find<CartController>().cartItems.isNotEmpty) {
+          Get.to(() => const CartPage());
+        } else {
+          showToast("Your cart is empty");
+        }
       },
       child: SizedBox(
         height: 60.h,
@@ -26,7 +31,11 @@ class FloatingCartButton extends StatelessWidget {
               height: 50.h,
               child: ElevatedButton(
                 onPressed: () {
-                  Get.to(() => const CartPage());
+                  if (Get.find<CartController>().cartItems.isNotEmpty) {
+                    Get.to(() => const CartPage());
+                  } else {
+                    showToast("Your cart is empty");
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primary,

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:food/core/models/address_list_model.dart';
 
-import '../../../core/components/app_radio.dart';
-import '../../../core/constants/constants.dart';
+import '../../core/components/app_radio.dart';
+import '../../core/constants/constants.dart';
 
 class AddressCard extends StatelessWidget {
   const AddressCard({
