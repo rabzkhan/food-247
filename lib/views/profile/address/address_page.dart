@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:food/core/controllers/profile_controller.dart';
+import 'package:food/core/models/address_list_model.dart';
 import 'package:get/get.dart';
 
 import '../../../core/components/app_back_button.dart';
@@ -7,9 +9,15 @@ import '../../../core/components/app_radio.dart';
 import '../../../core/constants/constants.dart';
 import 'new_address_page.dart';
 
-class AddressPage extends StatelessWidget {
+class AddressPage extends StatefulWidget {
   const AddressPage({Key? key}) : super(key: key);
 
+  @override
+  State<AddressPage> createState() => _AddressPageState();
+}
+
+class _AddressPageState extends State<AddressPage> {
+  ProfileController profileController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,18 +37,23 @@ class AddressPage extends StatelessWidget {
         ),
         child: Stack(
           children: [
-            ListView.separated(
-              itemBuilder: (context, index) {
-                return AddressTile(
-                  label: 'Puraton Custom, Chhatak',
-                  address: '216/c East Road',
-                  number: '+88017100710000',
-                  isActive: index == 0,
-                );
-              },
-              itemCount: 5,
-              separatorBuilder: (context, index) => const Divider(thickness: 0.2),
-            ),
+            Obx(() {
+              if (profileController.isAddressListLoading.value) {
+                return const SizedBox();
+              }
+              return ListView.builder(
+                padding: EdgeInsets.zero,
+                itemCount: profileController.addressList.length,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (BuildContext context, int index) {
+                  return AddressTile(
+                    address: profileController.addressList[index],
+                    isActive: index == 0,
+                  );
+                },
+              );
+            }),
             Positioned(
               bottom: 16,
               right: 16,
@@ -64,14 +77,11 @@ class AddressTile extends StatelessWidget {
   const AddressTile({
     Key? key,
     required this.address,
-    required this.label,
-    required this.number,
     required this.isActive,
   }) : super(key: key);
 
-  final String address;
-  final String label;
-  final String number;
+  final Address address;
+
   final bool isActive;
 
   @override
@@ -83,27 +93,15 @@ class AddressTile extends StatelessWidget {
         children: [
           AppRadio(isActive: isActive),
           const SizedBox(width: AppDefaults.padding),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                label,
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      color: Colors.black,
-                    ),
-              ),
-              const SizedBox(height: 4),
-              Text(address),
-              const SizedBox(height: 4),
-              Text(
-                number,
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      color: Colors.black,
-                    ),
-              )
-            ],
+          Expanded(
+            child: Text(
+              address.address ?? '',
+              maxLines: 2,
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: Colors.black,
+                  ),
+            ),
           ),
-          const Spacer(),
           Column(
             children: [
               IconButton(

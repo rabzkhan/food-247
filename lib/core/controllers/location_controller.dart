@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:food/core/controllers/profile_controller.dart';
 import 'package:get/get.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
@@ -83,7 +84,6 @@ class LocationController extends GetxController {
   }
 
   addAddress(Map addressData) async {
-    Logger().d(Header.secureHeader.toString());
     await ApiClient.apiCall(
       ApiUrls.addAddress,
       RequestType.post,
@@ -95,11 +95,11 @@ class LocationController extends GetxController {
         isAddressLoading.value = true;
       },
       onSuccess: (response) {
-        MySharedPref.setToken(response.data['token']);
         CustomSnackBar.showCustomSnackBar(
           title: "Success",
           message: "Address saved succeessfully",
         );
+        Get.find<ProfileController>().getAddressList();
       },
       onError: (error) {
         Logger().d(error.toString());

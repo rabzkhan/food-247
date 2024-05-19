@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food/core/models/address_list_model.dart';
 
 import '../../../core/components/app_radio.dart';
 import '../../../core/constants/constants.dart';
@@ -6,16 +7,12 @@ import '../../../core/constants/constants.dart';
 class AddressCard extends StatelessWidget {
   const AddressCard({
     Key? key,
-    required this.label,
-    required this.phoneNumber,
-    required this.address,
+    this.address,
     required this.isActive,
     required this.onTap,
   }) : super(key: key);
 
-  final String label;
-  final String phoneNumber;
-  final String address;
+  final Address? address;
   final bool isActive;
   final void Function() onTap;
 
@@ -27,9 +24,7 @@ class AddressCard extends StatelessWidget {
         vertical: AppDefaults.padding / 2,
       ),
       child: Material(
-        color: isActive
-            ? AppColors.coloredBackground
-            : AppColors.textInputBackground,
+        color: isActive ? AppColors.coloredBackground : AppColors.textInputBackground,
         borderRadius: AppDefaults.borderRadius,
         child: InkWell(
           borderRadius: AppDefaults.borderRadius,
@@ -53,16 +48,12 @@ class AddressCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      label,
+                      address?.address ?? '',
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
                           ),
                     ),
-                    const SizedBox(height: 8),
-                    Text(phoneNumber),
-                    const SizedBox(height: 8),
-                    Text(address)
                   ],
                 ),
               ],

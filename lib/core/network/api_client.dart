@@ -33,7 +33,7 @@ class ApiClient {
       ;
 
   // request timeout (default 10 seconds)
-  static const int _timeoutInSeconds = 10;
+  static const int _timeoutInSeconds = 20;
 
   /// dio getter (used for testing)
   static get dio => _dio;
@@ -59,6 +59,7 @@ class ApiClient {
       if (requestType == RequestType.get) {
         response = await _dio.get(
           url,
+          data: data,
           onReceiveProgress: onReceiveProgress,
           queryParameters: queryParameters,
           options: Options(
