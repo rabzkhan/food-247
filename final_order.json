@@ -1,0 +1,48 @@
+{
+    "service_provider_id": 1,
+    "customer_id": 43,
+    "customer_email": "rabbzkhan14@gmail.com",
+    "phone_no": "01620119490",
+    "total_amount": 100.00,
+    "address": "Dhaka,bd",
+    "lat_value": "37.7749",
+    "long_value": "-122.4194",
+    "order_type": "delivery",
+    "order_details": [
+        {
+            "productId": 38,
+            "title": "Meaty Onion Pizza",
+            "description": "Loaded with meat and onion.",
+            "imageUrl": "uploads/products_photos/1715618727.jpg",
+            "quantity": 1,
+            "price": 24.0,
+            "size": {
+                "id": 4,
+                "name": "Medium",
+                "price": 10.0
+            },
+            "extraItems": [
+                {
+                    "id": 1,
+                    "name": "Chease",
+                    "price": 10.0
+                },
+                {
+                    "id": 2,
+                    "name": "Extra Meat",
+                    "price": 14.0
+                }
+            ]
+        },
+        {
+            "productId": 38,
+            "title": "Meaty Onion Pizza",
+            "description": "Loaded with meat and onion.",
+            "imageUrl": "uploads/products_photos/1715618727.jpg",
+            "quantity": 1,
+            "price": 8.0,
+            "size": null,
+            "extraItems": null
+        }
+    ]
+}

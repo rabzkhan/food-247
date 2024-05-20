@@ -5,11 +5,9 @@ import 'package:food/core/controllers/checkout_controller.dart';
 import 'package:food/core/controllers/profile_controller.dart';
 import 'package:food/core/models/address_list_model.dart';
 import 'package:get/get.dart';
-
 import '../../../core/components/app_back_button.dart';
 import '../../../core/components/app_radio.dart';
 import '../../../core/constants/constants.dart';
-import '../../checkout/checkout_address_card.dart';
 import 'new_address_page.dart';
 
 class AddressPage extends StatefulWidget {

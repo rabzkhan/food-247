@@ -95,10 +95,12 @@ class LocationController extends GetxController {
         isAddressLoading.value = true;
       },
       onSuccess: (response) {
+        Get.back();
         CustomSnackBar.showCustomSnackBar(
           title: "Success",
           message: "Address saved succeessfully",
         );
+
         Get.find<ProfileController>().getAddressList();
       },
       onError: (error) {

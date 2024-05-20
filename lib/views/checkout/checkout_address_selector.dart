@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food/core/constants/app_colors.dart';
 import 'package:food/core/controllers/checkout_controller.dart';
 import 'package:food/core/controllers/location_controller.dart';
 import 'package:get/get.dart';
@@ -37,6 +38,20 @@ class _AddressSelectorState extends State<AddressSelector> {
           if (profileController.isAddressListLoading.value) {
             return const SizedBox();
           }
+          if (profileController.addressList.isEmpty) {
+            return Container(
+              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 14),
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 14),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: AppColors.primary.withOpacity(
+                  0.2,
+                ),
+              ),
+              child: const Center(child: Text("Please add address\nbefore placing order.")),
+            );
+          }
           return ListView.builder(
             padding: EdgeInsets.zero,
             itemCount: profileController.addressList.length,
@@ -48,6 +63,9 @@ class _AddressSelectorState extends State<AddressSelector> {
                 isActive: checkoutController.selectedAddressIndex.value == index ? true : false,
                 onTap: () {
                   checkoutController.selectedAddressIndex.value = index;
+                  checkoutController.address.value = profileController.addressList[index].address ?? '';
+                  checkoutController.latitude.value = profileController.addressList[index].latitude ?? '';
+                  checkoutController.longitude.value = profileController.addressList[index].longitude ?? '';
                   setState(() {});
                 },
               );

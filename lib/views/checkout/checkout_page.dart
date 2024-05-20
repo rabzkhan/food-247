@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food/core/controllers/checkout_controller.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 
 import '../../core/components/app_back_button.dart';
+import '../../core/components/custom_snackbar.dart';
 import '../../core/constants/app_defaults.dart';
 
 import 'choose_order_type.dart';
@@ -24,6 +26,7 @@ class CheckoutPage extends GetView<CheckoutController> {
         child: Obx(() => Column(
               children: [
                 ChooseOrderType(),
+                10.verticalSpace,
                 if (controller.orderType.value == 0) AddressSelector(),
                 PaymentSystem(),
                 PayNowButton(),
@@ -47,10 +50,18 @@ class PayNowButton extends GetView<CheckoutController> {
         padding: const EdgeInsets.all(AppDefaults.padding),
         child: ElevatedButton(
           onPressed: () {
-            Logger().d(controller.address.value);
-            Logger().d(controller.latitude.value);
-            Logger().d(controller.longitude.value);
-            Logger().d(controller.longitude.value);
+            if (controller.orderType.value == 0) {
+              if (controller.selectedAddressIndex.value == 100) {
+                CustomSnackBar.showCustomSnackBar(
+                  title: "Please",
+                  message: "Choose an address!",
+                );
+              } else {
+                controller.placeOrder();
+              }
+            } else {
+              controller.placeOrder();
+            }
           },
           child: const Text('Order Now'),
         ),
