@@ -101,8 +101,10 @@ class _LoginPageState extends State<LoginPage> {
                                 flex: 1,
                                 child: CountryCodePicker(
                                   onChanged: (value) => countryCodeController.text = value.dialCode!,
+                                  onInit: (value) => countryCodeController.text = '+880',
                                   showFlag: false,
                                   initialSelection: 'BD',
+                                  favorite: ['+880', 'BD'],
                                   showCountryOnly: true,
                                   showOnlyCountryWhenClosed: false,
                                   alignLeft: true,

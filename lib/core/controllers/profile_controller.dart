@@ -25,7 +25,6 @@ class ProfileController extends GetxController {
     if (authController.isLoggedIn.value) {
       getUserInfo();
     }
-
     super.onInit();
   }
 
