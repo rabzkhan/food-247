@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food/core/controllers/checkout_controller.dart';
 import 'package:get/get.dart';
+import 'package:logger/logger.dart';
 
 import '../../core/components/app_back_button.dart';
 import '../../core/constants/app_defaults.dart';
@@ -33,7 +34,7 @@ class CheckoutPage extends GetView<CheckoutController> {
   }
 }
 
-class PayNowButton extends StatelessWidget {
+class PayNowButton extends GetView<CheckoutController> {
   const PayNowButton({
     Key? key,
   }) : super(key: key);
@@ -45,7 +46,12 @@ class PayNowButton extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(AppDefaults.padding),
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            Logger().d(controller.address.value);
+            Logger().d(controller.latitude.value);
+            Logger().d(controller.longitude.value);
+            Logger().d(controller.longitude.value);
+          },
           child: const Text('Order Now'),
         ),
       ),

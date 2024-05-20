@@ -5,6 +5,7 @@ import 'package:food/core/models/profile_model.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 
+import '../components/custom_snackbar.dart';
 import '../constants/api_urls.dart';
 import '../models/address_list_model.dart';
 import '../network/api_client.dart';
@@ -69,6 +70,25 @@ class ProfileController extends GetxController {
       onError: (error) {
         Logger().d(error);
         isAddressListLoading.value = false;
+      },
+    );
+  }
+
+  deleteAddress(String addressId) async {
+    await ApiClient.apiCall(
+      ApiUrls.deleteAddress + addressId,
+      RequestType.delete,
+      headers: Header.secureHeader,
+      onLoading: () {},
+      onSuccess: (response) {
+        CustomSnackBar.showCustomSnackBar(
+          title: "Success",
+          message: "Address deleted!",
+        );
+        getAddressList();
+      },
+      onError: (error) {
+        Logger().d(error);
       },
     );
   }

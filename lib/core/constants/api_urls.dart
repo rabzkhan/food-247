@@ -14,4 +14,5 @@ class ApiUrls {
   static const profileInfo = "$baseUrl/api/customer/my-profile";
   static const addAddress = "$baseUrl/api/user-address/store";
   static const getAddress = "$baseUrl/api/user-address";
+  static const deleteAddress = "$baseUrl/api/user-address/delete/";
 }
