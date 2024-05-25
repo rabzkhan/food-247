@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import '../../core/components/app_back_button.dart';
 import '../../core/constants/constants.dart';
 import '../../core/models/categories_model.dart';
+import '../home/components/floating_cart_button.dart';
 
 class SingleMenuPage extends StatefulWidget {
   const SingleMenuPage({
@@ -29,6 +30,7 @@ class _SingleMenuPageState extends State<SingleMenuPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: const FloatingCartButton(),
       appBar: AppBar(
         title: Text(widget.category.productTypeName ?? ''),
         leading: const AppBackButton(),

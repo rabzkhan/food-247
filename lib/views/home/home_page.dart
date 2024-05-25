@@ -6,9 +6,12 @@ import 'package:food/core/components/custom_cached_image.dart';
 import 'package:food/core/constants/api_urls.dart';
 import 'package:food/core/constants/constants.dart';
 import 'package:food/core/controllers/home_controller.dart';
+import 'package:food/views/home/all_category_page.dart';
+import 'package:food/views/home/all_popular_products_page.dart';
 import 'package:food/views/menu/single_menu_page.dart';
 import 'package:get/get.dart';
 import '../../core/components/product_card_widget.dart';
+import 'all_featured_products_page.dart';
 import 'components/floating_cart_button.dart';
 import 'search_page.dart';
 import 'widgets/category_card_widget.dart';
@@ -86,7 +89,9 @@ class HomePage extends GetView<HomeController> {
                           ),
                         ),
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.to(() => const AllCategoryPage());
+                          },
                           icon: const Icon(
                             Icons.arrow_right_alt_rounded,
                             color: Colors.green,
@@ -171,11 +176,36 @@ class HomePage extends GetView<HomeController> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "Featured Products",
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                              color: Colors.black,
-                            ),
+                      Row(
+                        children: [
+                          Text(
+                            "Featured Products",
+                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                  color: Colors.black,
+                                ),
+                          ),
+                          const Spacer(),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              const Text(
+                                "View All",
+                                style: TextStyle(
+                                  color: Colors.green,
+                                ),
+                              ),
+                              IconButton(
+                                onPressed: () {
+                                  Get.to(() => const AllFeaturedProductsPage());
+                                },
+                                icon: const Icon(
+                                  Icons.arrow_right_alt_rounded,
+                                  color: Colors.green,
+                                ),
+                              )
+                            ],
+                          ),
+                        ],
                       ),
                       GridView.builder(
                         shrinkWrap: true,
@@ -212,11 +242,36 @@ class HomePage extends GetView<HomeController> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "Popular Products",
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                              color: Colors.black,
-                            ),
+                      Row(
+                        children: [
+                          Text(
+                            "Popular Products",
+                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                  color: Colors.black,
+                                ),
+                          ),
+                          const Spacer(),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              const Text(
+                                "View All",
+                                style: TextStyle(
+                                  color: Colors.green,
+                                ),
+                              ),
+                              IconButton(
+                                onPressed: () {
+                                  Get.to(() => const AllPopularProductsPage());
+                                },
+                                icon: const Icon(
+                                  Icons.arrow_right_alt_rounded,
+                                  color: Colors.green,
+                                ),
+                              )
+                            ],
+                          ),
+                        ],
                       ),
                       GridView.builder(
                         shrinkWrap: true,

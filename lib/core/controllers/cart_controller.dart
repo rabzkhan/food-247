@@ -43,6 +43,7 @@ class CartController extends GetxController {
   deleteFromCart(CartModel item) {
     int index = cartItems.indexWhere((cartItem) => cartItem.productId == item.productId);
     cartItems.removeAt(index);
+    showToast("Item removed from the cart!");
     calculateTotal();
   }
 

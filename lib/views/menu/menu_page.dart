@@ -33,11 +33,14 @@ class _MenuPageState extends State<MenuPage> {
       floatingActionButton: const FloatingCartButton(),
       body: CustomScrollView(
         slivers: [
-          // ignore: prefer_const_constructors
           SliverAppBar(
+            pinned: true,
             floating: true,
             centerTitle: false,
-            actions: [],
+            title: Text(
+              "Menu",
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.bold),
+            ),
           ),
           SliverToBoxAdapter(
             child: Obx(
