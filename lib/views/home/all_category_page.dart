@@ -4,6 +4,7 @@ import 'package:food/core/controllers/home_controller.dart';
 import 'package:get/get.dart';
 
 import '../menu/single_menu_page.dart';
+import 'components/floating_cart_button.dart';
 import 'widgets/category_card_widget.dart';
 
 class AllCategoryPage extends GetView<HomeController> {
@@ -12,6 +13,7 @@ class AllCategoryPage extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: const FloatingCartButton(),
       body: CustomScrollView(
         slivers: [
           SliverAppBar(

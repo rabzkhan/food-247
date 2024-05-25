@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import '../../core/components/product_card_widget.dart';
 import '../../core/constants/app_defaults.dart';
+import 'components/floating_cart_button.dart';
 
 class AllPopularProductsPage extends GetView<HomeController> {
   const AllPopularProductsPage({super.key});
@@ -12,6 +13,7 @@ class AllPopularProductsPage extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: const FloatingCartButton(),
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
