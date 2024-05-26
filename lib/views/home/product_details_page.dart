@@ -51,7 +51,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
     // Add the prices of extra items
     if (extraItems.isNotEmpty) {
       for (ExtraItem extraItem in extraItems) {
-        totalPrice += currentQuantiy * (extraItem.price ?? 0);
+        totalPrice += extraItem.price ?? 0;
       }
     }
   }

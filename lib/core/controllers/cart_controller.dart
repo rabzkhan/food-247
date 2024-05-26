@@ -52,6 +52,7 @@ class CartController extends GetxController {
     for (CartModel item in cartItems) {
       total += item.quantity! * item.price!;
     }
+
     totalPrice.value = total;
   }
 

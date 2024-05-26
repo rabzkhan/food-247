@@ -31,7 +31,12 @@ class _CartPageState extends State<CartPage> {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          const SliverAppBar(),
+          SliverAppBar(
+            title: Text(
+              'Cart',
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.bold),
+            ),
+          ),
           SliverToBoxAdapter(
             child: Obx(
               () {
