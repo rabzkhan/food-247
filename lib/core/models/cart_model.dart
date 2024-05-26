@@ -63,6 +63,11 @@ class CartModel {
       'extraItems': extrasData,
     };
   }
+
+  // Adding toJson method
+  Map<String, dynamic> toJson() {
+    return toMap();
+  }
 }
 
 class PSize {
@@ -91,6 +96,11 @@ class PSize {
       'price': price,
     };
   }
+
+  // Adding toJson method
+  Map<String, dynamic> toJson() {
+    return toMap();
+  }
 }
 
 class ExtraItem {
@@ -118,5 +128,10 @@ class ExtraItem {
       'name': name,
       'price': price,
     };
+  }
+
+  // Adding toJson method
+  Map<String, dynamic> toJson() {
+    return toMap();
   }
 }

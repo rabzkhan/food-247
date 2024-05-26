@@ -42,7 +42,7 @@ class CheckoutController extends GetxController {
       "lat_value": orderType.value == 0 ? latitude.value : '',
       "long_value": orderType.value == 0 ? longitude.value : '',
       "order_type": orderType.value == 0 ? "delivery" : "takeaway",
-      //"order_details": json.encode(cartController.cartItems).toString()
+      "order_details": cartController.cartItems.toList()
     };
 
     Logger().d(order);
