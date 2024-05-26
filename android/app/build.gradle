@@ -25,8 +25,8 @@ if (flutterVersionName == null) {
 
 android {
     namespace "com.food247.app"
-    compileSdkVersion flutter.compileSdkVersion
-    ndkVersion flutter.ndkVersion
+    compileSdkVersion 34
+
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -47,9 +47,11 @@ android {
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdkVersion 21
-        targetSdkVersion flutter.targetSdkVersion
+        targetSdkVersion 34
+        compileSdkVersion 34
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        multiDexEnabled true
     }
 
     buildTypes {

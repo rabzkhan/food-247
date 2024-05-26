@@ -5,6 +5,7 @@ import 'package:food/core/controllers/profile_controller.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 
+import '../../views/home/order_successfull_page.dart';
 import '../components/custom_snackbar.dart';
 import '../constants/api_urls.dart';
 import '../network/api_client.dart';
@@ -57,13 +58,13 @@ class CheckoutController extends GetxController {
         isPlaceOrderLoading.value = true;
       },
       onSuccess: (response) {
+        Logger().d(response);
         isPlaceOrderLoading.value = false;
-        CustomSnackBar.showCustomSnackBar(
-          title: "Success",
-          message: "Order placed succeessfully",
-        );
+        Get.off(() => const OrderSuccessfullPage());
+        cartController.clearCart();
       },
       onError: (error) {
+        Logger().d(error);
         isPlaceOrderLoading.value = false;
         CustomSnackBar.showCustomSnackBar(
           title: "Failed",

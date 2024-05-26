@@ -54,4 +54,10 @@ class CartController extends GetxController {
     }
     totalPrice.value = total;
   }
+
+  clearCart() {
+    cartItems.clear();
+    currentQuantiy = 1.obs;
+    totalPrice = 0.0.obs;
+  }
 }

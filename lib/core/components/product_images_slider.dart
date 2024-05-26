@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 import '../../views/home/components/animated_dots.dart';
 import '../constants/constants.dart';

@@ -4,7 +4,6 @@ import 'package:food/core/models/product_details_model.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:logger/logger.dart';
 
 import '../constants/api_urls.dart';
 import '../network/api_client.dart';

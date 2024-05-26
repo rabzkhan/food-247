@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 
 import '../../../core/constants/constants.dart';
 import '../address/address_page.dart';
-import '../address/new_address_page.dart';
 import 'profile_squre_tile.dart';
 
 class ProfileHeaderOptions extends StatelessWidget {

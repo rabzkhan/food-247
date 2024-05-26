@@ -23,12 +23,12 @@ class ProfileMenuOptions extends StatelessWidget {
       ),
       child: Column(
         children: [
-          ProfileListTile(
-            title: 'My Profile',
-            icon: AppIcons.profilePerson,
-            onTap: () {},
-          ),
-          const Divider(thickness: 0.1),
+          // ProfileListTile(
+          //   title: 'My Profile',
+          //   icon: AppIcons.profilePerson,
+          //   onTap: () {},
+          // ),
+          // const Divider(thickness: 0.1),
           ProfileListTile(
             title: 'Logout',
             icon: AppIcons.profileLogout,

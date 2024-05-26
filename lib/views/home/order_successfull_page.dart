@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../core/components/network_image.dart';
 import '../../core/constants/app_defaults.dart';
+import '../parent/parent_page.dart';
 
 class OrderSuccessfullPage extends StatelessWidget {
   const OrderSuccessfullPage({Key? key}) : super(key: key);
@@ -58,24 +60,24 @@ class OrderSuccessfullPage extends StatelessWidget {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
-                        //delivery success dialouge
+                        Get.offAll(() => ParentPage());
                       },
                       child: const Text('Continue'),
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: AppDefaults.padding,
-                  ),
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: TextButton(
-                      onPressed: () {},
-                      child: const Text('Track Order'),
-                    ),
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.symmetric(
+                //     horizontal: AppDefaults.padding,
+                //   ),
+                //   child: SizedBox(
+                //     width: double.infinity,
+                //     child: TextButton(
+                //       onPressed: () {},
+                //       child: const Text('Track Order'),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),

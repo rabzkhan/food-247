@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:food/core/controllers/product_controller.dart';
 import 'package:food/views/cart/cart_page.dart';
 import 'package:get/get.dart';
+import 'package:logger/logger.dart';
 import '../../core/components/app_back_button.dart';
 import '../../core/components/network_image.dart';
 import '../../core/components/product_images_slider.dart';
@@ -42,11 +43,15 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
   PSize? pSize;
 
   calculatePrice() {
-    totalPrice = currentQuantiy * productPrice;
+    if (pSize != null) {
+      totalPrice = currentQuantiy * double.parse(pSize!.price.toString());
+    } else {
+      totalPrice = currentQuantiy * double.parse(widget.products.price.toString());
+    }
     // Add the prices of extra items
     if (extraItems.isNotEmpty) {
       for (ExtraItem extraItem in extraItems) {
-        totalPrice += extraItem.price ?? 0;
+        totalPrice += currentQuantiy * (extraItem.price ?? 0);
       }
     }
   }
@@ -248,13 +253,6 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                           itemCount: productController.productSizes.length,
                           itemBuilder: (BuildContext context, int index) {
                             ProductSize productSize = productController.productSizes[index];
-                            pSize = PSize(
-                              id: productSize.id,
-                              name: productSize.name,
-                              price: double.parse(
-                                productSize.sizePrice.toString(),
-                              ),
-                            );
                             return GestureDetector(
                               onTap: () {
                                 selectedSizeIndex = index;

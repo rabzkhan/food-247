@@ -1,14 +1,10 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:food/core/constants/app_icons.dart';
 import 'package:food/views/order/my_order_page.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_defaults.dart';
-import '../cart/cart_page.dart';
 import '../home/home_page.dart';
 import '../menu/menu_page.dart';
-import '../menu/single_menu_page.dart';
 import '../profile/profile_page.dart';
 import 'components/app_navigation_bar.dart';
 
@@ -33,7 +29,7 @@ class _ParentPageState extends State<ParentPage> {
   /// All the pages
   List<Widget> pages = [
     const HomePage(),
-    MenuPage(),
+    const MenuPage(),
     const AllOrderPage(),
     const ProfilePage(),
   ];
