@@ -17,4 +17,5 @@ class ApiUrls {
   static const deleteAddress = "$baseUrl/api/user-address/delete/";
 
   static const placeOrder = "$baseUrl/api/create/order";
+  static const getOrderList = "$baseUrl/api/customer/order";
 }

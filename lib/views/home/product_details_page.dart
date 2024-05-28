@@ -4,7 +4,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:food/core/controllers/product_controller.dart';
 import 'package:food/views/cart/cart_page.dart';
 import 'package:get/get.dart';
-import 'package:logger/logger.dart';
 import '../../core/components/app_back_button.dart';
 import '../../core/components/network_image.dart';
 import '../../core/components/product_images_slider.dart';

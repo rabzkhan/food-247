@@ -30,4 +30,5 @@ class AppImages {
 
   //dont delete from here
   static const placeholder = 'assets/images/placeholder.png';
+  static const empty = 'assets/images/empty.png';
 }

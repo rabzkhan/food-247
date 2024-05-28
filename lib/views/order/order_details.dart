@@ -1,15 +1,18 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: use_key_in_widget_constructors
 
+import 'package:flutter/material.dart';
+import 'package:food/core/models/order_list_model.dart';
+import 'package:food/views/order/components/ordered_item_widget.dart';
 import '../../core/components/app_back_button.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_defaults.dart';
-import 'components/order_details_statuses.dart';
-import 'components/order_details_total_amount_and_paid.dart';
-import 'components/order_details_total_order_product_details.dart';
 
 class OrderDetailsPage extends StatelessWidget {
-  const OrderDetailsPage({Key? key}) : super(key: key);
-
+  const OrderDetailsPage({
+    Key? key,
+    this.order,
+  });
+  final Order? order;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,15 +34,65 @@ class OrderDetailsPage extends StatelessWidget {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Order id #30398505202',
+                  'Order Id : ${order?.orderCode?.toString()}',
                   style:
                       Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold, color: Colors.black),
                 ),
               ),
-              const SizedBox(height: AppDefaults.padding),
-              const OrderStatusColumn(),
-              const TotalOrderProductDetails(),
-              const TotalAmountAndPaidData(),
+              ListView.builder(
+                padding: EdgeInsets.zero,
+                itemCount: order!.orderDetails!.length,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (BuildContext context, int index) {
+                  return OrderedItemWidget(
+                    orderDetail: order!.orderDetails![index],
+                  );
+                },
+              ),
+              Column(
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        'Total Amount',
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyLarge
+                            ?.copyWith(fontWeight: FontWeight.bold, color: Colors.black),
+                      ),
+                      const Spacer(),
+                      Text(
+                        '\$ ${order?.totalAmount?.toString()}',
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyLarge
+                            ?.copyWith(fontWeight: FontWeight.bold, color: Colors.black),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Text(
+                        'Order Type',
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyLarge
+                            ?.copyWith(fontWeight: FontWeight.bold, color: Colors.black),
+                      ),
+                      const Spacer(),
+                      Text(
+                        order?.orderType?.toUpperCase() ?? '',
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyLarge
+                            ?.copyWith(fontWeight: FontWeight.bold, color: Colors.black),
+                      ),
+                    ],
+                  ),
+                ],
+              )
             ],
           ),
         ),
