@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food/core/constants/app_images.dart';
+import 'package:food/core/controllers/auth_controller.dart';
 import 'package:food/core/controllers/profile_controller.dart';
 import 'package:get/get.dart';
 import '../../core/constants/app_colors.dart';
@@ -15,6 +16,15 @@ class OrderPage extends StatefulWidget {
 
 class _OrderPageState extends State<OrderPage> {
   ProfileController profileController = Get.find();
+  AuthController authController = Get.find();
+  @override
+  void initState() {
+    if (authController.isLoggedIn.value) {
+      profileController.getOrderList();
+    } else {}
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

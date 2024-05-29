@@ -27,10 +27,7 @@ class ProfileController extends GetxController {
 
   @override
   void onInit() {
-    if (authController.isLoggedIn.value) {
-      getUserInfo();
-      getOrderList();
-    }
+    getUserInfo();
 
     super.onInit();
   }
@@ -101,16 +98,14 @@ class ProfileController extends GetxController {
 
   getOrderList() async {
     Logger().d(MySharedPref.getToken());
+    var userId = {
+      "user_id": Get.find<ProfileController>().profileData.value.customerId,
+    };
     await ApiClient.apiCall(
       ApiUrls.getOrderList,
       RequestType.get,
       headers: Header.secureHeader,
-      // headers: {
-      //   'Accept': 'application/json',
-      //   'Content-Type': 'application/json',
-      //   "Authorization":
-      //       "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvZm9vZGZvcjI0LTcudGVjaDM2NS5jbG91ZFwvYXBpXC9sb2dpbiIsImlhdCI6MTcxNjc0NDA2MSwiZXhwIjozODc2NzQ0MDYxLCJuYmYiOjE3MTY3NDQwNjEsImp0aSI6IkdZa0FXVHNuNU5pN0FPdUMiLCJzdWIiOjQzLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.52PDkkbxqboEKN-K6xcTmnp4nVsfT7r7P--KcwdQOxY",
-      // },
+      data: json.encode(userId),
       onLoading: () {
         isOrderListLoading.value = true;
       },

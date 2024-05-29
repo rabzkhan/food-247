@@ -76,48 +76,48 @@ class SingleCartItemTile extends GetView<CartController> {
                         )
                       ],
                     ),
-                  Row(
-                    children: [
-                      IconButton(
-                        padding: EdgeInsets.zero,
-                        onPressed: () {
-                          int currentQuantiy = cartItem.quantity!;
-                          if (currentQuantiy > 1) {
-                            currentQuantiy--;
-                          }
-                          controller.updateCart(cartItem, currentQuantiy);
-                        },
-                        icon: SvgPicture.asset(
-                          AppIcons.removeQuantity,
-                          height: 25.h,
-                        ),
-                        constraints: const BoxConstraints(),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          cartItem.quantity.toString(),
-                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                              ),
-                        ),
-                      ),
-                      IconButton(
-                        padding: EdgeInsets.zero,
-                        onPressed: () {
-                          int currentQuantiy = cartItem.quantity!;
-                          currentQuantiy++;
-                          controller.updateCart(cartItem, currentQuantiy);
-                        },
-                        icon: SvgPicture.asset(
-                          AppIcons.addQuantity,
-                          height: 25.h,
-                        ),
-                        constraints: const BoxConstraints(),
-                      ),
-                    ],
-                  )
+                  // Row(
+                  //   children: [
+                  //     IconButton(
+                  //       padding: EdgeInsets.zero,
+                  //       onPressed: () {
+                  //         int currentQuantiy = cartItem.quantity!;
+                  //         if (currentQuantiy > 1) {
+                  //           currentQuantiy--;
+                  //         }
+                  //         controller.updateCart(cartItem, currentQuantiy);
+                  //       },
+                  //       icon: SvgPicture.asset(
+                  //         AppIcons.removeQuantity,
+                  //         height: 25.h,
+                  //       ),
+                  //       constraints: const BoxConstraints(),
+                  //     ),
+                  //     Padding(
+                  //       padding: const EdgeInsets.all(8.0),
+                  //       child: Text(
+                  //         cartItem.quantity.toString(),
+                  //         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  //               fontWeight: FontWeight.bold,
+                  //               color: Colors.black,
+                  //             ),
+                  //       ),
+                  //     ),
+                  //     IconButton(
+                  //       padding: EdgeInsets.zero,
+                  //       onPressed: () {
+                  //         int currentQuantiy = cartItem.quantity!;
+                  //         currentQuantiy++;
+                  //         controller.updateCart(cartItem, currentQuantiy);
+                  //       },
+                  //       icon: SvgPicture.asset(
+                  //         AppIcons.addQuantity,
+                  //         height: 25.h,
+                  //       ),
+                  //       constraints: const BoxConstraints(),
+                  //     ),
+                  //   ],
+                  // )
                 ],
               ),
               const Spacer(),
@@ -133,7 +133,7 @@ class SingleCartItemTile extends GetView<CartController> {
                     icon: SvgPicture.asset(AppIcons.delete),
                   ),
                   const SizedBox(height: 16),
-                  Text('\$ ${(cartItem.price!) * (cartItem.quantity!)}'),
+                  Text('\$ ${cartItem.price!}'),
                 ],
               )
             ],

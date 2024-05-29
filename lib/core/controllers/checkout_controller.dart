@@ -64,8 +64,8 @@ class CheckoutController extends GetxController {
         cartController.clearCart();
       },
       onError: (error) {
-        Logger().d(error);
         isPlaceOrderLoading.value = false;
+        profileController.getOrderList();
         CustomSnackBar.showCustomSnackBar(
           title: "Failed",
           message: "Something Wrong",
