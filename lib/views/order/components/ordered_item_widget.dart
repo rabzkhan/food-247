@@ -81,7 +81,7 @@ class OrderedItemWidget extends GetView<CartController> {
               Column(
                 children: [
                   const SizedBox(height: 16),
-                  Text('\$ ${(orderDetail.price!) * (int.parse(orderDetail.quantity!))}'),
+                  Text('\$ ${double.parse(orderDetail.price!).toStringAsFixed(2)}'),
                 ],
               )
             ],
