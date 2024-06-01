@@ -69,11 +69,11 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       Text(
-                        'Welcome to our',
+                        'Welcome to',
                         style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        'Food-App',
+                        'Food 24/7',
                         style: Theme.of(context).textTheme.titleLarge?.copyWith(
                               fontWeight: FontWeight.bold,
                               color: AppColors.primary,

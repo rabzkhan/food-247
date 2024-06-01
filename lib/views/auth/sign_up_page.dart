@@ -7,12 +7,25 @@ import 'package:get/get.dart';
 import '../../core/constants/constants.dart';
 import '../../core/utils/validators.dart';
 
-class SignUpPage extends StatelessWidget {
+class SignUpPage extends StatefulWidget {
   SignUpPage({Key? key}) : super(key: key);
+
+  @override
+  State<SignUpPage> createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
   final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     AuthController authController = Get.put(AuthController());
+    bool isPasswordShown = false;
+
+    onPassShowClicked() {
+      isPasswordShown = !isPasswordShown;
+      setState(() {});
+    }
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -91,12 +104,12 @@ class SignUpPage extends StatelessWidget {
                         controller: authController.passwordController,
                         validator: Validators.requiredWithFieldName('Password'),
                         textInputAction: TextInputAction.next,
-                        obscureText: true,
+                        obscureText: !isPasswordShown,
                         decoration: InputDecoration(
                           suffixIcon: Material(
                             color: Colors.transparent,
                             child: IconButton(
-                              onPressed: () {},
+                              onPressed: onPassShowClicked,
                               icon: SvgPicture.asset(
                                 AppIcons.eye,
                                 width: 24,

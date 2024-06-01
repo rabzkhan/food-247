@@ -34,10 +34,8 @@ class OnboardingView extends StatelessWidget {
             children: [
               Text(
                 data.headline,
-                style: Theme.of(context)
-                    .textTheme
-                    .titleLarge
-                    ?.copyWith(fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
               ),
               Padding(
                 padding: const EdgeInsets.all(AppDefaults.padding),

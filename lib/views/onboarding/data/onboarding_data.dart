@@ -5,21 +5,18 @@ class OnboardingData {
   static List<OnboardingModel> items = [
     OnboardingModel(
       imageUrl: AppImages.onboarding1,
-      headline: 'Browse all the category',
-      description:
-          'In aliquip aute exercitation ut et nisi ut mollit. Deserunt dolor elit pariatur aute .',
+      headline: 'Fast Delivery, Fresh Meals',
+      description: 'Enjoy hot and delicious meals delivered to your doorstep in no time.',
     ),
     OnboardingModel(
       imageUrl: AppImages.onboarding2,
-      headline: 'Amazing Discounts & Offers',
-      description:
-          'In aliquip aute exercitation ut et nisi ut mollit. Deserunt dolor elit pariatur aute .',
+      headline: 'Your Favorite Restaurants, One Click Away',
+      description: 'Discover and order from the best local eateries with a simple tap.',
     ),
     OnboardingModel(
       imageUrl: AppImages.onboarding3,
-      headline: 'Delivery in 30 Min',
-      description:
-          'In aliquip aute exercitation ut et nisi ut mollit. Deserunt dolor elit pariatur aute .',
+      headline: 'Order Anytime, Anywhere',
+      description: 'Craving something special? Were here for you 24/7, wherever you are.',
     ),
   ];
 }
