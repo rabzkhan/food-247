@@ -26,54 +26,51 @@ class HomePage extends GetView<HomeController> {
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            // SliverAppBar(
-            //   floating: true,
-            //   centerTitle: false,
-            //   // title: Text(
-            //   //   "FOOD 24/7",
-            //   //   style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-            //   //         fontWeight: FontWeight.bold,
-            //   //         color: Theme.of(context).primaryColor,
-            //   //       ),
-            //   // ),
-            // ),
+            SliverAppBar(
+              floating: true,
+              centerTitle: false,
+              title: Text(
+                "FOOD 24/7",
+                style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).primaryColor,
+                    ),
+              ),
+            ),
             //SearchBar
-            SliverToBoxAdapter(
-              child: SizedBox(
-                height: 10.h,
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(30)),
-                  border: Border.all(color: Theme.of(context).dividerColor.withOpacity(0.5)),
-                ),
-                padding: const EdgeInsets.symmetric(horizontal: 12).r,
-                margin: const EdgeInsets.symmetric(horizontal: 12).r,
-                child: Row(
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        Get.to(() => const SearchPage());
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.transparent,
-                        shape: const CircleBorder(),
-                      ),
-                      child: SvgPicture.asset(
-                        AppIcons.search,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                    ),
-                    Text(
-                      "Search food...",
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.black),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+
+            // SliverToBoxAdapter(
+            //   child: Container(
+            //     decoration: BoxDecoration(
+            //       borderRadius: const BorderRadius.all(Radius.circular(30)),
+            //       border: Border.all(color: Theme.of(context).dividerColor.withOpacity(0.5)),
+            //     ),
+            //     padding: const EdgeInsets.symmetric(horizontal: 12).r,
+            //     margin: const EdgeInsets.symmetric(horizontal: 12).r,
+            //     child: Row(
+            //       children: [
+            //         ElevatedButton(
+            //           onPressed: () {
+            //             Get.to(() => const SearchPage());
+            //           },
+            //           style: ElevatedButton.styleFrom(
+            //             backgroundColor: Colors.transparent,
+            //             shape: const CircleBorder(),
+            //           ),
+            //           child: SvgPicture.asset(
+            //             AppIcons.search,
+            //             color: Theme.of(context).primaryColor,
+            //           ),
+            //         ),
+            //         Text(
+            //           "Search food...",
+            //           style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.black),
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
+
             SliverToBoxAdapter(
               child: Column(
                 children: [

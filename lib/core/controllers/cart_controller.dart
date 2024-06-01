@@ -50,7 +50,7 @@ class CartController extends GetxController {
   void calculateTotal() {
     double total = 0.0;
     for (CartModel item in cartItems) {
-      total += item.price!;
+      total += item.price! * item.quantity!;
     }
 
     totalPrice.value = total;
