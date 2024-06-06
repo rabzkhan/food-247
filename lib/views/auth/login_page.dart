@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:logger/logger.dart';
 import '../../core/constants/constants.dart';
 import '../../core/controllers/auth_controller.dart';
 import '../../core/themes/app_themes.dart';
@@ -37,7 +38,8 @@ class _LoginPageState extends State<LoginPage> {
         "phone": phoneNumberController.text.toString(),
         "password": passwordController.text.toString(),
       };
-      authController.signIn(arguments);
+      Logger().d(arguments);
+      //authController.signIn(arguments);
     }
   }
 
@@ -99,10 +101,10 @@ class _LoginPageState extends State<LoginPage> {
                                 flex: 1,
                                 child: CountryCodePicker(
                                   onChanged: (value) => countryCodeController.text = value.dialCode!,
-                                  onInit: (value) => countryCodeController.text = '+880',
+                                  onInit: (value) => countryCodeController.text = value!.dialCode!,
                                   showFlag: false,
-                                  initialSelection: 'BD',
-                                  favorite: ['+880', 'BD'],
+                                  initialSelection: 'US',
+                                  favorite: ['+1', 'US'],
                                   showCountryOnly: true,
                                   showOnlyCountryWhenClosed: false,
                                   alignLeft: true,

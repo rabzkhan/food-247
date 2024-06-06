@@ -1,8 +1,10 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:food/views/order/my_order_page.dart';
+import 'package:get/get.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_defaults.dart';
+import '../../core/controllers/profile_controller.dart';
 import '../home/home_page.dart';
 import '../menu/menu_page.dart';
 import '../profile/profile_page.dart';
@@ -17,8 +19,16 @@ class ParentPage extends StatefulWidget {
 }
 
 class _ParentPageState extends State<ParentPage> {
+  ProfileController profileController = Get.find();
+
   /// Current Page
   int currentIndex = 0;
+
+  @override
+  void initState() {
+    profileController.getUserInfo();
+    super.initState();
+  }
 
   /// On labelLarge navigation tap
   void onBottomNavigationTap(int index) {

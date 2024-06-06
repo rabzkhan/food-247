@@ -99,7 +99,6 @@ class LocationController extends GetxController {
           title: "Success",
           message: "Address saved succeessfully",
         );
-
         Get.find<ProfileController>().getAddressList();
       },
       onError: (error) {

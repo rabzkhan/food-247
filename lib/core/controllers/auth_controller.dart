@@ -53,7 +53,7 @@ class AuthController extends GetxController {
         signIn(signInData);
       },
       onError: (error) {
-        Logger().d(error.message);
+        Logger().d(error.url);
         isSignUpLoading.value = false;
       },
     );

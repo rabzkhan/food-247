@@ -39,7 +39,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 child: Padding(
                   padding: const EdgeInsets.all(AppDefaults.padding),
                   child: Text(
-                    'Welcome to our\nfood shop',
+                    "Don't have an account\nSign up now.",
                     style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
@@ -68,10 +68,10 @@ class _SignUpPageState extends State<SignUpPage> {
                             flex: 1,
                             child: CountryCodePicker(
                               onChanged: (value) => authController.countryCodeController.text = value.dialCode!,
-                              onInit: (value) => authController.countryCodeController.text = '+880',
+                              onInit: (value) => authController.countryCodeController.text = value!.dialCode!,
                               showFlag: false,
-                              initialSelection: 'BD',
-                              favorite: ['+880', 'BD'],
+                              initialSelection: 'US',
+                              favorite: ['+1', 'US'],
                               showCountryOnly: true,
                               showOnlyCountryWhenClosed: false,
                               alignLeft: true,

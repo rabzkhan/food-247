@@ -29,12 +29,9 @@ class HomePage extends GetView<HomeController> {
             SliverAppBar(
               floating: true,
               centerTitle: false,
-              title: Text(
-                "FOOD 24/7",
-                style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).primaryColor,
-                    ),
+              title: Image.asset(
+                AppIcons.logo,
+                height: 100.h,
               ),
             ),
             //SearchBar

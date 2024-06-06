@@ -56,7 +56,7 @@ class ProfileController extends GetxController {
     var userId = {
       "user_id": Get.find<ProfileController>().profileData.value.customerId,
     };
-    Logger().d(json.encode(userId));
+
     await ApiClient.apiCall(
       ApiUrls.getAddress,
       RequestType.get,
