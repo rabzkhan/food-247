@@ -44,6 +44,7 @@ class AuthController extends GetxController {
         isSignUpLoading.value = true;
       },
       onSuccess: (response) {
+        Logger().d(response);
         var signInData = {
           "country_code": signUpData['country_code'],
           "phone": signUpData['phone'],
@@ -52,7 +53,7 @@ class AuthController extends GetxController {
         signIn(signInData);
       },
       onError: (error) {
-        Logger().d(error);
+        Logger().d(error.message);
         isSignUpLoading.value = false;
       },
     );
