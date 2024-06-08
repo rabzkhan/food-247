@@ -2,9 +2,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:food/core/components/custom_snackbar.dart';
 import 'package:food/core/constants/api_urls.dart';
+import 'package:food/core/controllers/location_controller.dart';
 import 'package:food/core/controllers/profile_controller.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../views/parent/parent_page.dart';
 import '../components/local_db.dart';
@@ -26,6 +28,7 @@ class AuthController extends GetxController {
     if (MySharedPref.getToken() != null) {
       isLoggedIn.value = true;
       Logger().d("Logged In");
+      Get.put(LocationController());
     } else {
       isLoggedIn.value = false;
       Logger().d("Not Logged In");
@@ -70,13 +73,14 @@ class AuthController extends GetxController {
       },
       onSuccess: (response) {
         MySharedPref.setToken(response.data['token']);
-        Logger().d(response.data['token']);
-        Get.offAll(() => const ParentPage());
-        Get.find<ProfileController>().getUserInfo();
         CustomSnackBar.showCustomSnackBar(
           title: "Success",
           message: "Signed in succeessfully",
         );
+        reloadSharedPref();
+        Future.delayed(const Duration(seconds: 2), () {
+          reloadSharedPref();
+        });
       },
       onError: (error) {
         CustomSnackBar.showCustomSnackBar(
@@ -86,5 +90,12 @@ class AuthController extends GetxController {
         isSignUpLoading.value = false;
       },
     );
+  }
+
+  reloadSharedPref() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.reload();
+    Get.find<ProfileController>().getUserInfo();
+    Get.offAll(() => const ParentPage());
   }
 }

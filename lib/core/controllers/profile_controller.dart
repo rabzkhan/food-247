@@ -4,6 +4,7 @@ import 'package:food/core/controllers/auth_controller.dart';
 import 'package:food/core/models/order_list_model.dart';
 import 'package:food/core/models/profile_model.dart';
 import 'package:get/get.dart';
+import 'package:get/get_rx/get_rx.dart';
 import 'package:logger/logger.dart';
 
 import '../components/custom_snackbar.dart';
@@ -18,7 +19,7 @@ class ProfileController extends GetxController {
 
   RxBool isProfileLoading = false.obs;
   Rx<ProfileData> profileData = ProfileData().obs;
-
+  RxString userId = ''.obs;
   RxBool isAddressListLoading = false.obs;
   RxList<Address> addressList = <Address>[].obs;
 
@@ -28,7 +29,6 @@ class ProfileController extends GetxController {
   @override
   void onInit() {
     getUserInfo();
-
     super.onInit();
   }
 
@@ -43,6 +43,7 @@ class ProfileController extends GetxController {
       onSuccess: (response) {
         Logger().d(response);
         profileData.value = ProfileModel.fromJson(response.data).data!;
+        userId.value = ProfileModel.fromJson(response.data).userId.toString();
         getAddressList();
         isProfileLoading.value = false;
       },
@@ -54,9 +55,8 @@ class ProfileController extends GetxController {
 
   getAddressList() async {
     var userId = {
-      "user_id": Get.find<ProfileController>().profileData.value.customerId,
+      "user_id": Get.find<ProfileController>().userId.value,
     };
-
     await ApiClient.apiCall(
       ApiUrls.getAddress,
       RequestType.get,
@@ -99,7 +99,7 @@ class ProfileController extends GetxController {
   getOrderList() async {
     Logger().d(MySharedPref.getToken());
     var userId = {
-      "user_id": Get.find<ProfileController>().profileData.value.customerId,
+      "user_id": Get.find<ProfileController>().userId.value,
     };
     await ApiClient.apiCall(
       ApiUrls.getOrderList,

@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
       useInheritedMediaQuery: true,
       rebuildFactor: (old, data) => true,
       builder: (context, widget) {
-        late bool intoOnboard = MySharedPref.getOnboardingStatus() ?? true;
+        late bool intoOnboard = MySharedPref.getOnboardingStatus() ?? false;
         late String intoAuth = MySharedPref.getToken() ?? '';
         late Widget initPage = const OnboardingPage();
         if (intoOnboard) {

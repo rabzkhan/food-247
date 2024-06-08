@@ -74,7 +74,7 @@ class _NewAddressPageState extends State<NewAddressPage> {
                               child: const Text('Save Adress'),
                               onPressed: () {
                                 var addressData = {
-                                  "user_id": Get.find<ProfileController>().profileData.value.customerId,
+                                  "user_id": Get.find<ProfileController>().userId.value,
                                   "address": locationController.address.value,
                                   "latitude": locationController.latitude.value,
                                   "longitude": locationController.longitude.value,

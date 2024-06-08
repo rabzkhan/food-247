@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food/core/components/local_db.dart';
+import 'package:food/core/controllers/profile_controller.dart';
 import 'package:food/views/auth/login_page.dart';
 import 'package:get/get.dart';
 
@@ -32,7 +33,8 @@ class ProfileMenuOptions extends StatelessWidget {
           ProfileListTile(
             title: 'Logout',
             icon: AppIcons.profileLogout,
-            onTap: () async {
+            onTap: () {
+              Get.find<ProfileController>().userId.value = '';
               MySharedPref.clear();
               Get.offAll(const LoginPage());
             },

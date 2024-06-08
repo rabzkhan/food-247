@@ -5,7 +5,6 @@ class MySharedPref {
   MySharedPref._();
   // get storage
   static late SharedPreferences _sharedPreferences;
-
   static const String _showOnboard = 'show_onboarding';
   static const String _token = 'token';
 

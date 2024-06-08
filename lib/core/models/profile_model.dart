@@ -11,23 +11,27 @@ String profileModelToJson(ProfileModel data) => json.encode(data.toJson());
 class ProfileModel {
   bool? success;
   int? statusCode;
+  int? userId;
   ProfileData? data;
 
   ProfileModel({
     this.success,
     this.statusCode,
+    this.userId,
     this.data,
   });
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) => ProfileModel(
         success: json["success"],
         statusCode: json["status_code"],
+        userId: json["user_id"],
         data: json["data"] == null ? null : ProfileData.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
         "success": success,
         "status_code": statusCode,
+        "user_id": userId,
         "data": data?.toJson(),
       };
 }
@@ -40,7 +44,7 @@ class ProfileData {
   String? phone;
   String? countryCode;
   String? address;
-  String? deviceToken;
+  dynamic deviceToken;
   DateTime? createdAt;
   DateTime? updatedAt;
 

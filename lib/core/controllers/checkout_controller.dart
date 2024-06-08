@@ -34,7 +34,7 @@ class CheckoutController extends GetxController {
   placeOrder() async {
     Map<String, dynamic> order = {
       "service_provider_id": 1,
-      "customer_id": profileController.profileData.value.customerId,
+      "customer_id": profileController.userId.value,
       "customer_email": profileController.profileData.value.email,
       "phone_no": profileController.profileData.value.countryCode.toString() +
           profileController.profileData.value.phone.toString(),

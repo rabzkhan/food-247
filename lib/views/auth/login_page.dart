@@ -39,7 +39,7 @@ class _LoginPageState extends State<LoginPage> {
         "password": passwordController.text.toString(),
       };
       Logger().d(arguments);
-      //authController.signIn(arguments);
+      authController.signIn(arguments);
     }
   }
 
