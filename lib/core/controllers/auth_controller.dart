@@ -28,7 +28,6 @@ class AuthController extends GetxController {
     if (MySharedPref.getToken() != null) {
       isLoggedIn.value = true;
       Logger().d("Logged In");
-      Get.put(LocationController());
     } else {
       isLoggedIn.value = false;
       Logger().d("Not Logged In");

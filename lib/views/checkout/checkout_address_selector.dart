@@ -30,7 +30,7 @@ class _AddressSelectorState extends State<AddressSelector> {
           actionLabel: 'Add New',
           onTap: () {
             Get.put(LocationController());
-            Get.to(() => const AddressPage());
+            Get.find<LocationController>().getCurrentLocation();
           },
           isHeadline: false,
         ),

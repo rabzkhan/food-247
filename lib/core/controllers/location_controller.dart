@@ -7,7 +7,9 @@ import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:logger/logger.dart';
 
+import '../../views/profile/address/address_page.dart';
 import '../components/custom_snackbar.dart';
+import '../components/location_permission_dialouge.dart';
 import '../constants/api_urls.dart';
 import '../network/api_client.dart';
 import '../network/api_header.dart';
@@ -30,22 +32,24 @@ class LocationController extends GetxController {
   Future<void> getCurrentLocation() async {
     bool serviceEnabled;
     LocationPermission permission;
-
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      return Future.error('Location services are disabled.');
-    }
-
     permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        return Future.error('Location permissions are denied');
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+
+    if (!serviceEnabled) {
+      Logger().d("Location permission disabled");
+    } else {
+      if (permission == LocationPermission.whileInUse) {
+        Get.to(() => const AddressPage());
+      } else if (permission == LocationPermission.always) {
+        Get.to(() => const AddressPage());
       }
     }
 
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+    }
     if (permission == LocationPermission.deniedForever) {
-      return Future.error('Location permissions are permanently denied, we cannot request permissions.');
+      showLocationPermissionDialog();
     }
 
     Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
