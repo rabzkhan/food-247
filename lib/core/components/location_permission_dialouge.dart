@@ -7,20 +7,24 @@ void showLocationPermissionDialog() {
     context: Get.context!,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: Text("Location Permission Required"),
-        content: Text("Location permissions are permanently denied. Please enable permissions in the app settings."),
+        title: const Text(
+          "Location Permission Required",
+        ),
+        content: const Text(
+          "Location permissions are permanently denied.\nPlease enable permissions in the app settings.",
+        ),
         actions: [
           TextButton(
             onPressed: () {
               openAppSettings();
             },
-            child: Text("Open Settings"),
+            child: const Text("Open Settings"),
           ),
           TextButton(
             onPressed: () {
               Navigator.of(context).pop();
             },
-            child: Text("Cancel"),
+            child: const Text("Cancel"),
           ),
         ],
       );
