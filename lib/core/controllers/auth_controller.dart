@@ -76,10 +76,8 @@ class AuthController extends GetxController {
           title: "Success",
           message: "Signed in succeessfully",
         );
-        reloadSharedPref();
-        Future.delayed(const Duration(seconds: 2), () {
-          reloadSharedPref();
-        });
+        Get.find<ProfileController>().getUserInfo();
+        Get.offAll(() => const ParentPage());
       },
       onError: (error) {
         CustomSnackBar.showCustomSnackBar(
@@ -89,12 +87,5 @@ class AuthController extends GetxController {
         isSignUpLoading.value = false;
       },
     );
-  }
-
-  reloadSharedPref() async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.reload();
-    Get.find<ProfileController>().getUserInfo();
-    Get.offAll(() => const ParentPage());
   }
 }

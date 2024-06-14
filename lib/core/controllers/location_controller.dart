@@ -9,6 +9,7 @@ import 'package:logger/logger.dart';
 
 import '../../views/profile/address/address_page.dart';
 import '../components/custom_snackbar.dart';
+import '../components/local_db.dart';
 import '../components/location_permission_dialouge.dart';
 import '../constants/api_urls.dart';
 import '../network/api_client.dart';
@@ -90,7 +91,11 @@ class LocationController extends GetxController {
     await ApiClient.apiCall(
       ApiUrls.addAddress,
       RequestType.post,
-      headers: Header.secureHeader,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        "Authorization": "Bearer ${MySharedPref.getToken()}",
+      },
       data: json.encode(
         addressData,
       ),

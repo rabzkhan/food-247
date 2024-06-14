@@ -4,15 +4,12 @@ import 'package:food/core/controllers/auth_controller.dart';
 import 'package:food/core/models/order_list_model.dart';
 import 'package:food/core/models/profile_model.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
 import 'package:logger/logger.dart';
-
 import '../components/custom_snackbar.dart';
 import '../components/local_db.dart';
 import '../constants/api_urls.dart';
 import '../models/address_list_model.dart';
 import '../network/api_client.dart';
-import '../network/api_header.dart';
 
 class ProfileController extends GetxController {
   AuthController authController = Get.find();
@@ -36,7 +33,11 @@ class ProfileController extends GetxController {
     await ApiClient.apiCall(
       ApiUrls.profileInfo,
       RequestType.get,
-      headers: Header.secureHeader,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        "Authorization": "Bearer ${MySharedPref.getToken()}",
+      },
       onLoading: () {
         isProfileLoading.value = true;
       },
@@ -60,7 +61,11 @@ class ProfileController extends GetxController {
     await ApiClient.apiCall(
       ApiUrls.getAddress,
       RequestType.get,
-      headers: Header.secureHeader,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        "Authorization": "Bearer ${MySharedPref.getToken()}",
+      },
       data: json.encode(userId),
       onLoading: () {
         isAddressListLoading.value = true;
@@ -81,7 +86,11 @@ class ProfileController extends GetxController {
     await ApiClient.apiCall(
       ApiUrls.deleteAddress + addressId,
       RequestType.delete,
-      headers: Header.secureHeader,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        "Authorization": "Bearer ${MySharedPref.getToken()}",
+      },
       onLoading: () {},
       onSuccess: (response) {
         CustomSnackBar.showCustomSnackBar(
@@ -97,14 +106,17 @@ class ProfileController extends GetxController {
   }
 
   getOrderList() async {
-    Logger().d(MySharedPref.getToken());
     var userId = {
       "user_id": Get.find<ProfileController>().userId.value,
     };
     await ApiClient.apiCall(
       ApiUrls.getOrderList,
       RequestType.get,
-      headers: Header.secureHeader,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        "Authorization": "Bearer ${MySharedPref.getToken()}",
+      },
       data: json.encode(userId),
       onLoading: () {
         isOrderListLoading.value = true;

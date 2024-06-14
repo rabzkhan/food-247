@@ -7,6 +7,7 @@ import 'package:logger/logger.dart';
 
 import '../../views/home/order_successfull_page.dart';
 import '../components/custom_snackbar.dart';
+import '../components/local_db.dart';
 import '../constants/api_urls.dart';
 import '../network/api_client.dart';
 import '../network/api_header.dart';
@@ -46,11 +47,14 @@ class CheckoutController extends GetxController {
       "order_details": cartController.cartItems.toList()
     };
 
-    Logger().d(order);
     await ApiClient.apiCall(
       ApiUrls.placeOrder,
       RequestType.post,
-      headers: Header.secureHeader,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        "Authorization": "Bearer ${MySharedPref.getToken()}",
+      },
       data: json.encode(
         order,
       ),
@@ -60,7 +64,9 @@ class CheckoutController extends GetxController {
       onSuccess: (response) {
         Logger().d(response);
         isPlaceOrderLoading.value = false;
+
         Get.off(() => const OrderSuccessfullPage());
+        profileController.getOrderList();
         cartController.clearCart();
       },
       onError: (error) {
