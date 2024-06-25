@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../core/constants/constants.dart';
+import '../../order/my_order_page.dart';
 import '../address/address_page.dart';
 import 'profile_squre_tile.dart';
 
@@ -33,7 +34,9 @@ class ProfileHeaderOptions extends StatelessWidget {
           ProfileSqureTile(
             label: 'All Order',
             icon: AppIcons.truckIcon,
-            onTap: () {},
+            onTap: () {
+              Get.to(() => (const OrderPage()));
+            },
           ),
         ],
       ),

@@ -90,7 +90,7 @@ class _MenuPageState extends State<MenuPage> {
                     crossAxisCount: 2,
                     mainAxisSpacing: 20.r,
                     crossAxisSpacing: 20.r,
-                    childAspectRatio: 1 / 1.1,
+                    childAspectRatio: 1 / 1.3,
                   ),
                   itemCount: homeController.productsList.value.productNames!.length,
                   itemBuilder: (context, index) {

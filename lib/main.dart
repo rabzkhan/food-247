@@ -7,6 +7,7 @@ import 'package:food/core/controllers/checkout_controller.dart';
 import 'package:food/core/controllers/home_controller.dart';
 import 'package:food/views/auth/login_page.dart';
 import 'package:food/views/onboarding/onboarding_page.dart';
+import 'package:food/views/splash/splash_view.dart';
 import 'package:get/get.dart';
 import 'core/components/local_db.dart';
 import 'core/controllers/profile_controller.dart';
@@ -32,16 +33,6 @@ class MyApp extends StatelessWidget {
       useInheritedMediaQuery: true,
       rebuildFactor: (old, data) => true,
       builder: (context, widget) {
-        late bool intoOnboard = MySharedPref.getOnboardingStatus() ?? false;
-        late String intoAuth = MySharedPref.getToken() ?? '';
-        late Widget initPage = const OnboardingPage();
-        if (intoOnboard) {
-          initPage = const OnboardingPage();
-        } else if (intoAuth.isEmpty) {
-          initPage = const LoginPage();
-        } else {
-          initPage = const ParentPage();
-        }
         return GetMaterialApp(
           title: 'FoodApp',
           onInit: () {
@@ -58,7 +49,7 @@ class MyApp extends StatelessWidget {
             WidgetBuilder? builder = routes[settings.name];
             return MaterialPageRoute(builder: (context) => builder!(context));
           },
-          home: initPage,
+          home: SplashView(),
         );
       },
     );

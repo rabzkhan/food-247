@@ -34,7 +34,7 @@ class AllPopularProductsPage extends GetView<HomeController> {
                 crossAxisCount: 2,
                 mainAxisSpacing: 20.r,
                 crossAxisSpacing: 20.r,
-                childAspectRatio: 1 / 1.1,
+                childAspectRatio: 1 / 1.3,
               ),
               itemCount: controller.popularProducts.length,
               itemBuilder: (context, index) {

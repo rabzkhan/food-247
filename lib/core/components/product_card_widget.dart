@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:food/core/models/product_list_model.dart';
 import 'package:get/get.dart';
@@ -33,7 +34,7 @@ class ProductCardWidget extends StatelessWidget {
         },
         borderRadius: AppDefaults.borderRadius,
         child: Container(
-          width: 176,
+          width: 176.w,
           padding: const EdgeInsets.symmetric(horizontal: AppDefaults.padding),
           decoration: BoxDecoration(
             border: Border.all(width: 0.1, color: AppColors.placeholder),
@@ -43,7 +44,7 @@ class ProductCardWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 8),
                 child: AspectRatio(
                   aspectRatio: 1 / 0.8,
                   child: NetworkImageWithLoader(
@@ -84,8 +85,8 @@ class ProductCardWidget extends StatelessWidget {
                     },
                     icon: SvgPicture.asset(
                       AppIcons.cardAdd,
-                      height: 25,
-                      width: 25,
+                      height: 25.h,
+                      width: 25.w,
                     ),
                   )
                 ],

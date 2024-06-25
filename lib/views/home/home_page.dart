@@ -1,7 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:food/core/components/custom_cached_image.dart';
 import 'package:food/core/constants/api_urls.dart';
 import 'package:food/core/constants/constants.dart';
@@ -13,7 +12,6 @@ import 'package:get/get.dart';
 import '../../core/components/product_card_widget.dart';
 import 'all_featured_products_page.dart';
 import 'components/floating_cart_button.dart';
-import 'search_page.dart';
 import 'widgets/category_card_widget.dart';
 
 class HomePage extends GetView<HomeController> {
@@ -96,13 +94,13 @@ class HomePage extends GetView<HomeController> {
                   ),
                   Obx(
                     () => SizedBox(
-                      height: 230.h,
+                      height: 250.h,
                       child: GridView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         padding: const EdgeInsets.symmetric(horizontal: 12).r,
                         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 4,
+                          crossAxisCount: 3,
                           childAspectRatio: 1 / 1,
                         ),
                         itemCount: controller.categories.take(8).length,
@@ -176,6 +174,8 @@ class HomePage extends GetView<HomeController> {
                             "Featured Products",
                             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                                   color: Colors.black,
+                                  fontSize: 20.sp,
+                                  fontWeight: FontWeight.bold,
                                 ),
                           ),
                           const Spacer(),
@@ -209,7 +209,7 @@ class HomePage extends GetView<HomeController> {
                           crossAxisCount: 2,
                           mainAxisSpacing: 20.r,
                           crossAxisSpacing: 20.r,
-                          childAspectRatio: 1 / 1.1,
+                          childAspectRatio: 1 / 1.3,
                         ),
                         itemCount: controller.featuredProducts.take(4).length,
                         itemBuilder: (context, index) {
@@ -275,7 +275,7 @@ class HomePage extends GetView<HomeController> {
                           crossAxisCount: 2,
                           mainAxisSpacing: 20.r,
                           crossAxisSpacing: 20.r,
-                          childAspectRatio: 1 / 1.1,
+                          childAspectRatio: 1 / 1.3,
                         ),
                         itemCount: controller.popularProducts.take(4).length,
                         itemBuilder: (context, index) {

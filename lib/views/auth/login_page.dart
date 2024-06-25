@@ -1,6 +1,7 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
@@ -148,14 +149,14 @@ class _LoginPageState extends State<LoginPage> {
                           ),
 
                           // Forget Password labelLarge
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: TextButton(
-                              onPressed: () {},
-                              child: const Text('Forget Password?'),
-                            ),
-                          ),
-
+                          // Align(
+                          //   alignment: Alignment.centerRight,
+                          //   child: TextButton(
+                          //     onPressed: () {},
+                          //     child: const Text('Forget Password?'),
+                          //   ),
+                          // ),
+                          10.verticalSpace,
                           // Login labelLarge
                           SizedBox(
                             width: double.infinity,

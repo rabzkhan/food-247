@@ -48,10 +48,21 @@ class _OrderPageState extends State<OrderPage> {
                 onTap: () {
                   profileController.getOrderList();
                 },
-                child: Image.asset(
-                  AppImages.empty,
-                  height: 200.h,
-                  width: 200.w,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      AppImages.empty,
+                      height: 200.h,
+                      width: 200.w,
+                    ),
+                    10.verticalSpace,
+                    Text(
+                      "You didn't make any order yet!",
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    )
+                  ],
                 ),
               ),
             );

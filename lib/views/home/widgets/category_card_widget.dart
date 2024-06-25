@@ -28,10 +28,12 @@ class CategoryCardWidget extends StatelessWidget {
           padding: const EdgeInsets.all(10).r,
           child: CustomImage(
             image: "${ApiUrls.baseUrl}/${category.image ?? ''}",
-            height: 45.h,
-            width: 45.w,
+            height: 60.h,
+            width: 80.w,
+            fit: BoxFit.contain,
           ),
         ),
+        5.verticalSpace,
         Text(
           category.productTypeName ?? '',
           maxLines: 2,
