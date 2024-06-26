@@ -1,10 +1,12 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:food/core/controllers/auth_controller.dart';
 import 'package:get/get.dart';
 import '../../core/constants/constants.dart';
+import '../../core/themes/app_themes.dart';
 import '../../core/utils/validators.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -16,156 +18,156 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   final _formKey = GlobalKey<FormState>();
+  AuthController authController = Get.put(AuthController());
+  bool isPasswordShown = false;
+
+  onPassShowClicked() {
+    isPasswordShown = !isPasswordShown;
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
-    AuthController authController = Get.put(AuthController());
-    bool isPasswordShown = false;
-
-    onPassShowClicked() {
-      isPasswordShown = !isPasswordShown;
-      setState(() {});
-    }
-
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: AppColors.scaffoldWithBoxBackground,
-      body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Padding(
+      backgroundColor: const Color(0xffd7eab0),
+      body: SafeArea(
+        child: Stack(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(20.0).copyWith(top: 80.h),
+              child: Image.asset(AppIcons.authBg),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: SingleChildScrollView(
+                child: Container(
                   padding: const EdgeInsets.all(AppDefaults.padding),
-                  child: Text(
-                    "Don't have an account\nSign up now.",
-                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: AppDefaults.boxShadow,
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      topRight: Radius.circular(30),
+                    ),
                   ),
-                ),
-              ),
-              const SizedBox(height: AppDefaults.padding),
-              Container(
-                margin: const EdgeInsets.all(AppDefaults.margin),
-                padding: const EdgeInsets.all(AppDefaults.padding),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: AppDefaults.boxShadow,
-                  borderRadius: AppDefaults.borderRadius,
-                ),
-                child: Form(
-                  key: _formKey,
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text("Phone Number"),
-                      const SizedBox(height: 8),
-                      Row(
-                        children: [
-                          Expanded(
-                            flex: 1,
-                            child: CountryCodePicker(
-                              onChanged: (value) => authController.countryCodeController.text = value.dialCode!,
-                              onInit: (value) => authController.countryCodeController.text = value!.dialCode!,
-                              showFlag: false,
-                              initialSelection: 'US',
-                              favorite: ['+1', 'US'],
-                              showCountryOnly: true,
-                              showOnlyCountryWhenClosed: false,
-                              alignLeft: true,
+                      20.verticalSpace,
+                      Text(
+                        'Login to your account',
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.primary,
                             ),
-                          ),
-                          Expanded(
-                            flex: 3,
-                            child: TextFormField(
-                              controller: authController.phoneNumberController,
-                              textInputAction: TextInputAction.next,
-                              validator: Validators.requiredWithFieldName('Phone number'),
-                              keyboardType: TextInputType.number,
-                              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                            ),
-                          ),
-                        ],
                       ),
-                      const SizedBox(height: AppDefaults.padding),
-                      const Text("Email"),
-                      const SizedBox(height: 8),
-                      TextFormField(
-                        controller: authController.emailController,
-                        validator: Validators.requiredWithFieldName('Email'),
-                        textInputAction: TextInputAction.next,
-                      ),
-                      const SizedBox(height: AppDefaults.padding),
-                      const Text("Password"),
-                      const SizedBox(height: 8),
-                      TextFormField(
-                        controller: authController.passwordController,
-                        validator: Validators.requiredWithFieldName('Password'),
-                        textInputAction: TextInputAction.next,
-                        obscureText: !isPasswordShown,
-                        decoration: InputDecoration(
-                          suffixIcon: Material(
-                            color: Colors.transparent,
-                            child: IconButton(
-                              onPressed: onPassShowClicked,
-                              icon: SvgPicture.asset(
-                                AppIcons.eye,
-                                width: 24,
-                              ),
-                            ),
-                          ),
+                      20.verticalSpace,
+                      Theme(
+                        data: AppTheme.defaultTheme.copyWith(
+                          inputDecorationTheme: AppTheme.secondaryInputDecorationTheme,
                         ),
-                      ),
-                      const SizedBox(height: AppDefaults.padding),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: AppDefaults.padding * 2),
-                        child: Row(
-                          children: [
-                            Text(
-                              'Sign Up',
-                              style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                                    fontWeight: FontWeight.bold,
+                        child: Form(
+                          key: _formKey,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text("Phone Number"),
+                              const SizedBox(height: 8),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    flex: 1,
+                                    child: CountryCodePicker(
+                                      onChanged: (value) => authController.countryCodeController.text = value.dialCode!,
+                                      onInit: (value) => authController.countryCodeController.text = value!.dialCode!,
+                                      showFlag: false,
+                                      initialSelection: 'US',
+                                      favorite: ['+1', 'US'],
+                                      showCountryOnly: true,
+                                      showOnlyCountryWhenClosed: false,
+                                      alignLeft: true,
+                                    ),
                                   ),
-                            ),
-                            const Spacer(),
-                            ElevatedButton(
-                              onPressed: () async {
-                                var arguments = {
-                                  "email": authController.emailController.text.toString(),
-                                  "country_code": authController.countryCodeController.text.toString(),
-                                  "phone": authController.phoneNumberController.text.toString(),
-                                  "password": authController.passwordController.text.toString(),
-                                };
-                                authController.signUp(arguments);
-                              },
-                              style: ElevatedButton.styleFrom(elevation: 1),
-                              child: SvgPicture.asset(
-                                AppIcons.arrowForward,
-                                color: Colors.white,
+                                  Expanded(
+                                    flex: 3,
+                                    child: TextFormField(
+                                      controller: authController.phoneNumberController,
+                                      textInputAction: TextInputAction.next,
+                                      validator: Validators.requiredWithFieldName('Phone number'),
+                                      keyboardType: TextInputType.number,
+                                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                          ],
+                              const SizedBox(height: AppDefaults.padding),
+                              const Text("Email"),
+                              const SizedBox(height: 8),
+                              TextFormField(
+                                controller: authController.emailController,
+                                validator: Validators.requiredWithFieldName('Email'),
+                                textInputAction: TextInputAction.next,
+                              ),
+                              const SizedBox(height: AppDefaults.padding),
+                              const Text("Password"),
+                              const SizedBox(height: 8),
+                              TextFormField(
+                                controller: authController.passwordController,
+                                validator: Validators.requiredWithFieldName('Password'),
+                                textInputAction: TextInputAction.next,
+                                obscureText: !isPasswordShown,
+                                decoration: InputDecoration(
+                                  suffixIcon: Material(
+                                    color: Colors.transparent,
+                                    child: IconButton(
+                                      onPressed: onPassShowClicked,
+                                      icon: SvgPicture.asset(
+                                        AppIcons.eye,
+                                        width: 24,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: AppDefaults.padding),
+                              SizedBox(
+                                width: double.infinity,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    var arguments = {
+                                      "email": authController.emailController.text.toString(),
+                                      "country_code": authController.countryCodeController.text.toString(),
+                                      "phone": authController.phoneNumberController.text.toString(),
+                                      "password": authController.passwordController.text.toString(),
+                                    };
+                                    authController.signUp(arguments);
+                                  },
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(vertical: 6.h),
+                                    child: const Text('Sign Up'),
+                                  ),
+                                ),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Text('Already Have Account?'),
+                                  TextButton(
+                                    onPressed: () => {Get.back()},
+                                    child: const Text('Log In'),
+                                  ),
+                                ],
+                              ),
+                              50.verticalSpace,
+                            ],
+                          ),
                         ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text('Already Have Account?'),
-                          TextButton(
-                            onPressed: () => {Get.back()},
-                            child: const Text('Log In'),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: AppDefaults.padding),
                     ],
                   ),
                 ),
-              )
-            ],
-          ),
+              ),
+            ),
+          ],
         ),
       ),
     );
