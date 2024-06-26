@@ -22,7 +22,7 @@ class OnboardingView extends StatelessWidget {
           height: MediaQuery.of(context).size.width,
           child: Padding(
             padding: const EdgeInsets.all(AppDefaults.padding * 2),
-            child: NetworkImageWithLoader(
+            child: Image.asset(
               data.imageUrl,
               fit: BoxFit.contain,
             ),

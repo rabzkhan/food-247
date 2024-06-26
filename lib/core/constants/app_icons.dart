@@ -8,6 +8,7 @@ class AppIcons {
   static const arrowBackward = 'assets/icons/arrow_backward.svg';
   static const arrowForward = 'assets/icons/arrow_forward.svg';
   static const cart = 'assets/icons/cart.svg';
+  static const appBarCart = 'assets/icons/appbar-cart.png';
   static const dashboardIcon = 'assets/icons/dashboard_icon.svg';
   static const facebookIcon = 'assets/icons/facebook_icon.svg';
   static const googleIconRounded = 'assets/icons/google_icon_rounded.svg';
@@ -57,4 +58,15 @@ class AppIcons {
   static const contactMap = 'assets/icons/contact_map.svg';
 
   static const cardAdd = 'assets/icons/card_add.svg';
+  static const viewAll = 'assets/icons/view-all.png';
+
+  static const authBg = 'assets/images/authbg.png';
+
+  static const onboarding1 = 'assets/images/onboarding1.png';
+  static const onboarding2 = 'assets/images/onboarding2.png';
+  static const onboarding3 = 'assets/images/onboarding3.png';
+
+  static const placeholder = 'assets/images/placeholder.png';
+  static const empty = 'assets/images/empty.png';
+  static const orderPlaced = 'assets/images/order-placed.png';
 }

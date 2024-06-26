@@ -26,21 +26,26 @@ class CategoryCardWidget extends StatelessWidget {
             ),
           ),
           padding: const EdgeInsets.all(10).r,
-          child: CustomImage(
-            image: "${ApiUrls.baseUrl}/${category.image ?? ''}",
-            height: 60.h,
-            width: 80.w,
-            fit: BoxFit.contain,
+          child: Column(
+            children: [
+              CustomImage(
+                image: "${ApiUrls.baseUrl}/${category.image ?? ''}",
+                height: 80.h,
+                width: 90.w,
+                fit: BoxFit.contain,
+              ),
+              5.verticalSpace,
+              Text(
+                category.productTypeName ?? '',
+                maxLines: 2,
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 14.sp,
+                ),
+                textAlign: TextAlign.center,
+              )
+            ],
           ),
-        ),
-        5.verticalSpace,
-        Text(
-          category.productTypeName ?? '',
-          maxLines: 2,
-          style: TextStyle(
-            fontSize: 12.sp,
-          ),
-          textAlign: TextAlign.center,
         ),
       ],
     );

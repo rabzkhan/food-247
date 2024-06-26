@@ -30,8 +30,8 @@ class AllCategoryPage extends GetView<HomeController> {
               physics: const NeverScrollableScrollPhysics(),
               padding: const EdgeInsets.symmetric(horizontal: 12).r,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 4,
-                childAspectRatio: 1 / 1,
+                crossAxisCount: 3,
+                childAspectRatio: 1 / 1.1,
               ),
               itemCount: controller.categories.length,
               itemBuilder: (context, index) {

@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
             WidgetBuilder? builder = routes[settings.name];
             return MaterialPageRoute(builder: (context) => builder!(context));
           },
-          home: SplashView(),
+          home: const SplashView(),
         );
       },
     );

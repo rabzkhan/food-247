@@ -30,13 +30,13 @@ class CustomImage extends StatelessWidget {
         width: width,
         fit: fit,
         placeholder: (context, url) => Image.asset(
-          AppImages.placeholder,
+          AppIcons.placeholder,
           height: height,
           width: width,
           fit: fit,
         ),
         errorWidget: (context, url, error) => Image.asset(
-          AppImages.placeholder,
+          AppIcons.placeholder,
           height: height,
           width: width,
           fit: fit,

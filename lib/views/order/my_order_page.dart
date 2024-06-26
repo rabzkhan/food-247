@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:food/core/constants/app_images.dart';
+import 'package:food/core/constants/constants.dart';
 import 'package:food/core/controllers/auth_controller.dart';
 import 'package:food/core/controllers/profile_controller.dart';
 import 'package:get/get.dart';
-import '../../core/constants/app_colors.dart';
 import 'components/order_preview_tile.dart';
 
 class OrderPage extends StatefulWidget {
@@ -53,7 +52,7 @@ class _OrderPageState extends State<OrderPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset(
-                      AppImages.empty,
+                      AppIcons.orderPlaced,
                       height: 200.h,
                       width: 200.w,
                     ),

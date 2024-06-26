@@ -43,7 +43,7 @@ class _MenuPageState extends State<MenuPage> {
           SliverToBoxAdapter(
             child: Obx(
               () => SizedBox(
-                height: 120.h,
+                height: 150.h,
                 child: ListView.builder(
                   padding: EdgeInsets.symmetric(vertical: 10.r).copyWith(left: 12).r,
                   itemCount: homeController.categories.length,

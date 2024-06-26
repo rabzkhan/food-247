@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food/core/constants/app_icons.dart';
-import 'package:food/core/constants/app_images.dart';
 import 'package:get/get.dart';
 
 import '../../core/components/local_db.dart';
