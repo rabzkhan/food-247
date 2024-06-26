@@ -128,7 +128,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                   ),
                                 ),
                               ),
-                              const SizedBox(height: AppDefaults.padding),
+                              40.verticalSpace,
                               SizedBox(
                                 width: double.infinity,
                                 child: ElevatedButton(
@@ -157,7 +157,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                   ),
                                 ],
                               ),
-                              50.verticalSpace,
+                              20.verticalSpace,
                             ],
                           ),
                         ),
