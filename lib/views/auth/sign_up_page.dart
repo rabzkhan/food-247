@@ -5,12 +5,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:food/core/controllers/auth_controller.dart';
 import 'package:get/get.dart';
+import '../../core/components/toast_message.dart';
 import '../../core/constants/constants.dart';
 import '../../core/themes/app_themes.dart';
 import '../../core/utils/validators.dart';
 
 class SignUpPage extends StatefulWidget {
-  SignUpPage({Key? key}) : super(key: key);
+  const SignUpPage({Key? key}) : super(key: key);
 
   @override
   State<SignUpPage> createState() => _SignUpPageState();
@@ -34,7 +35,7 @@ class _SignUpPageState extends State<SignUpPage> {
         child: Stack(
           children: [
             Padding(
-              padding: const EdgeInsets.all(20.0).copyWith(top: 80.h),
+              padding: const EdgeInsets.all(20.0).copyWith(top: 40.h),
               child: Image.asset(AppIcons.authBg),
             ),
             Align(
@@ -52,15 +53,15 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                   child: Column(
                     children: [
-                      20.verticalSpace,
+                      10.verticalSpace,
                       Text(
-                        'Login to your account',
+                        'Sign to your account',
                         style: Theme.of(context).textTheme.titleLarge?.copyWith(
                               fontWeight: FontWeight.bold,
                               color: AppColors.primary,
                             ),
                       ),
-                      20.verticalSpace,
+                      10.verticalSpace,
                       Theme(
                         data: AppTheme.defaultTheme.copyWith(
                           inputDecorationTheme: AppTheme.secondaryInputDecorationTheme,
@@ -81,7 +82,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                       onInit: (value) => authController.countryCodeController.text = value!.dialCode!,
                                       showFlag: false,
                                       initialSelection: 'US',
-                                      favorite: ['+1', 'US'],
+                                      favorite: const ['+1', 'US'],
                                       showCountryOnly: true,
                                       showOnlyCountryWhenClosed: false,
                                       alignLeft: true,
@@ -128,7 +129,27 @@ class _SignUpPageState extends State<SignUpPage> {
                                   ),
                                 ),
                               ),
-                              40.verticalSpace,
+                              const Text("Confirm Password"),
+                              const SizedBox(height: 8),
+                              TextFormField(
+                                controller: authController.confirmPasswordController,
+                                validator: Validators.requiredWithFieldName('Password'),
+                                textInputAction: TextInputAction.next,
+                                obscureText: !isPasswordShown,
+                                decoration: InputDecoration(
+                                  suffixIcon: Material(
+                                    color: Colors.transparent,
+                                    child: IconButton(
+                                      onPressed: onPassShowClicked,
+                                      icon: SvgPicture.asset(
+                                        AppIcons.eye,
+                                        width: 24,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              20.verticalSpace,
                               SizedBox(
                                 width: double.infinity,
                                 child: ElevatedButton(
@@ -139,7 +160,12 @@ class _SignUpPageState extends State<SignUpPage> {
                                       "phone": authController.phoneNumberController.text.toString(),
                                       "password": authController.passwordController.text.toString(),
                                     };
-                                    authController.signUp(arguments);
+                                    if (authController.confirmPasswordController.text.toString() ==
+                                        authController.passwordController.text.toString()) {
+                                      authController.signUp(arguments);
+                                    } else {
+                                      showToast("Passwod didn't matched!");
+                                    }
                                   },
                                   child: Padding(
                                     padding: EdgeInsets.symmetric(vertical: 6.h),
@@ -157,7 +183,6 @@ class _SignUpPageState extends State<SignUpPage> {
                                   ),
                                 ],
                               ),
-                              20.verticalSpace,
                             ],
                           ),
                         ),

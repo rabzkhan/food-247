@@ -10,7 +10,6 @@ import '../components/custom_snackbar.dart';
 import '../components/local_db.dart';
 import '../constants/api_urls.dart';
 import '../network/api_client.dart';
-import '../network/api_header.dart';
 
 class CheckoutController extends GetxController {
   CartController cartController = Get.find();

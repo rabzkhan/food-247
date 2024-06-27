@@ -1,7 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:food/core/components/custom_cached_image.dart';
 import 'package:food/core/constants/api_urls.dart';
 import 'package:food/core/constants/constants.dart';

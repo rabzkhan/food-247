@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:food/core/components/local_db.dart';
 import 'package:food/core/controllers/profile_controller.dart';
 import 'package:food/views/auth/login_page.dart';
+import 'package:food/views/parent/parent_page.dart';
+import 'package:food/views/splash/splash_view.dart';
 import 'package:get/get.dart';
 
 import '../../../core/constants/constants.dart';
 import 'profile_list_tile.dart';
 
-class ProfileMenuOptions extends StatelessWidget {
+class ProfileMenuOptions extends GetView<ProfileController> {
   const ProfileMenuOptions({
     Key? key,
   }) : super(key: key);
@@ -24,21 +26,25 @@ class ProfileMenuOptions extends StatelessWidget {
       ),
       child: Column(
         children: [
-          // ProfileListTile(
-          //   title: 'My Profile',
-          //   icon: AppIcons.profilePerson,
-          //   onTap: () {},
-          // ),
-          // const Divider(thickness: 0.1),
-          ProfileListTile(
-            title: 'Logout',
-            icon: AppIcons.profileLogout,
-            onTap: () {
-              Get.find<ProfileController>().userId.value = '';
-              MySharedPref.clear();
-              Get.offAll(const LoginPage());
-            },
-          ),
+          controller.isLoggedIn.value
+              ? ProfileListTile(
+                  title: 'Logout',
+                  icon: AppIcons.profileLogout,
+                  onTap: () {
+                    Get.find<ProfileController>().userId.value = '';
+                    Get.find<ProfileController>().isLoggedIn.value = false;
+                    MySharedPref.clear();
+                    Get.offAll(const SplashView());
+                  },
+                )
+              : ProfileListTile(
+                  title: 'Sign in',
+                  icon: AppIcons.profileLogout,
+                  onTap: () {
+                    Get.find<ProfileController>().userId.value = '';
+                    Get.to(const LoginPage());
+                  },
+                ),
         ],
       ),
     );

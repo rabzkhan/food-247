@@ -40,7 +40,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
 
   _gotoLoginSignUp() {
     MySharedPref.setOnboardingStatus(false);
-    Get.off(() => LoginPage());
+    Get.off(() => const LoginPage());
   }
 
   @override

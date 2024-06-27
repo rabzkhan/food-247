@@ -1,4 +1,3 @@
-import 'package:food/core/controllers/profile_controller.dart';
 import 'package:food/core/models/banner_model.dart';
 import 'package:food/core/models/hot_product_model.dart';
 import 'package:food/core/models/product_list_model.dart';

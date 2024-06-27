@@ -52,8 +52,8 @@ class ChooseServicePage extends StatelessWidget {
                       onPressed: () {
                         Get.to(() => const ChooseDeliveryOptionPage());
                       },
+                      style: ElevatedButton.styleFrom(shape: const StadiumBorder()),
                       child: const Text('Catering'),
-                      style: ElevatedButton.styleFrom(shape: StadiumBorder()),
                     ),
                   ),
                   const SizedBox(height: AppDefaults.padding),
@@ -63,7 +63,6 @@ class ChooseServicePage extends StatelessWidget {
                       onPressed: () {
                         Get.to(() => const ChooseDeliveryOptionPage());
                       },
-                      child: Text('Order Food'),
                       style: OutlinedButton.styleFrom(
                         shape: const StadiumBorder(
                           side: BorderSide(
@@ -71,6 +70,7 @@ class ChooseServicePage extends StatelessWidget {
                           ),
                         ),
                       ),
+                      child: const Text('Order Food'),
                     ),
                   )
                 ],

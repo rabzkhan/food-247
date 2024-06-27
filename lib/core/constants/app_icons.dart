@@ -69,4 +69,6 @@ class AppIcons {
   static const placeholder = 'assets/images/placeholder.png';
   static const empty = 'assets/images/empty.png';
   static const orderPlaced = 'assets/images/order-placed.png';
+  static const user = 'assets/icons/user.png';
+  static const loginAlert = 'assets/images/login-alert.jpg';
 }

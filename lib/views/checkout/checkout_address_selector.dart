@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 
 import '../../core/components/title_and_action_button.dart';
 import '../../core/controllers/profile_controller.dart';
-import '../profile/address/address_page.dart';
 import 'checkout_address_card.dart';
 
 class AddressSelector extends StatefulWidget {

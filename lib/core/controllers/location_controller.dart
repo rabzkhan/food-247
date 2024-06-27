@@ -13,7 +13,6 @@ import '../components/local_db.dart';
 import '../components/location_permission_dialouge.dart';
 import '../constants/api_urls.dart';
 import '../network/api_client.dart';
-import '../network/api_header.dart';
 
 class LocationController extends GetxController {
   RxBool isAddressLoading = false.obs;

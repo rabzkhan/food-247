@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:food/core/components/auth_alert.dart';
 import 'package:food/core/controllers/cart_controller.dart';
 import 'package:food/views/checkout/checkout_page.dart';
 import 'package:get/get.dart';
@@ -7,6 +8,7 @@ import '../../core/components/dotted_divider.dart';
 import '../../core/components/toast_message.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_defaults.dart';
+import '../../core/controllers/profile_controller.dart';
 import 'components/item_row.dart';
 import 'components/single_cart_item_tile.dart';
 
@@ -21,6 +23,7 @@ class CartPage extends StatefulWidget {
 
 class _CartPageState extends State<CartPage> {
   CartController cartController = Get.find();
+  ProfileController profileController = Get.find();
   @override
   void initState() {
     super.initState();
@@ -112,7 +115,11 @@ class _CartPageState extends State<CartPage> {
                     if (cartController.cartItems.isEmpty) {
                       showToast("Your cart is empty");
                     } else {
-                      Get.to(() => const CheckoutPage());
+                      if (!profileController.isLoggedIn.value) {
+                        customAuthAlert().show();
+                      } else {
+                        Get.to(() => const CheckoutPage());
+                      }
                     }
                   },
                   child: const Text('Checkout'),

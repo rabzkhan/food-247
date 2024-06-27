@@ -18,7 +18,7 @@ class _OrderPageState extends State<OrderPage> {
   AuthController authController = Get.find();
   @override
   void initState() {
-    if (authController.isLoggedIn.value) {
+    if (profileController.isLoggedIn.value) {
       profileController.getOrderList();
     } else {}
     super.initState();
@@ -52,14 +52,17 @@ class _OrderPageState extends State<OrderPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset(
-                      AppIcons.orderPlaced,
+                      AppIcons.empty,
                       height: 200.h,
                       width: 200.w,
                     ),
-                    10.verticalSpace,
+                    20.verticalSpace,
                     Text(
                       "You didn't make any order yet!",
-                      style: Theme.of(context).textTheme.bodyMedium,
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
                     )
                   ],
                 ),

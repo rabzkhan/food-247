@@ -5,14 +5,11 @@ import 'package:food/core/controllers/auth_controller.dart';
 import 'package:food/core/controllers/cart_controller.dart';
 import 'package:food/core/controllers/checkout_controller.dart';
 import 'package:food/core/controllers/home_controller.dart';
-import 'package:food/views/auth/login_page.dart';
-import 'package:food/views/onboarding/onboarding_page.dart';
 import 'package:food/views/splash/splash_view.dart';
 import 'package:get/get.dart';
 import 'core/components/local_db.dart';
 import 'core/controllers/profile_controller.dart';
 import 'core/themes/app_themes.dart';
-import 'views/parent/parent_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

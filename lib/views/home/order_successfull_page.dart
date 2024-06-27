@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../core/components/network_image.dart';
 import '../../core/constants/app_defaults.dart';
+import '../../core/constants/app_icons.dart';
 import '../parent/parent_page.dart';
 
 class OrderSuccessfullPage extends StatelessWidget {
@@ -17,11 +19,12 @@ class OrderSuccessfullPage extends StatelessWidget {
             padding: const EdgeInsets.all(AppDefaults.padding),
             child: SizedBox(
               width: MediaQuery.of(context).size.width * 0.7,
-              child: const AspectRatio(
+              child: AspectRatio(
                 aspectRatio: 1 / 1,
-                child: NetworkImageWithLoader(
-                  'https://i.imgur.com/Fj9gVGy.png',
-                  fit: BoxFit.contain,
+                child: Image.asset(
+                  AppIcons.orderPlaced,
+                  height: 200.h,
+                  width: 200.w,
                 ),
               ),
             ),
@@ -60,7 +63,7 @@ class OrderSuccessfullPage extends StatelessWidget {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
-                        Get.offAll(() => ParentPage());
+                        Get.offAll(() => const ParentPage());
                       },
                       child: const Text('Continue'),
                     ),

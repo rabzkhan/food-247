@@ -74,7 +74,7 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       20.verticalSpace,
                       Text(
-                        'Login to your account',
+                        'Sign to your account',
                         style: Theme.of(context).textTheme.titleLarge?.copyWith(
                               fontWeight: FontWeight.bold,
                               color: AppColors.primary,
@@ -102,7 +102,7 @@ class _LoginPageState extends State<LoginPage> {
                                       onInit: (value) => countryCodeController.text = value!.dialCode!,
                                       showFlag: false,
                                       initialSelection: 'US',
-                                      favorite: ['+1', 'US'],
+                                      favorite: const ['+1', 'US'],
                                       showCountryOnly: true,
                                       showOnlyCountryWhenClosed: false,
                                       alignLeft: true,
@@ -155,7 +155,7 @@ class _LoginPageState extends State<LoginPage> {
                                   },
                                   child: Padding(
                                     padding: EdgeInsets.symmetric(vertical: 6.h),
-                                    child: const Text('Login'),
+                                    child: const Text('Sign in'),
                                   ),
                                 ),
                               )
@@ -169,7 +169,7 @@ class _LoginPageState extends State<LoginPage> {
                         children: [
                           const Text('Don\'t Have Account?'),
                           TextButton(
-                            onPressed: () => Get.to(() => SignUpPage()),
+                            onPressed: () => Get.to(() => const SignUpPage()),
                             child: const Text('Sign Up'),
                           ),
                         ],

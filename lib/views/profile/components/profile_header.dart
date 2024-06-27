@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food/core/controllers/profile_controller.dart';
+import 'package:food/views/auth/login_page.dart';
 import 'package:get/get.dart';
-import '../../../core/components/network_image.dart';
 import '../../../core/constants/constants.dart';
 import 'profile_header_options.dart';
 
@@ -51,37 +52,64 @@ class UserData extends GetView<ProfileController> {
         child: Row(
           children: [
             const SizedBox(width: AppDefaults.padding),
-            const SizedBox(
-              width: 100,
-              height: 100,
+            Container(
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white,
+              ),
+              padding: const EdgeInsets.all(6).r,
+              width: 80.w,
+              height: 80.h,
               child: ClipOval(
                 child: AspectRatio(
                   aspectRatio: 1 / 1,
-                  child: NetworkImageWithLoader(
-                      'https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small_2x/user-profile-icon-free-vector.jpg'),
+                  child: Image.asset(
+                    AppIcons.user,
+                    color: Colors.black54,
+                  ),
                 ),
               ),
             ),
             const SizedBox(width: AppDefaults.padding),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "${controller.profileData.value.countryCode ?? ''} ${controller.profileData.value.phone ?? ''}",
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleMedium
-                      ?.copyWith(fontWeight: FontWeight.bold, color: Colors.white),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  'Email : ${controller.profileData.value.email ?? ''}',
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: Colors.white,
+            !controller.isLoggedIn.value
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Guest User",
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium
+                            ?.copyWith(fontWeight: FontWeight.bold, color: Colors.white),
                       ),
-                ),
-              ],
-            )
+                      Text(
+                        "Please login to explore more",
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              color: Colors.white,
+                              fontSize: 14.sp,
+                            ),
+                      ),
+                    ],
+                  )
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "${controller.profileData.value.countryCode ?? ''} ${controller.profileData.value.phone ?? ''}",
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium
+                            ?.copyWith(fontWeight: FontWeight.bold, color: Colors.white),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        'Email : ${controller.profileData.value.email ?? ''}',
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              color: Colors.white,
+                            ),
+                      ),
+                    ],
+                  )
           ],
         ),
       ),

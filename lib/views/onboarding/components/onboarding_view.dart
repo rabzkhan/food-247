@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/components/network_image.dart';
 import '../../../core/constants/constants.dart';
 import '../data/onboarding_model.dart';
 

@@ -12,7 +12,7 @@ class OrderEmpty extends StatelessWidget {
       children: [
         const Spacer(flex: 2),
         Padding(
-          padding: EdgeInsets.all(AppDefaults.padding),
+          padding: const EdgeInsets.all(AppDefaults.padding),
           child: SizedBox(
             width: MediaQuery.of(context).size.width * 0.7,
             child: const AspectRatio(
@@ -25,7 +25,7 @@ class OrderEmpty extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: EdgeInsets.all(AppDefaults.padding),
+          padding: const EdgeInsets.all(AppDefaults.padding),
           child: Column(
             children: [
               Text(

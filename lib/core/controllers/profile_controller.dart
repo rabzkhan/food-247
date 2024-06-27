@@ -13,7 +13,7 @@ import '../network/api_client.dart';
 
 class ProfileController extends GetxController {
   AuthController authController = Get.find();
-
+  RxBool isLoggedIn = false.obs;
   RxBool isProfileLoading = false.obs;
   Rx<ProfileData> profileData = ProfileData().obs;
   RxString userId = ''.obs;
@@ -46,6 +46,7 @@ class ProfileController extends GetxController {
         profileData.value = ProfileModel.fromJson(response.data).data!;
         userId.value = ProfileModel.fromJson(response.data).userId.toString();
         getAddressList();
+        isLoggedIn.value = true;
         isProfileLoading.value = false;
       },
       onError: (error) {

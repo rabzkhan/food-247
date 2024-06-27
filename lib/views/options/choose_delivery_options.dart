@@ -48,8 +48,8 @@ class ChooseDeliveryOptionPage extends StatelessWidget {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {},
+                      style: ElevatedButton.styleFrom(shape: const StadiumBorder()),
                       child: const Text('Delivery'),
-                      style: ElevatedButton.styleFrom(shape: StadiumBorder()),
                     ),
                   ),
                   const SizedBox(height: AppDefaults.padding),
@@ -57,7 +57,6 @@ class ChooseDeliveryOptionPage extends StatelessWidget {
                     width: double.infinity,
                     child: OutlinedButton(
                       onPressed: () {},
-                      child: Text('Pick-Up'),
                       style: OutlinedButton.styleFrom(
                         shape: const StadiumBorder(
                           side: BorderSide(
@@ -65,6 +64,7 @@ class ChooseDeliveryOptionPage extends StatelessWidget {
                           ),
                         ),
                       ),
+                      child: const Text('Pick-Up'),
                     ),
                   )
                 ],

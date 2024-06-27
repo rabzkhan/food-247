@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food/core/controllers/checkout_controller.dart';
+import 'package:food/core/controllers/profile_controller.dart';
 import 'package:get/get.dart';
 
 import '../../core/components/app_back_button.dart';
@@ -24,10 +25,10 @@ class CheckoutPage extends GetView<CheckoutController> {
       body: SingleChildScrollView(
         child: Obx(() => Column(
               children: [
-                ChooseOrderType(),
+                const ChooseOrderType(),
                 10.verticalSpace,
-                if (controller.orderType.value == 0) AddressSelector(),
-                PaymentSystem(),
+                if (controller.orderType.value == 0) const AddressSelector(),
+                const PaymentSystem(),
                 PayNowButton(),
               ],
             )),
@@ -37,7 +38,7 @@ class CheckoutPage extends GetView<CheckoutController> {
 }
 
 class PayNowButton extends GetView<CheckoutController> {
-  const PayNowButton({
+  PayNowButton({
     Key? key,
   }) : super(key: key);
 
